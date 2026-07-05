@@ -15,10 +15,19 @@ Class {
 
 { #category : 'as yet unclassified' }
 Tratamiento >> esValido [
-	|dia diaValido|
-		dia := fecha getDia.
-		diaValido := [ ]
+	|diaValido|
+		diaValido := (self obtenerDia between: 2 and: 6).
+		diaValido := self verificarTratamiento: diaValido.
+		^diaValido.
 		
+		
+]
+
+{ #category : 'as yet unclassified' }
+Tratamiento >> getDia [
+	|dia|
+		dia := fecha dayOfWeek.
+		^dia.
 ]
 
 { #category : 'as yet unclassified' }
@@ -33,4 +42,14 @@ Tratamiento >> inicializarConFechaTratamiento: unaFecha conMotivo: unMotivo conE
 	fecha := unaFecha.
 	motivo := unMotivo.
 	estado := unEstado.
+]
+
+{ #category : 'as yet unclassified' }
+Tratamiento >> obtenerDia [
+ ^fecha dayOfWeek.
+]
+
+{ #category : 'as yet unclassified' }
+Tratamiento >> verificarTratamiento: dia [
+	^false.
 ]

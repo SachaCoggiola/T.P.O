@@ -25,3 +25,11 @@ Farmacologico >> inicializarConMedicamento: unMedicamento conDosis: unaDosis con
 	dosis := unaDosis.
 	frecuencia := unaFrecuencia. 
 ]
+
+{ #category : 'as yet unclassified' }
+Farmacologico >> verificarTratamiento: diaValido [
+	|esValido|
+		esValido := (diaValido) or: [ medicamento getVentaLibre ].
+		^esValido.
+	
+]
