@@ -20,7 +20,7 @@ Diagnostico class >> crearConFechaDiagnostico: unaFecha conDescripcion: unaDescr
 		^diagnostico. 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Diagnostico >> inicializarConFechaDiagnostico: unaFecha conDescripcion: unaDescripcion conMedico: unMedico conMascota: unaMascota [
 	fecha := unaFecha.
 	descripcion := unaDescripcion.
@@ -29,7 +29,7 @@ Diagnostico >> inicializarConFechaDiagnostico: unaFecha conDescripcion: unaDescr
 	colTratamientos := OrderedCollection new.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Diagnostico >> registrarTratamiento: unTratamiento [
 	(unTratamiento esValido) ifTrue: [ colTratamientos add: unTratamiento ].
 ]

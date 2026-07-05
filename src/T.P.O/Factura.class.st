@@ -24,7 +24,7 @@ Factura class >> crearConCliente: cliente conDiagnostico: diagnostico conMontoTo
 		^factura.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Factura >> inicializarConCliente: unCliente conDiagnostico: unDiagnostico conMontoTotal: monto conFecha: unaFecha [
 	cliente := unCliente.
 	diagnostico := unDiagnostico.

@@ -25,40 +25,40 @@ Mascota class >> crearConNombre: unNombre conEspecie: unaEspecie conRaza: unaRaz
 Mascota >> equals: unaMascota [
 	|idUnaMascota|
 		idUnaMascota := unaMascota getId.
-		^id = idUnaMascota.
+		^(id = idUnaMascota).
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 Mascota >> getEspecie [
 	^especie.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 Mascota >> getFechaNacimiento [
 	^fechaNacimiento.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 Mascota >> getId [
 	^id.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 Mascota >> getNombre [
 	^nombre.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 Mascota >> getPeso [
 	^peso.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 Mascota >> getRaza [
 	^raza.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Mascota >> inicializarConNombre: unNombre conEspecie: unaEspecie conRaza: unaRaza conFechaNacimiento: unaFechaNac conPeso: unPeso conId: unId [
 	nombre := unNombre.
 	especie := unaEspecie.
@@ -68,27 +68,27 @@ Mascota >> inicializarConNombre: unNombre conEspecie: unaEspecie conRaza: unaRaz
 	id := unId. 
 ]
 
-{ #category : 'initialization' }
+{ #category : 'setters' }
 Mascota >> setEspecie: unaEspecie [
 	especie := unaEspecie.
 ]
 
-{ #category : 'initialization' }
+{ #category : 'setters' }
 Mascota >> setFechaNacimiento: unaFechaNacimiento [
 	fechaNacimiento := unaFechaNacimiento.
 ]
 
-{ #category : 'initialization' }
+{ #category : 'setters' }
 Mascota >> setNombre: unNombre [
 	nombre := unNombre.
 ]
 
-{ #category : 'initialization' }
+{ #category : 'setters' }
 Mascota >> setPeso: unPeso [
 	peso := unPeso.
 ]
 
-{ #category : 'initialization' }
+{ #category : 'setters' }
 Mascota >> setRaza: unaRaza [
 	raza := unaRaza.
 ]
