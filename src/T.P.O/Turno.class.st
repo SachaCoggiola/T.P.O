@@ -22,4 +22,13 @@ motivo := unMotivo .
 unCliente := cliente .
 unaMascota := mascota .
 unMedico := medico .
+estado := 'pendiente'.
+]
+
+{ #category : 'setters' }
+Turno >> setEstado: unEstado [
+[(unEstado = 'pendiente') or: [ (unEstado = 'confirmado') 
+		or: [ (unEstado = 'cancelado') or: 
+			[ (unEstado = 'atendido') or: (unEstado = 'ausente') ] ] ]]
+ ifTrue: [ estado := unEstado ].
 ]

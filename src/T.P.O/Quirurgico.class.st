@@ -20,7 +20,7 @@ Quirurgico class >> crearConNombre: nombre conNivelRiesgo: nivel conTipoAnestesi
 
 { #category : 'initialization' }
 Quirurgico >> inicializarConNombre: unNombre conNivelRiesgo: nivel conTipoAnestesia: anestesia conFecha: unaFecha conMotivo: unMotivo conEstado: unEstado [
-	self inicializarConFecha: unaFecha conMotivo: unMotivo conEstado: unMotivo.
+	self inicializarConFecha: unaFecha conMotivo: unMotivo.
 	nombre := unNombre.
 	nivelRiesgo := nivel.
 	tipoAnestesia := anestesia.

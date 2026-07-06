@@ -20,7 +20,7 @@ Farmacologico class >> crearConMedicamento: unMedicamento conDosis: unaDosis con
 
 { #category : 'initialization' }
 Farmacologico >> inicializarConMedicamento: unMedicamento conDosis: unaDosis conFrecuencia: unaFrecuencia conFecha: unaFecha conMotivo: unMotivo conEstado: unEstado [
-	self inicializarConFecha: unaFecha conMotivo: unMotivo conEstado: unEstado.
+	self inicializarConFecha: unaFecha conMotivo: unMotivo.
 	medicamento := unMedicamento.
 	dosis := unaDosis.
 	frecuencia := unaFrecuencia. 
