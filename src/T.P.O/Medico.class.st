@@ -10,7 +10,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'creation' }
+{ #category : 'as yet unclassified' }
 Medico class >> crearConNombre: unNombre conApellido: unApellido conNroDni: unNroDni conDomicilio: unDomicilio conFechaNacimiento: unaFecha conCuil: unCuil [ 
 	|medico|
 		medico := self new.
@@ -18,7 +18,7 @@ Medico class >> crearConNombre: unNombre conApellido: unApellido conNroDni: unNr
 		^medico. 
 ]
 
-{ #category : 'initialization' }
+{ #category : 'as yet unclassified' }
 Medico >> inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio conFechaNacimiento: unaFecha conCuil: unCuil [
 	self inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio.
 	fechaNacimiento := unaFecha.

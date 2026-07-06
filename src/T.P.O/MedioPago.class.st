@@ -17,7 +17,7 @@ unMedio inicializarCon: unNombre .
 ]
 
 { #category : 'initialization' }
-MedioPago >> inicializarConNombre: unNombre [
+MedioPago >> inicializarCon: unNombre [
 "[(unNombre = 'efectivo') or: [(unNombre = 'transferencia')] or: [(unNombre = 'tarjetaDebito')] or: [(unNombre = 'tarjetaCredito')] or: [(unNombre = 'billeteraVirtual')]] ifTrue: [nombre := unNombre]."
 nombre := unNombre .
 ]

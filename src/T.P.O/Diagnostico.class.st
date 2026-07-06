@@ -12,7 +12,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'creation' }
+{ #category : 'as yet unclassified' }
 Diagnostico class >> crearConFechaDiagnostico: unaFecha conDescripcion: unaDescripcion conMedico: unMedico conMascota: unaMascota [
 	|diagnostico|
 		diagnostico := self new.

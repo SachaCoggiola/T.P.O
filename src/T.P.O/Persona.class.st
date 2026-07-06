@@ -11,7 +11,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'initialization' }
+{ #category : 'as yet unclassified' }
 Persona >> inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio [
 	nroDoc := unNroDoc.
 	nombre := unNombre.

@@ -13,7 +13,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'creation' }
+{ #category : 'as yet unclassified' }
 Mascota class >> crearConNombre: unNombre conEspecie: unaEspecie conRaza: unaRaza conFechaNacimiento: unaFechaNac conPeso: unPeso conId: unId [
 	|mascota|
 		mascota := self new.

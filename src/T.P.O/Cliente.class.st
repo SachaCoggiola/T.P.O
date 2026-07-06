@@ -10,7 +10,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'creation' }
+{ #category : 'as yet unclassified' }
 Cliente class >> crearConNombre: unNombre conApellido: unApellido conNroDni: unNroDni conDomicilio: unDomicilio conEmail: unEmail conTelefono: unTel [
 	|cliente|
 		cliente := self new.
@@ -18,7 +18,7 @@ Cliente class >> crearConNombre: unNombre conApellido: unApellido conNroDni: unN
 		^cliente.
 ]
 
-{ #category : 'initialization' }
+{ #category : 'as yet unclassified' }
 Cliente >> inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio conTelefono: unTelefono conEmail: unEmail [
 	self inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio.
 	telContacto := unTelefono.
@@ -26,7 +26,7 @@ Cliente >> inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApe
 	colMascotas := OrderedCollection new.
 ]
 
-{ #category : 'propiosDelTipo' }
+{ #category : 'as yet unclassified' }
 Cliente >> tieneMascota: unaMascota [
 	|tieneMascota|
 		tieneMascota := colMascotas anySatisfy: [:cadaMascota | cadaMascota equals: unaMascota ].

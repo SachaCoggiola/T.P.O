@@ -10,23 +10,28 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'creation' }
+{ #category : 'as yet unclassified' }
 Quirurgico class >> crearConNombre: nombre conNivelRiesgo: nivel conTipoAnestesia: anestesia conFecha: unaFecha conMotivo: unMotivo conEstado: unEstado [
 	|quirurgico|
 		quirurgico := self new.
-		quirurgico inicializarConNombre: nombre conNivelRiesgo: nivel conTipoAnestesia: anestesia conFecha: unaFecha conMotivo: unMotivo conEstado: unEstado.
+		quirurgico inicializarConNombre: nombre conNivelRiesgo: nivel conTipoAnestesia: anestesia conFecha: unaFecha conMotivo: unMotivo.
 		^quirurgico.
 ]
 
-{ #category : 'initialization' }
-Quirurgico >> inicializarConNombre: unNombre conNivelRiesgo: nivel conTipoAnestesia: anestesia conFecha: unaFecha conMotivo: unMotivo conEstado: unEstado [
-	self inicializarConFecha: unaFecha conMotivo: unMotivo conEstado: unMotivo.
+{ #category : 'as yet unclassified' }
+Quirurgico >> inicializarConNombre: unNombre conNivelRiesgo: nivel conTipoAnestesia: anestesia conFecha: unaFecha conMotivo: unMotivo [
+	self inicializarConFecha: unaFecha conMotivo: unMotivo.
 	nombre := unNombre.
 	nivelRiesgo := nivel.
 	tipoAnestesia := anestesia.
 ]
 
-{ #category : 'propiosDelTipo' }
+{ #category : 'initialization' }
+Quirurgico >> setEstado: unEstado [
+	super setEstado: unEstado.
+]
+
+{ #category : 'as yet unclassified' }
 Quirurgico >> verificarTratamiento: diaValido [
 	|esValido|
 		esValido := diaValido and: [ (nivelRiesgo ~= 2) or: [ tipoAnestesia = 'general' ]].

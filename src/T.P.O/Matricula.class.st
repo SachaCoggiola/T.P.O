@@ -12,7 +12,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'creation' }
+{ #category : 'as yet unclassified' }
 Matricula class >> crearConNumero: unNro conColegioEmisor: unColegio conFechaInscripcion: unaFechaInsc conFechaVigencia: unaFechaVigen conTipo: unTipo [
 	|matricula|
 		matricula := self new.
@@ -20,7 +20,7 @@ Matricula class >> crearConNumero: unNro conColegioEmisor: unColegio conFechaIns
 		^matricula.
 ]
 
-{ #category : 'initialization' }
+{ #category : 'as yet unclassified' }
 Matricula >> inicializarConNumero: unNro conColegioEmisor: unColegio confechaInscripcion: unaFechaInsc conFechaVigencia: unaFechaVigen conTipo: unTipo [
 	numero := unNro.
 	colegioEmisor := unColegio.
