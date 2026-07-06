@@ -25,3 +25,11 @@ Quirurgico >> inicializarConNombre: unNombre conNivelRiesgo: nivel conTipoAneste
 	nivelRiesgo := nivel.
 	tipoAnestesia := anestesia.
 ]
+
+{ #category : 'as yet unclassified' }
+Quirurgico >> verificarTratamiento: diaValido [
+	|esValido|
+		esValido := diaValido and: [ (nivelRiesgo ~= 2) or: [ tipoAnestesia = 'general' ]].
+		^esValido.
+		
+]
