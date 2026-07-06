@@ -13,7 +13,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Tratamiento >> esValido [
 	|diaValido|
 		diaValido := (self obtenerDia between: 2 and: 6).
@@ -23,13 +23,6 @@ Tratamiento >> esValido [
 		
 ]
 
-{ #category : 'as yet unclassified' }
-Tratamiento >> getDia [
-	|dia|
-		dia := fecha dayOfWeek.
-		^dia.
-]
-
 { #category : 'initialization' }
 Tratamiento >> inicializarConFecha: unaFecha conMotivo: unMotivo [
 	fecha := unaFecha.
@@ -37,7 +30,7 @@ Tratamiento >> inicializarConFecha: unaFecha conMotivo: unMotivo [
 	estado := 'pendiente'
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Tratamiento >> obtenerDia [
  ^fecha dayOfWeek.
 ]
@@ -47,7 +40,7 @@ Tratamiento >> setEstado: unEstado [
 [(unEstado = 'pendiente') or: [ (unEstado = 'realizado') or: (unEstado = 'cancelado') ]] ifTrue: [ estado := unEstado ].
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Tratamiento >> verificarTratamiento: dia [
 	^false.
 ]
