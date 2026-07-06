@@ -21,6 +21,13 @@ Tratamiento >> esValido [
 		
 ]
 
+{ #category : 'as yet unclassified' }
+Tratamiento >> getDia [
+	|dia|
+		dia := fecha dayOfWeek.
+		^dia.
+]
+
 { #category : 'initialization' }
 Tratamiento >> inicializarConFecha: unaFecha conMotivo: unMotivo conEstado: unEstado [
 	fecha := unaFecha.
@@ -33,4 +40,14 @@ Tratamiento >> inicializarConFechaTratamiento: unaFecha conMotivo: unMotivo conE
 	fecha := unaFecha.
 	motivo := unMotivo.
 	estado := unEstado.
+]
+
+{ #category : 'as yet unclassified' }
+Tratamiento >> obtenerDia [
+ ^fecha dayOfWeek.
+]
+
+{ #category : 'as yet unclassified' }
+Tratamiento >> verificarTratamiento: dia [
+	^false.
 ]
