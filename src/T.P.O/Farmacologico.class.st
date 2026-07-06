@@ -10,7 +10,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'creation' }
 Farmacologico class >> crearConMedicamento: unMedicamento conDosis: unaDosis conFrecuencia: unaFrecuencia conFecha: unaFecha conMotivo: unMotivo conEstado: unEstado [
 	|farmacologico|
 		farmacologico := self new.
@@ -18,7 +18,7 @@ Farmacologico class >> crearConMedicamento: unMedicamento conDosis: unaDosis con
 		^farmacologico.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Farmacologico >> inicializarConMedicamento: unMedicamento conDosis: unaDosis conFrecuencia: unaFrecuencia conFecha: unaFecha conMotivo: unMotivo conEstado: unEstado [
 	self inicializarConFecha: unaFecha conMotivo: unMotivo conEstado: unEstado.
 	medicamento := unMedicamento.

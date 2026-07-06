@@ -13,7 +13,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Tratamiento >> esValido [
 	|dia diaValido|
 		dia := fecha getDia.
@@ -21,14 +21,14 @@ Tratamiento >> esValido [
 		
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Tratamiento >> inicializarConFecha: unaFecha conMotivo: unMotivo conEstado: unEstado [
 	fecha := unaFecha.
 	motivo := unMotivo.
 	estado := unEstado.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Tratamiento >> inicializarConFechaTratamiento: unaFecha conMotivo: unMotivo conEstado: unEstado [
 	fecha := unaFecha.
 	motivo := unMotivo.

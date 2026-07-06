@@ -15,22 +15,22 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
-Veterinaria class >> crearVeterinariaConCuit: unCuit [
+{ #category : 'creation' }
+Veterinaria class >> crearConCuit: unCuit [
 	|veterinaria|
 		veterinaria := self new.
 		veterinaria inicializarCuit: unCuit.
 		^veterinaria 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Veterinaria >> buscarClienteConMascota: unaMascota [
 	|cliente|
 		cliente := colClientes detect: [ cliente tieneMascota: unaMascota ] ifNone: nil.
 		
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Veterinaria >> inicializarCuit: unCuit [
 	cuit := unCuit.
 	colFacturas := OrderedCollection new.

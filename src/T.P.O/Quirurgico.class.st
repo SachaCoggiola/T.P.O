@@ -10,7 +10,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'creation' }
 Quirurgico class >> crearConNombre: nombre conNivelRiesgo: nivel conTipoAnestesia: anestesia conFecha: unaFecha conMotivo: unMotivo conEstado: unEstado [
 	|quirurgico|
 		quirurgico := self new.
@@ -18,7 +18,7 @@ Quirurgico class >> crearConNombre: nombre conNivelRiesgo: nivel conTipoAnestesi
 		^quirurgico.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Quirurgico >> inicializarConNombre: unNombre conNivelRiesgo: nivel conTipoAnestesia: anestesia conFecha: unaFecha conMotivo: unMotivo conEstado: unEstado [
 	self inicializarConFecha: unaFecha conMotivo: unMotivo conEstado: unMotivo.
 	nombre := unNombre.
