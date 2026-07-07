@@ -28,6 +28,11 @@ Tratamiento >> esValido [
 		
 ]
 
+{ #category : 'getters' }
+Tratamiento >> getEstado [
+^estado .
+]
+
 { #category : 'as yet unclassified' }
 Tratamiento >> inicializarConFecha: unaFecha conMotivo: unMotivo conCostoBase: unCosto [
 	costoBase := unCosto.
