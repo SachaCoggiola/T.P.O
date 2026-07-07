@@ -18,6 +18,16 @@ Medico class >> crearConNombre: unNombre conApellido: unApellido conNroDni: unNr
 		^medico. 
 ]
 
+{ #category : 'propiosDelTipo' }
+Medico >> equals: otroMedico [
+^( otroMedico getNroDoc = nroDoc ).
+]
+
+{ #category : 'getters' }
+Medico >> getNroDoc [
+^nroDoc .
+]
+
 { #category : 'initialization' }
 Medico >> inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio conFechaNacimiento: unaFecha conCuil: unCuil [
 	self inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio.

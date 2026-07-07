@@ -16,19 +16,24 @@ Class {
 }
 
 { #category : 'creation' }
-Factura class >> crearConCliente: cliente conDiagnostico: diagnostico conMontoTotal: monto conFecha: fecha [
+Factura class >> crearConCliente: cliente conDiagnostico: diagnostico conMontoTotal: monto conCuitVeterinaria: unCuit [
 	|factura|
 		factura := self new.
-		cuitVeterinaria := '30123456'.
-		factura inicializarConCliente: cliente conDiagnostico: diagnostico conMontoTotal: monto conFecha: fecha.
+		cuitVeterinaria := unCuit.
+		factura inicializarConCliente: cliente conDiagnostico: diagnostico conMontoTotal: monto.
 		^factura.
 ]
 
 { #category : 'initialization' }
-Factura >> inicializarConCliente: unCliente conDiagnostico: unDiagnostico conMontoTotal: monto conFecha: unaFecha [
+Factura >> inicializarConCliente: unCliente conDiagnostico: unDiagnostico conMontoTotal: monto [
 	cliente := unCliente.
 	diagnostico := unDiagnostico.
 	montoTotal := monto.
-	fecha := unaFecha.
+	fecha := Date today .
 	colPagos := OrderedCollection new.
+]
+
+{ #category : 'propiosDelTipo' }
+Factura >> tieneDiagnostico: unDiagnostico [
+^((unDiagnostico getId) = (diagnostico getId)).
 ]

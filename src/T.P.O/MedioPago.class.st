@@ -18,6 +18,7 @@ unMedio inicializarCon: unNombre .
 
 { #category : 'initialization' }
 MedioPago >> inicializarConNombre: unNombre [
-"[(unNombre = 'efectivo') or: [(unNombre = 'transferencia')] or: [(unNombre = 'tarjetaDebito')] or: [(unNombre = 'tarjetaCredito')] or: [(unNombre = 'billeteraVirtual')]] ifTrue: [nombre := unNombre]."
-nombre := unNombre .
+[(unNombre = 'efectivo') or: [ (unNombre = 'transferencia')
+		 or: ([(unNombre = 'tarjetaDebito') or: [ (unNombre = 'tarjetaCredito') 
+				or: (unNombre = 'billeteraVirtual') ]]) ]] ifTrue: [nombre := unNombre].
 ]

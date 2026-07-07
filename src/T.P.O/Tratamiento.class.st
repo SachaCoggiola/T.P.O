@@ -23,6 +23,11 @@ Tratamiento >> esValido [
 		
 ]
 
+{ #category : 'getters' }
+Tratamiento >> getEstado [
+^estado .
+]
+
 { #category : 'initialization' }
 Tratamiento >> inicializarConFecha: unaFecha conMotivo: unMotivo [
 	fecha := unaFecha.

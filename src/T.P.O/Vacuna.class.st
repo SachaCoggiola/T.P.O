@@ -11,10 +11,18 @@ Class {
 	#package : 'T.P.O'
 }
 
+{ #category : 'creation' }
+Vacuna class >> crearConNombre: unNombre yLab: unLaboratorio yEspecie: unaEspecie yMesesDeVigencia: cantMeses [
+|unaVacuna|
+unaVacuna := self new.
+unaVacuna inicializarConNombre: unNombre yLab: unLaboratorio yEspecie: unaEspecie yMesesDeVigencia: cantMeses.
+^unaVacuna .
+]
+
 { #category : 'initialization' }
 Vacuna >> inicializarConNombre: unNombre yLab: unLaboratorio yEspecie: unaEspecie yMesesDeVigencia: cantMeses [
 nombre := unNombre .
 laboratorio := unLaboratorio .
 especie := unaEspecie .
-mesesVigencia := cantMeses .
+[(cantMeses >= 1)]ifTrue: [mesesVigencia := cantMeses] .
 ]
