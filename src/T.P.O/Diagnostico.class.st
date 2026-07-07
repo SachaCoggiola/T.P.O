@@ -20,6 +20,11 @@ Diagnostico class >> crearConFechaDiagnostico: unaFecha conDescripcion: unaDescr
 		^diagnostico. 
 ]
 
+{ #category : 'as yet unclassified' }
+Diagnostico >> calcularMontoFinal [
+	^colTratamientos inject: 0 into: [ :montoFinal :tratamiento | montoFinal + tratamiento calcularMonto].
+]
+
 { #category : 'initialization' }
 Diagnostico >> inicializarConFechaDiagnostico: unaFecha conDescripcion: unaDescripcion conMedico: unMedico conMascota: unaMascota [
 	fecha := unaFecha.

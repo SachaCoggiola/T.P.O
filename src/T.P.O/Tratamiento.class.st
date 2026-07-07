@@ -6,12 +6,17 @@ Class {
 		'motivo',
 		'estado'
 	],
-	#classInstVars : [
+	#classVars : [
 		'costoBase'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
 }
+
+{ #category : 'as yet unclassified' }
+Tratamiento >> calcularMonto [
+	^costoBase.
+]
 
 { #category : 'as yet unclassified' }
 Tratamiento >> esValido [
@@ -24,7 +29,8 @@ Tratamiento >> esValido [
 ]
 
 { #category : 'as yet unclassified' }
-Tratamiento >> inicializarConFecha: unaFecha conMotivo: unMotivo [ 
+Tratamiento >> inicializarConFecha: unaFecha conMotivo: unMotivo conCostoBase: unCosto [
+	costoBase := unCosto.
 	fecha := unaFecha.
 	motivo := unMotivo.
 	estado := 'pendiente'.

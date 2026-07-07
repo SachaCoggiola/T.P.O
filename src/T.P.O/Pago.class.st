@@ -9,3 +9,8 @@ Class {
 	#category : 'T.P.O',
 	#package : 'T.P.O'
 }
+
+{ #category : 'as yet unclassified' }
+Pago >> getMonto [
+	^montoAbonado + (montoAbonado * unMedioPago getRecargo / 100).
+]

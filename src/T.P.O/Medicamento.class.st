@@ -19,6 +19,11 @@ Medicamento class >> crearConNombre: unNombre conPrecio: unPrecio conVentaLibre:
 ]
 
 { #category : 'as yet unclassified' }
+Medicamento >> getPrecio [
+	^precio.
+]
+
+{ #category : 'as yet unclassified' }
 Medicamento >> getVentaLibre [
 	^esVentaLibre.
 ]

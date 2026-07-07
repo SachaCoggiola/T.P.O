@@ -7,3 +7,8 @@ Class {
 	#category : 'T.P.O',
 	#package : 'T.P.O'
 }
+
+{ #category : 'as yet unclassified' }
+BilleteraV >> getRecargo [ 
+	^recargo.
+]

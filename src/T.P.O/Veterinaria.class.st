@@ -31,6 +31,11 @@ Veterinaria >> buscarClienteConMascota: unaMascota [
 ]
 
 { #category : 'as yet unclassified' }
+Veterinaria >> facturasPendientes [	
+	^(colFacturas select: [ :facturas |facturas verificarSaldoPendiente > 0]) collect: [ :pendiente |{pendiente getCliente . pendiente verificarSaldoPendiente } ].
+]
+
+{ #category : 'as yet unclassified' }
 Veterinaria >> inicializarCuit: unCuit [
 	cuit := unCuit.
 	colFacturas := OrderedCollection new.
