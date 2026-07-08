@@ -15,7 +15,7 @@ Pago >> getFecha [
 ^fecha.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 Pago >> getMedioDePago [
 ^unMedioPago.
 ]
