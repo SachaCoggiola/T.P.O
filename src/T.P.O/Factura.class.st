@@ -6,9 +6,7 @@ Class {
 		'diagnostico',
 		'montoTotal',
 		'fecha',
-		'colPagos'
-	],
-	#classInstVars : [
+		'colPagos',
 		'cuitVeterinaria'
 	],
 	#category : 'T.P.O',
@@ -19,49 +17,50 @@ Class {
 Factura class >> crearConCliente: cliente conDiagnostico: diagnostico conMontoTotal: monto conCuitVeterinaria: unCuit [
 	|factura|
 		factura := self new.
-		cuitVeterinaria := unCuit.
-		factura inicializarConCliente: cliente conDiagnostico: diagnostico conMontoTotal: monto.
+		factura inicializarConCliente: cliente conDiagnostico: diagnostico conMontoTotal: monto conCuitVeterinaria: unCuit.
 		^factura.
 ]
 
-{ #category : 'as yet unclassified' }
-Factura class >> crearConCliente: cliente conDiagnostico: diagnostico conMontoTotal: monto conFecha: fecha conPago: unPago [
-	|factura|
-		factura := self new.
-		cuitVeterinaria := '30123456'.
-		factura inicializarConCliente: cliente conDiagnostico: diagnostico conMontoTotal: monto conFecha: fecha conPago: unPago.
-		^factura.
-]
-
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 Factura >> getCliente [
-	^cliente.
+^cliente.
+]
+
+{ #category : 'getters' }
+Factura >> getCuitVeterinaria [
+^cuitVeterinaria.
+]
+
+{ #category : 'getters' }
+Factura >> getDiagnostico [
+^diagnostico.
+]
+
+{ #category : 'getters' }
+Factura >> getFecha [
+^fecha.
+]
+
+{ #category : 'getters' }
+Factura >> getMontoTotal [
+^montoTotal.
 ]
 
 { #category : 'initialization' }
-Factura >> inicializarConCliente: unCliente conDiagnostico: unDiagnostico conMontoTotal: monto [
+Factura >> inicializarConCliente: unCliente conDiagnostico: unDiagnostico conMontoTotal: monto conCuitVeterinaria: unCuit [
 	cliente := unCliente.
 	diagnostico := unDiagnostico.
 	montoTotal := monto.
+	cuitVeterinaria := unCuit.
 	fecha := Date today .
 	colPagos := OrderedCollection new.
 ]
 
-{ #category : 'initialization' }
-Factura >> inicializarConCliente: unCliente conDiagnostico: unDiagnostico conMontoTotal: monto conFecha: unaFecha conPago: unPago [
-	cliente := unCliente.
-	diagnostico := unDiagnostico.
-	montoTotal := monto.
-	fecha := unaFecha.
-	colPagos := OrderedCollection new.
-	colPagos add: unPago.
-]
-
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Factura >> registraPago: unPago [
 	|exito|
 		(self verificarSaldoPendiente > 0) ifTrue: [ colPagos add: unPago. exito := true. ] ifFalse: [ exito := false ].
-		^exito.
+^exito.
 ]
 
 { #category : 'propiosDelTipo' }
@@ -69,9 +68,9 @@ Factura >> tieneDiagnostico: unDiagnostico [
 ^((unDiagnostico getId) = (diagnostico getId)).
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Factura >> verificarSaldoPendiente [
 	|montoAbonado|
 		montoAbonado := colPagos inject: 0 into: [ :suma :pago | suma + pago getMonto ].
-		^montoAbonado < montoTotal.
+^montoAbonado < montoTotal.
 ]

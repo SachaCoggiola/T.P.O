@@ -9,20 +9,24 @@ Class {
 }
 
 { #category : 'creation' }
-MedioPago class >> crearCon: unNombre [
-|unMedio|
-unMedio := self new.
-unMedio inicializarCon: unNombre .
+MedioPago class >> crearConNombre: unNombre [
+	|unMedio|
+		unMedio := self new.
+		unMedio inicializarConNombre: unNombre .
 ^unMedio .
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
+MedioPago >> getNombre [
+^nombre.
+]
+
+{ #category : 'getters' }
 MedioPago >> getRecargo [
-	^0.
+^0.
 ]
 
 { #category : 'initialization' }
-MedioPago >> inicializarCon: unNombre [
-"[(unNombre = 'efectivo') or: [(unNombre = 'transferencia')] or: [(unNombre = 'tarjetaDebito')] or: [(unNombre = 'tarjetaCredito')] or: [(unNombre = 'billeteraVirtual')]] ifTrue: [nombre := unNombre]."
-nombre := unNombre .
+MedioPago >> inicializarConNombre: unNombre [
+	( { 'efectivo' . 'transferencia' . 'tarjetaDebito' } contains: unNombre ) ifTrue: [ nombre := unNombre ].
 ]

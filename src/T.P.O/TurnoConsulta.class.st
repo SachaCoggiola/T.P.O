@@ -23,12 +23,12 @@ TurnoConsulta >> getTratamiento [
 
 { #category : 'initialization' }
 TurnoConsulta >> inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico yTipoAtencion: unTipo [
-self inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico.
+	self inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico.
 
-[ (unTipo = 'control') or: (unTipo = 'inicial') ] ifTrue: [ tipoAtencion := unTipo ].
+	( ( unTipo = 'control' ) or: ( unTipo = 'inicial' ) ) ifTrue: [ tipoAtencion := unTipo ].
 ]
 
 { #category : 'setters' }
 TurnoConsulta >> setTipoAtencion: unTipo [
-[ (unTipo = 'control') or: (unTipo = 'inicial') ] ifTrue: [ tipoAtencion := unTipo ].
+	( ( unTipo = 'control' ) or: ( unTipo = 'inicial' ) ) ifTrue: [ tipoAtencion := unTipo ].
 ]

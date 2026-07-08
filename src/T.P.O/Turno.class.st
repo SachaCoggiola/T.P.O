@@ -16,7 +16,17 @@ Class {
 
 { #category : 'propiosDelTipo' }
 Turno >> confirmarTurno [
-estado := 'confirmado'.
+	estado := 'confirmado'.
+]
+
+{ #category : 'getters' }
+Turno >> getCliente [
+^unCliente.
+]
+
+{ #category : 'getters' }
+Turno >> getEstado [
+^estado.
 ]
 
 { #category : 'getters' }
@@ -30,16 +40,34 @@ Turno >> getHora [
 ]
 
 { #category : 'getters' }
+Turno >> getMascota [
+^unaMascota.
+]
+
+{ #category : 'getters' }
 Turno >> getMedico [
 ^unMedico .
 ]
 
+{ #category : 'getters' }
+Turno >> getMotivo [
+^motivo.
+]
+
+{ #category : 'initialization' }
+Turno >> inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico [
+	fecha := unaFecha .
+	hora := unaHora .
+	motivo := unMotivo .
+	unCliente := cliente .
+	unaMascota := mascota .
+	unMedico := medico .
+	estado := 'pendiente'.
+]
+
 { #category : 'setters' }
 Turno >> setEstado: unEstado [
-[(unEstado = 'pendiente') or: [ (unEstado = 'confirmado') 
-		or: [ (unEstado = 'cancelado') or: 
-			[ (unEstado = 'atendido') or: (unEstado = 'ausente') ] ] ]]
- ifTrue: [ estado := unEstado ].
+	( { 'pendiente' . 'confirmado' . 'cancelado' . 'atendido' . 'ausente' } contains: unEstado) ifTrue: [ estado := unEstado ].
 ]
 
 { #category : 'propiosDelTipo' }
@@ -50,12 +78,12 @@ Turno >> validarTurno [
 
 { #category : 'propiosDelTipo' }
 Turno >> verificarDisponibilidad: unTurno [
-|rta2 rta1|
-rta2 :=  true.
-rta1 := ( (unTurno getFecha = fecha) and: (unTurno getHora = hora) ).
-[ rta1 ] ifTrue: [ 
-	rta2 := ((unTurno getMedico) equals: unMedico ) not.
-	 ].
+	|rta2 rta1|
+		rta2 :=  true.
+		rta1 := ( (unTurno getFecha = fecha) and: (unTurno getHora = hora) ).
+		rta1 ifTrue: [ 
+			rta2 := ((unTurno getMedico) equals: unMedico ) not.
+		].
 
 ^rta2.
 ]

@@ -13,19 +13,24 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Tratamiento >> calcularMonto [
-	^costoBase.
+^costoBase.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Tratamiento >> esValido [
 	|diaValido|
-		diaValido := (self obtenerDia between: 2 and: 6).
+		diaValido := ( self obtenerDia between: 2 and: 6 ).
 		diaValido := self verificarTratamiento: diaValido.
-		^diaValido.
+^diaValido.
 		
 		
+]
+
+{ #category : 'getters' }
+Tratamiento >> getCostoBase [
+^costoBase.
 ]
 
 { #category : 'getters' }
@@ -33,25 +38,35 @@ Tratamiento >> getEstado [
 ^estado .
 ]
 
-{ #category : 'as yet unclassified' }
-Tratamiento >> inicializarConFecha: unaFecha conMotivo: unMotivo conCostoBase: unCosto [
-	costoBase := unCosto.
+{ #category : 'getters' }
+Tratamiento >> getFecha [
+^fecha.
+]
+
+{ #category : 'getters' }
+Tratamiento >> getMotivo [
+^motivo.
+]
+
+{ #category : 'initialization' }
+Tratamiento >> inicializarConFecha: unaFecha conMotivo: unMotivo [ 
+	costoBase ifNil: [ costoBase := 5000 ].
 	fecha := unaFecha.
 	motivo := unMotivo.
 	estado := 'pendiente'.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 Tratamiento >> obtenerDia [
- ^fecha dayOfWeek.
+^fecha dayOfWeek.
 ]
 
-{ #category : 'initialization' }
+{ #category : 'setters' }
 Tratamiento >> setEstado: unEstado [
-	[(unEstado = 'pendiente') or: [ (unEstado = 'realizado') or: (unEstado = 'cancelado') ]] ifTrue: [ estado := unEstado ].
+	( { 'pendiente' . 'cancelado' . 'realizado' } contains: unEstado ) ifTrue: [ estado := unEstado ].
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Tratamiento >> verificarTratamiento: dia [
-	^false.
+^false.
 ]

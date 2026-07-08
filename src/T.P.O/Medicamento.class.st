@@ -18,19 +18,34 @@ Medicamento class >> crearConNombre: unNombre conPrecio: unPrecio conVentaLibre:
 		^medicamento.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
+Medicamento >> getNombre [
+^nombre.
+]
+
+{ #category : 'getters' }
 Medicamento >> getPrecio [
-	^precio.
+^precio.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 Medicamento >> getVentaLibre [
-	^esVentaLibre.
+^esVentaLibre.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Medicamento >> inicializarConNombre: unNombre conPrecio: unPrecio conVentaLibre: esLibre [
 	nombre := unNombre.
 	precio := unPrecio.
+	esVentaLibre := esLibre.
+]
+
+{ #category : 'setters' }
+Medicamento >> setPrecio: unPrecio [
+	precio := unPrecio.
+]
+
+{ #category : 'setters' }
+Medicamento >> setVentaLibre: esLibre [
 	esVentaLibre := esLibre.
 ]

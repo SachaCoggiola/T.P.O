@@ -18,23 +18,30 @@ Farmacologico class >> crearConMedicamento: unMedicamento conDosis: unaDosis con
 		^farmacologico.
 ]
 
-{ #category : 'as yet unclassified' }
-Farmacologico class >> crearConMedicamento: unMedicamento conDosis: unaDosis conFrecuencia: unaFrecuencia conFecha: unaFecha conMotivo: unMotivo conEstado: unEstado conCostoBase: unCosto [
-	|farmacologico|
-		farmacologico := self new.
-		farmacologico inicializarConMedicamento: unMedicamento conDosis: unaDosis conFrecuencia: unaFrecuencia conFecha: unaFecha conMotivo: unMotivo conCostoBase: unCosto.
-		^farmacologico.
-]
-
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Farmacologico >> calcularMonto [
 	|monto valorMedicina|
 		monto := super calcularMonto.
 		valorMedicina := medicamento obtenerValorMedicamento.
 		monto := monto + valorMedicina.
-		(monto > 40000) ifTrue: [ monto := monto*90/100].
-		^monto. 
+		( monto > 40000 ) ifTrue: [ monto := monto*90/100 ].
+^monto. 
 		
+]
+
+{ #category : 'getters' }
+Farmacologico >> getDosis [
+^dosis
+]
+
+{ #category : 'getters' }
+Farmacologico >> getFrecuencia [
+^frecuencia.
+]
+
+{ #category : 'getters' }
+Farmacologico >> getMedicamento [
+^medicamento.
 ]
 
 { #category : 'initialization' }
@@ -46,23 +53,15 @@ Farmacologico >> inicializarConMedicamento: unMedicamento conDosis: unaDosis con
 	
 ]
 
-{ #category : 'as yet unclassified' }
-Farmacologico >> inicializarConMedicamento: unMedicamento conDosis: unaDosis conFrecuencia: unaFrecuencia conFecha: unaFecha conMotivo: unMotivo conCostoBase: unCosto [
-	self inicializarConFecha: unaFecha conMotivo: unMotivo conCostoBase: unCosto .
-	medicamento := unMedicamento.
-	dosis := unaDosis.
-	frecuencia := unaFrecuencia. 
-]
-
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Farmacologico >> obtenerValorMedicamento [
-	^ medicamento getPrecio * dosis.
+^medicamento getPrecio * dosis.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Farmacologico >> verificarTratamiento: diaValido [
 	|esValido|
-		esValido := (diaValido) or: [ medicamento getVentaLibre ].
-		^esValido.
+		esValido := ( diaValido ) or: [ medicamento getVentaLibre ].
+^esValido.
 	
 ]

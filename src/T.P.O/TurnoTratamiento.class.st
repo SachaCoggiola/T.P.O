@@ -23,8 +23,8 @@ TurnoTratamiento >> getTratamiento [
 
 { #category : 'initialization' }
 TurnoTratamiento >> inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico yTratamiento: tratamiento [
-self inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico.
+	self inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico.
 
-unTratamiento := tratamiento .
+	unTratamiento := tratamiento .
 
 ]

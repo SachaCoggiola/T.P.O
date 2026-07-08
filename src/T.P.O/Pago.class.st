@@ -10,7 +10,17 @@ Class {
 	#package : 'T.P.O'
 }
 
+{ #category : 'getters' }
+Pago >> getFecha [
+^fecha.
+]
+
 { #category : 'as yet unclassified' }
+Pago >> getMedioDePago [
+^unMedioPago.
+]
+
+{ #category : 'getters' }
 Pago >> getMonto [
-	^montoAbonado + (montoAbonado * unMedioPago getRecargo / 100).
+^montoAbonado + (montoAbonado * unMedioPago getRecargo / 100).
 ]

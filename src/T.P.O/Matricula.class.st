@@ -20,7 +20,32 @@ Matricula class >> crearConNumero: unNro conColegioEmisor: unColegio conFechaIns
 		^matricula.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
+Matricula >> getColegioEmisor [
+^colegioEmisor.
+]
+
+{ #category : 'getters' }
+Matricula >> getFechaInscripcion [
+^fechaInscripcion.
+]
+
+{ #category : 'getters' }
+Matricula >> getFechaVigencia [
+^fechaVigencia.
+]
+
+{ #category : 'getters' }
+Matricula >> getNumero [
+^numero.
+]
+
+{ #category : 'getters' }
+Matricula >> getTipoMatricula [
+^tipo.
+]
+
+{ #category : 'initialization' }
 Matricula >> inicializarConNumero: unNro conColegioEmisor: unColegio confechaInscripcion: unaFechaInsc conFechaVigencia: unaFechaVigen conTipo: unTipo [
 	numero := unNro.
 	colegioEmisor := unColegio.

@@ -19,8 +19,23 @@ Medico class >> crearConNombre: unNombre conApellido: unApellido conNroDni: unNr
 ]
 
 { #category : 'propiosDelTipo' }
+Medico >> agregarMatricula: unaMatricula [
+	colMatriculas add: unaMatricula.
+]
+
+{ #category : 'propiosDelTipo' }
 Medico >> equals: otroMedico [
 ^( otroMedico getNroDoc = nroDoc ).
+]
+
+{ #category : 'getters' }
+Medico >> getCuil [
+^cuil.
+]
+
+{ #category : 'getters' }
+Medico >> getFechaNacimiento [ 
+^fechaNacimiento.
 ]
 
 { #category : 'getters' }
@@ -28,7 +43,7 @@ Medico >> getNroDoc [
 ^nroDoc .
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 Medico >> inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio conFechaNacimiento: unaFecha conCuil: unCuil conMatricula: unaMatricula [
 	self inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio.
 	fechaNacimiento := unaFecha.

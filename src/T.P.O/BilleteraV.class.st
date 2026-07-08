@@ -9,14 +9,21 @@ Class {
 }
 
 { #category : 'creation' }
-BilleteraV class >> crearConNombre: unNombre [
-|unaBilletera|
-unaBilletera := self crearCon: unNombre .
-recargo := 5.
+BilleteraV class >> crearConNombre [
+	|unaBilletera|
+		unaBilletera := self new. 
+		unaBilletera inicializarBilletera.
 ^unaBilletera .
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 BilleteraV >> getRecargo [ 
-	^recargo.
+^recargo.
+]
+
+{ #category : 'initialization' }
+BilleteraV >> inicializarBilletera [
+	nombre := 'billeteraVirtual'.
+	recargo ifNil: [ recargo := 5 ]. 
+	
 ]

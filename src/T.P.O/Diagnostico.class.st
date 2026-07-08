@@ -21,14 +21,24 @@ Diagnostico class >> crearConFecha: unaFecha conDescripcion: unaDescripcion conM
 		^diagnostico. 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Diagnostico >> calcularMontoFinal [
-	^colTratamientos inject: 0 into: [ :montoFinal :tratamiento | montoFinal + tratamiento calcularMonto].
+^colTratamientos inject: 0 into: [ :montoFinal :tratamiento | montoFinal + tratamiento calcularMonto].
 ]
 
 { #category : 'propiosDelTipo' }
 Diagnostico >> equals: otroDiagnostico [
 ^(id = (otroDiagnostico getId)).
+]
+
+{ #category : 'getters' }
+Diagnostico >> getDescripcion [
+^descripcion.
+]
+
+{ #category : 'getters' }
+Diagnostico >> getFecha [
+^fecha.
 ]
 
 { #category : 'getters' }
@@ -39,6 +49,11 @@ Diagnostico >> getId [
 { #category : 'getters' }
 Diagnostico >> getMascota [
 ^mascota .
+]
+
+{ #category : 'getters' }
+Diagnostico >> getMedico [
+^medico.
 ]
 
 { #category : 'initialization' }
@@ -59,5 +74,5 @@ Diagnostico >> registrarTratamiento: unTratamiento [
 { #category : 'propiosDelTipo' }
 Diagnostico >> tieneTratamiento: otroTratamiento [
 ^( colTratamientos anySatisfy:
-[:cadaTratamiento | cadaTratamiento equals: otroTratamiento ] ).
+	[:cadaTratamiento | cadaTratamiento equals: otroTratamiento ] ).
 ]

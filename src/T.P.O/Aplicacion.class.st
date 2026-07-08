@@ -12,17 +12,37 @@ Class {
 }
 
 { #category : 'creation' }
-Aplicacion class >> crearConFecha: unaFecha ConMascota: mascota ConMedico: medico ConVacuna: vacuna [
+Aplicacion class >> crearConFecha: unaFecha conMascota: mascota conMedico: medico conVacuna: vacuna [
 |unaAplicacion|
 unaAplicacion := self new.
-unaAplicacion inicializarConFecha: unaFecha ConMascota: mascota ConMedico: medico ConVacuna: vacuna.
+unaAplicacion inicializarConFecha: unaFecha conMascota: mascota conMedico: medico conVacuna: vacuna.
 ^unaAplicacion .
 ]
 
+{ #category : 'getters' }
+Aplicacion >> getFecha [
+^fecha.
+]
+
+{ #category : 'getters' }
+Aplicacion >> getMascota [
+^unaMascota.
+]
+
+{ #category : 'getters' }
+Aplicacion >> getMedico [
+^unMedico.
+]
+
+{ #category : 'getters' }
+Aplicacion >> getVacuna [
+^unaVacuna.
+]
+
 { #category : 'initialization' }
-Aplicacion >> inicializarConFecha: unaFecha ConMascota: mascota ConMedico: medico ConVacuna: vacuna [
-fecha := unaFecha .
-unaMascota := mascota .
-unMedico := medico.
-unaVacuna := vacuna.
+Aplicacion >> inicializarConFecha: unaFecha conMascota: mascota conMedico: medico conVacuna: vacuna [
+	fecha := unaFecha .
+	unaMascota := mascota .
+	unMedico := medico.
+	unaVacuna := vacuna.
 ]

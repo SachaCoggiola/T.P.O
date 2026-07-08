@@ -9,14 +9,20 @@ Class {
 }
 
 { #category : 'creation' }
-TarjetaCred class >> crearConNombre: unNombre [
-|unaTarjetaCred|
-unaTarjetaCred := self crearCon: unNombre .
-recargo := 10.
+TarjetaCred class >> crearConNombre [
+	|unaTarjetaCred|
+		unaTarjetaCred := self new.
+		unaTarjetaCred inicializarTarjetaCred.
 ^unaTarjetaCred .
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'getters' }
 TarjetaCred >> getRecargo [ 
-	^recargo.
+^recargo.
+]
+
+{ #category : 'initialization' }
+TarjetaCred >> inicializarTarjetaCred [
+	nombre := 'tarjetaCredito'.
+	recargo ifNil: [ recargo := 10 ].
 ]
