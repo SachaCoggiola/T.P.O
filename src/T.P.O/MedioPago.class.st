@@ -28,5 +28,5 @@ MedioPago >> getRecargo [
 
 { #category : 'initialization' }
 MedioPago >> inicializarConNombre: unNombre [
-	( { 'efectivo' . 'transferencia' . 'tarjetaDebito' } contains: unNombre ) ifTrue: [ nombre := unNombre ].
+	( { 'efectivo' . 'transferencia' . 'tarjetaDebito' } includes: unNombre ) ifTrue: [ nombre := unNombre ].
 ]
