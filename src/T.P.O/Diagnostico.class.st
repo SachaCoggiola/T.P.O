@@ -21,6 +21,11 @@ Diagnostico class >> crearConFecha: unaFecha conDescripcion: unaDescripcion conM
 		^diagnostico. 
 ]
 
+{ #category : 'as yet unclassified' }
+Diagnostico >> agregarTratamiento: unTratamiento [
+colTratamientos add: unTratamiento.
+]
+
 { #category : 'propiosDelTipo' }
 Diagnostico >> calcularMontoFinal [
 ^colTratamientos inject: 0 into: [ :montoFinal :tratamiento | montoFinal + tratamiento calcularMonto].
@@ -64,11 +69,6 @@ Diagnostico >> inicializarConFechaDiagnostico: unaFecha conDescripcion: unaDescr
 	mascota := unaMascota.
 	colTratamientos := OrderedCollection new.
 	id := unId.
-]
-
-{ #category : 'propiosDelTipo' }
-Diagnostico >> registrarTratamiento: unTratamiento [
-	(unTratamiento esValido) ifTrue: [ colTratamientos add: unTratamiento ].
 ]
 
 { #category : 'propiosDelTipo' }

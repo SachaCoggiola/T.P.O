@@ -3,7 +3,6 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'fecha',
-		'unaMascota',
 		'unMedico',
 		'unaVacuna'
 	],
@@ -25,11 +24,6 @@ Aplicacion >> getFecha [
 ]
 
 { #category : 'getters' }
-Aplicacion >> getMascota [
-^unaMascota.
-]
-
-{ #category : 'getters' }
 Aplicacion >> getMedico [
 ^unMedico.
 ]
@@ -42,7 +36,6 @@ Aplicacion >> getVacuna [
 { #category : 'initialization' }
 Aplicacion >> inicializarConFecha: unaFecha conMascota: mascota conMedico: medico conVacuna: vacuna [
 	fecha := unaFecha .
-	unaMascota := mascota .
 	unMedico := medico.
 	unaVacuna := vacuna.
 ]

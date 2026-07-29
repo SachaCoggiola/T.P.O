@@ -6,7 +6,6 @@ Class {
 		'colTurnos',
 		'colClientes',
 		'colMedicos',
-		'colAplicaciones',
 		'colDiagnosticos',
 		'colStockMedicamentos',
 		'cuit'
@@ -32,7 +31,7 @@ Veterinaria >> agendarTurno: unTurno [
 		disponible ifTrue: [ 
 	  		( unTurno verificarMascota ) ifTrue: [ 
 				exito := true.
-				( unTurno getTratamiento ) ifNotNil: [ 
+				( unTurno tieneTratamiento ) ifTrue: [ 
 		 	 		exito := self verificarTratamiento: unTurno getTratamiento .
 		 		].
 	  		].
@@ -44,11 +43,6 @@ Veterinaria >> agendarTurno: unTurno [
 	].
 
 ^exito.
-]
-
-{ #category : 'propiosDelTipo' }
-Veterinaria >> agregarAplicacion: unaAplicacion [
-	colAplicaciones add: unaAplicacion.
 ]
 
 { #category : 'propiosDelTipo' }
@@ -119,9 +113,40 @@ Veterinaria >> inicializarCuit: unCuit [
 	colTurnos := OrderedCollection new.
 	colClientes := OrderedCollection new.
 	colMedicos := OrderedCollection new.
-	colAplicaciones := OrderedCollection new.
 	colDiagnosticos := OrderedCollection new.
 	colStockMedicamentos := OrderedCollection new.
+]
+
+{ #category : 'as yet unclassified' }
+Veterinaria >> mascotasConVacunasVencidas [
+	|listaMascotas|
+	listaMascotas := OrderedCollection new.
+	listaMascotas := colClientes collect: [ :cliente | cliente mascotasConVacunasVencidas ].
+	^listaMascotas
+]
+
+{ #category : 'as yet unclassified' }
+Veterinaria >> registrarTratamiento: unTratamiento conDiagnostico: unDiagnostico [
+	|registrado medicamento dosis|
+	registrado := unTratamiento esValido.
+	(registrado) ifTrue: [ 
+		(unTratamiento esFarmacologico) ifTrue: [
+			medicamento := unTratamiento getMedicamento.
+			dosis := unTratamiento getDosis.
+			registrado := self revisarStock: medicamento Y: dosis.
+			] 
+		].
+	(registrado) ifTrue: [ unDiagnostico agregarTratamiento: unTratamiento ].
+	^registrado 
+]
+
+{ #category : 'as yet unclassified' }
+Veterinaria >> revisarStock: medicamento Y: dosis [
+	|medicina hayStock|
+	hayStock := false.
+	medicina := colStockMedicamentos detect: [ :stock | medicamento equals: (stock getMedicamento) ].
+	medicina ifNotNil: [ hayStock := (medicina getCantidad) > dosis ] ifNil: [ hayStock := false ].
+	^hayStock.
 ]
 
 { #category : 'propiosDelTipo' }

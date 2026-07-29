@@ -7,7 +7,8 @@ Class {
 		'raza',
 		'fechaNacimiento',
 		'peso',
-		'id'
+		'id',
+		'colAplicaciones'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
@@ -65,7 +66,8 @@ Mascota >> inicializarConNombre: unNombre conEspecie: unaEspecie conRaza: unaRaz
 	raza := unaRaza.
 	fechaNacimiento := unaFechaNac.
 	peso := unPeso.
-	id := unId. 
+	id := unId.
+	colAplicaciones := SortedCollection new.
 ]
 
 { #category : 'setters' }

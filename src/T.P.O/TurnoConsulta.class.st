@@ -16,11 +16,6 @@ unTurnoConsulta inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo y
 ^unTurnoConsulta .
 ]
 
-{ #category : 'getters' }
-TurnoConsulta >> getTratamiento [
-^nil.
-]
-
 { #category : 'initialization' }
 TurnoConsulta >> inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico yTipoAtencion: unTipo [
 	self inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico.

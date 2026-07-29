@@ -28,3 +28,8 @@ TurnoTratamiento >> inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMoti
 	unTratamiento := tratamiento .
 
 ]
+
+{ #category : 'as yet unclassified' }
+TurnoTratamiento >> tieneTratamiento [ 
+^true
+]

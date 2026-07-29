@@ -70,6 +70,11 @@ Turno >> setEstado: unEstado [
 	( { 'pendiente' . 'confirmado' . 'cancelado' . 'atendido' . 'ausente' } contains: unEstado) ifTrue: [ estado := unEstado ].
 ]
 
+{ #category : 'as yet unclassified' }
+Turno >> tieneTratamiento [ 
+^false
+]
+
 { #category : 'propiosDelTipo' }
 Turno >> validarTurno [
 "Valida que el turno tenga una fecha y hora mayor a la actual"

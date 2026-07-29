@@ -18,6 +18,11 @@ Tratamiento >> calcularMonto [
 ^costoBase.
 ]
 
+{ #category : 'as yet unclassified' }
+Tratamiento >> esFarmacologico [
+^false
+]
+
 { #category : 'propiosDelTipo' }
 Tratamiento >> esValido [
 	|diaValido|

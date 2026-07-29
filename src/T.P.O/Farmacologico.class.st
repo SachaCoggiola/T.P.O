@@ -29,6 +29,11 @@ Farmacologico >> calcularMonto [
 		
 ]
 
+{ #category : 'as yet unclassified' }
+Farmacologico >> esFarmacologico [ 
+^true
+]
+
 { #category : 'getters' }
 Farmacologico >> getDosis [
 ^dosis
