@@ -90,7 +90,7 @@ Veterinaria >> cancelarTurnoPendiente: unTurno [
 
 { #category : 'propiosDelTipo' }
 Veterinaria >> facturasPendientes [	
-	^(colFacturas select: [ :facturas |facturas verificarSaldoPendiente > 0]) collect: [ :pendiente |{pendiente getCliente . pendiente verificarSaldoPendiente } ].
+	^(colFacturas select: [ :facturas |facturas verificarSaldoPendiente > 0]) collect: [ :pendiente |{pendiente getCliente . pendiente verificarSaldoPendiente } ]. 
 ]
 
 { #category : 'propiosDelTipo' }
@@ -102,6 +102,10 @@ Veterinaria >> facturasPendientesCliente: elCliente [
   listaFacturasCliente := colFacturas select: 
                           [ :unaFactura | unaFactura tieneCliente: elCliente ].
 
+  listaPendientesCliente := listaFacturasCliente select: 
+                            [ :unaFactura | (unaFactura verificarSaldoPendiente) > 0 ].
+
+^listaPendientesCliente .
 ]
 
 { #category : 'propiosDelTipo' }
@@ -125,6 +129,15 @@ Veterinaria >> generarFactura: unDiagnostico [
 { #category : 'getters' }
 Veterinaria >> getCuit [
 ^cuit.
+]
+
+{ #category : 'propiosDelTipo' }
+Veterinaria >> historialClinicoDe: unaMascota [
+|listaDiagnosticosMascota|
+  listaDiagnosticosMascota := OrderedCollection new.
+  listaDiagnosticosMascota := colDiagnosticos select: 
+                              [ :unDiagnostico | unDiagnostico tieneMascota: unaMascota ].
+^listaDiagnosticosMascota .
 ]
 
 { #category : 'propiosDelTipo' }
@@ -205,7 +218,7 @@ Veterinaria >> revisarStock: medicamento Y: dosis [
 Veterinaria >> verificarTratamiento: unTratamiento [
 	|esValido rta|
 	esValido := false.
-	rta := colDiagnosticos anySatisfy: [:cadaDiagnostico | cadaDiagnostico tieneTratamiento: unTratamiento ].
+	rta := colDiagnosticos anySatisfy: [:cadaDiagnostico | cadaDiagnostico                                                          tieneTratamiento: unTratamiento ].
 
 	rta  ifTrue: [ 
 		esValido := (unTratamiento getEstado = 'pendiente').

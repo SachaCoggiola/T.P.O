@@ -59,18 +59,23 @@ Factura >> inicializarConCliente: unCliente conDiagnostico: unDiagnostico conMon
 { #category : 'propiosDelTipo' }
 Factura >> registraPago: unPago [
 	|exito|
-		(self verificarSaldoPendiente > 0) ifTrue: [ colPagos add: unPago. exito := true. ] ifFalse: [ exito := false ].
+		(self verificarSaldoPendiente > 0) 
+		ifTrue: [ colPagos add: unPago. 
+			       exito := true. ] 
+		ifFalse: [ exito := false ].
 ^exito.
 ]
 
 { #category : 'propiosDelTipo' }
 Factura >> tieneDiagnostico: unDiagnostico [
-^((unDiagnostico getId) = (diagnostico getId)).
+^(diagnostico equals: unDiagnostico).
 ]
 
 { #category : 'propiosDelTipo' }
 Factura >> verificarSaldoPendiente [
-	|montoAbonado|
-		montoAbonado := colPagos inject: 0 into: [ :suma :pago | suma + pago getMonto ].
-^montoAbonado < montoTotal.
+|montoAbonado saldoPendiente|
+	saldoPendiente := 0.
+	montoAbonado := colPagos inject: 0 into: [ :suma :pago | suma + (pago getMonto) ].
+   (montoAbonado < montoTotal) ifTrue: [ saldoPendiente := (montoTotal - montoAbonado) ].
+^saldoPendiente .
 ]

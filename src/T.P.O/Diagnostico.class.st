@@ -77,6 +77,11 @@ Diagnostico >> inicializarConFechaDiagnostico: unaFecha conDescripcion: unaDescr
 ]
 
 { #category : 'propiosDelTipo' }
+Diagnostico >> tieneMascota: otraMascota [
+^(mascota equals: otraMascota).
+]
+
+{ #category : 'propiosDelTipo' }
 Diagnostico >> tieneMedico: otroMedico [
 ^(medico = otroMedico).
 ]
