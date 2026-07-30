@@ -79,3 +79,20 @@ Mascota >> setNombre: unNombre [
 Mascota >> setPeso: unPeso [
 	peso := unPeso.
 ]
+
+{ #category : 'propiosDelTipo' }
+Mascota >> ultimaAplicacionDe: unaVacuna [
+|ultimaAplicacion listaAplicacionesVacuna|
+
+ultimaAplicacion := nil.
+listaAplicacionesVacuna := OrderedCollection new.
+listaAplicacionesVacuna := colAplicaciones select: [
+	 :cadaAplicacion | cadaAplicacion tieneVacuna: unaVacuna ].
+
+(listaAplicacionesVacuna isEmpty) ifFalse: [ 
+	  listaAplicacionesVacuna asSortedCollection: [ :a :b | a getFecha <= b getFecha ].
+	  ultimaAplicacion := listaAplicacionesVacuna at: 1.
+	 ].
+
+^ultimaAplicacion .
+]

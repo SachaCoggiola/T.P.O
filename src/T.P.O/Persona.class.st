@@ -11,6 +11,11 @@ Class {
 	#package : 'T.P.O'
 }
 
+{ #category : 'comparing' }
+Persona >> equals: otraPersona [
+^( otraPersona getNroDoc = nroDoc ).
+]
+
 { #category : 'getters' }
 Persona >> getApellido [
 ^apellido.

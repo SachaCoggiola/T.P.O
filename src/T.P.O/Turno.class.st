@@ -15,8 +15,28 @@ Class {
 }
 
 { #category : 'propiosDelTipo' }
+Turno >> cancelarTurno [
+|rta|
+  (estado = 'pendiente') 
+    ifTrue: [
+	   estado := 'cancelado'. 
+	   rta := true 
+	 ] 
+    ifFalse: [ 
+	  rta := false 
+	 ].
+^rta.
+]
+
+{ #category : 'propiosDelTipo' }
 Turno >> confirmarTurno [
 	estado := 'confirmado'.
+]
+
+{ #category : 'comparing' }
+Turno >> equals: otroTurno [
+^( (fecha = otroTurno getFecha) and: 
+   [ (hora = otroTurno getHora) and: (unMedico = otroTurno getMedico) ] ).
 ]
 
 { #category : 'getters' }
@@ -70,7 +90,17 @@ Turno >> setEstado: unEstado [
 	( { 'pendiente' . 'confirmado' . 'cancelado' . 'atendido' . 'ausente' } contains: unEstado) ifTrue: [ estado := unEstado ].
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
+Turno >> tieneCliente: otroCliente [
+^(unCliente equals: otroCliente ).
+]
+
+{ #category : 'propiosDelTipo' }
+Turno >> tieneFecha: otraFecha [
+^(otraFecha = fecha).
+]
+
+{ #category : 'propiosDelTipo' }
 Turno >> tieneTratamiento [ 
 ^false
 ]

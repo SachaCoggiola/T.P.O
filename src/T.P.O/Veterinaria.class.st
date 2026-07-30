@@ -45,17 +45,17 @@ Veterinaria >> agendarTurno: unTurno [
 ^exito.
 ]
 
-{ #category : 'propiosDelTipo' }
+{ #category : 'add' }
 Veterinaria >> agregarCliente: unCliente [
 	colClientes add: unCliente.
 ]
 
-{ #category : 'propiosDelTipo' }
+{ #category : 'add' }
 Veterinaria >> agregarDiagnostico: unDiagnostico [
 	colDiagnosticos add: unDiagnostico.
 ]
 
-{ #category : 'propiosDelTipo' }
+{ #category : 'add' }
 Veterinaria >> agregarMedico: unMedico [
 	colMedicos add: unMedico.
 ]
@@ -79,8 +79,29 @@ Veterinaria >> buscarClienteConMascota: unaMascota [
 ]
 
 { #category : 'propiosDelTipo' }
+Veterinaria >> cancelarTurnoPendiente: unTurno [
+|turnoBuscado rta|
+  rta := false.
+  turnoBuscado := colTurnos detect: [ :cadaTurno | cadaTurno equals: unTurno ] 
+                            ifNone: [ nil ].
+  turnoBuscado ifNotNil: [ rta := (turnoBuscado cancelarTurno) ].
+^rta. 
+]
+
+{ #category : 'propiosDelTipo' }
 Veterinaria >> facturasPendientes [	
 	^(colFacturas select: [ :facturas |facturas verificarSaldoPendiente > 0]) collect: [ :pendiente |{pendiente getCliente . pendiente verificarSaldoPendiente } ].
+]
+
+{ #category : 'propiosDelTipo' }
+Veterinaria >> facturasPendientesCliente: elCliente [
+|listaPendientesCliente listaFacturasCliente|
+  listaFacturasCliente := OrderedCollection new.
+  listaPendientesCliente := OrderedCollection new.
+  
+  listaFacturasCliente := colFacturas select: 
+                          [ :unaFactura | unaFactura tieneCliente: elCliente ].
+
 ]
 
 { #category : 'propiosDelTipo' }
@@ -106,6 +127,15 @@ Veterinaria >> getCuit [
 ^cuit.
 ]
 
+{ #category : 'propiosDelTipo' }
+Veterinaria >> historialTurnosDe: unCliente [
+|listaTurnosCliente|
+  listaTurnosCliente := OrderedCollection new.
+  listaTurnosCliente := colTurnos select: [ 
+	:unTurno | unTurno tieneCliente: unCliente ].
+^listaTurnosCliente .
+]
+
 { #category : 'initialization' }
 Veterinaria >> inicializarCuit: unCuit [
 	cuit := unCuit.
@@ -117,7 +147,29 @@ Veterinaria >> inicializarCuit: unCuit [
 	colStockMedicamentos := OrderedCollection new.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
+Veterinaria >> listarTratamientosMedico: unMedico [
+|listaTratamientosMedico|
+  listaTratamientosMedico := OrderedCollection new.
+
+  colDiagnosticos do: [ :unDiagnostico | 
+	(unDiagnostico tieneMedico: unMedico) ifTrue: 
+	  [ listaTratamientosMedico addAllLast: unDiagnostico getColTratamientos ].
+  ].
+
+^listaTratamientosMedico .
+  
+]
+
+{ #category : 'propiosDelTipo' }
+Veterinaria >> listarTurnosFecha: unaFecha [
+|listaTurnosFecha|
+  listaTurnosFecha := OrderedCollection new.
+  listaTurnosFecha := colTurnos select: [ :cadaTurno | cadaTurno tieneFecha: unaFecha ].
+^listaTurnosFecha .
+]
+
+{ #category : 'propiosDelTipo' }
 Veterinaria >> mascotasConVacunasVencidas [
 	|listaMascotas|
 	listaMascotas := OrderedCollection new.
@@ -125,7 +177,7 @@ Veterinaria >> mascotasConVacunasVencidas [
 	^listaMascotas
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Veterinaria >> registrarTratamiento: unTratamiento conDiagnostico: unDiagnostico [
 	|registrado medicamento dosis|
 	registrado := unTratamiento esValido.
@@ -140,7 +192,7 @@ Veterinaria >> registrarTratamiento: unTratamiento conDiagnostico: unDiagnostico
 	^registrado 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Veterinaria >> revisarStock: medicamento Y: dosis [
 	|medicina hayStock|
 	hayStock := false.

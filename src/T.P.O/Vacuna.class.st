@@ -19,6 +19,11 @@ unaVacuna inicializarConNombre: unNombre yLab: unLaboratorio yEspecie: unaEspeci
 ^unaVacuna .
 ]
 
+{ #category : 'comparing' }
+Vacuna >> equals: otraVacuna [
+^(nombre = (otraVacuna getNombre)).
+]
+
 { #category : 'getters' }
 Vacuna >> getEspecie [
 ^especie.

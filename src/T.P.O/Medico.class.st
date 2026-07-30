@@ -23,11 +23,6 @@ Medico >> agregarMatricula: unaMatricula [
 	colMatriculas add: unaMatricula.
 ]
 
-{ #category : 'propiosDelTipo' }
-Medico >> equals: otroMedico [
-^( otroMedico getNroDoc = nroDoc ).
-]
-
 { #category : 'getters' }
 Medico >> getCuil [
 ^cuil.
@@ -36,11 +31,6 @@ Medico >> getCuil [
 { #category : 'getters' }
 Medico >> getFechaNacimiento [ 
 ^fechaNacimiento.
-]
-
-{ #category : 'getters' }
-Medico >> getNroDoc [
-^nroDoc .
 ]
 
 { #category : 'initialization' }

@@ -21,7 +21,7 @@ Diagnostico class >> crearConFecha: unaFecha conDescripcion: unaDescripcion conM
 		^diagnostico. 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'add' }
 Diagnostico >> agregarTratamiento: unTratamiento [
 colTratamientos add: unTratamiento.
 ]
@@ -34,6 +34,11 @@ Diagnostico >> calcularMontoFinal [
 { #category : 'propiosDelTipo' }
 Diagnostico >> equals: otroDiagnostico [
 ^(id = (otroDiagnostico getId)).
+]
+
+{ #category : 'getters' }
+Diagnostico >> getColTratamientos [
+^colTratamientos .
 ]
 
 { #category : 'getters' }
@@ -69,6 +74,11 @@ Diagnostico >> inicializarConFechaDiagnostico: unaFecha conDescripcion: unaDescr
 	mascota := unaMascota.
 	colTratamientos := OrderedCollection new.
 	id := unId.
+]
+
+{ #category : 'propiosDelTipo' }
+Diagnostico >> tieneMedico: otroMedico [
+^(medico = otroMedico).
 ]
 
 { #category : 'propiosDelTipo' }

@@ -39,3 +39,8 @@ Aplicacion >> inicializarConFecha: unaFecha conMascota: mascota conMedico: medic
 	unMedico := medico.
 	unaVacuna := vacuna.
 ]
+
+{ #category : 'propiosDelTipo' }
+Aplicacion >> tieneVacuna: otraVacuna [
+^(unaVacuna equals: otraVacuna ).
+]
