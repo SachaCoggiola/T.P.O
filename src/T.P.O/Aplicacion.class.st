@@ -18,6 +18,11 @@ unaAplicacion inicializarConFecha: unaFecha conMascota: mascota conMedico: medic
 ^unaAplicacion .
 ]
 
+{ #category : 'propiosDelTipo' }
+Aplicacion >> estaVencida [
+^ [ ( unaVacuna getMesesVigencia + fecha ) < Date today ]
+]
+
 { #category : 'getters' }
 Aplicacion >> getFecha [
 ^fecha.
@@ -41,6 +46,11 @@ Aplicacion >> inicializarConFecha: unaFecha conMascota: mascota conMedico: medic
 ]
 
 { #category : 'propiosDelTipo' }
+Aplicacion >> tieneRefuerzo: otraAplicacion [
+^ unaVacuna equals: ( otraAplicacion getVacuna )
+]
+
+{ #category : 'propiosDelTipo' }
 Aplicacion >> tieneVacuna: otraVacuna [
-^(unaVacuna equals: otraVacuna ).
+^(unaVacuna equals: otraVacuna )
 ]

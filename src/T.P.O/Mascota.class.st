@@ -81,6 +81,23 @@ Mascota >> setPeso: unPeso [
 ]
 
 { #category : 'propiosDelTipo' }
+Mascota >> tieneVacunaVencida [
+	|listaVigentes vencida|
+	listaVigentes := OrderedCollection new.
+	vencida := false.
+	colAplicaciones do: [ :unaAplicacion |
+		unaAplicacion estaVencida 
+		ifFalse: [ 
+			listaVigentes add: unaAplicacion
+		]
+		ifTrue: [ 
+			(listaVigentes anySatisfy: [ :otraAplicacion | otraAplicacion tieneRefuerzo: unaAplicacion ]) ifFalse: [ vencida := true ].
+		].
+	].
+^ vencida
+]
+
+{ #category : 'propiosDelTipo' }
 Mascota >> ultimaAplicacionDe: unaVacuna [
 |ultimaAplicacion listaAplicacionesVacuna|
 

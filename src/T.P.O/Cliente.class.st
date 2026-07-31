@@ -42,6 +42,12 @@ Cliente >> inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApe
 	colMascotas add: unaMascota.
 ]
 
+{ #category : 'propiosDelTipo' }
+Cliente >> mascotasConVacunasVencidas [
+^ colMascotas select: [ :mascota | mascota tieneVacunaVencida ]
+	
+]
+
 { #category : 'setters' }
 Cliente >> setEmail: unEmail [
 	email := unEmail.

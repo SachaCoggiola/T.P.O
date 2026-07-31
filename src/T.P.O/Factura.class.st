@@ -57,7 +57,7 @@ Factura >> inicializarConCliente: unCliente conDiagnostico: unDiagnostico conMon
 ]
 
 { #category : 'propiosDelTipo' }
-Factura >> registraPago: unPago [
+Factura >> registrarPago: unPago [
 	|exito|
 		(self verificarSaldoPendiente > 0) 
 		ifTrue: [ colPagos add: unPago. 
@@ -69,6 +69,11 @@ Factura >> registraPago: unPago [
 { #category : 'propiosDelTipo' }
 Factura >> tieneDiagnostico: unDiagnostico [
 ^(diagnostico equals: unDiagnostico).
+]
+
+{ #category : 'propiosDelTipo' }
+Factura >> tienePago: unPago [
+^colPagos includes: unPago
 ]
 
 { #category : 'propiosDelTipo' }

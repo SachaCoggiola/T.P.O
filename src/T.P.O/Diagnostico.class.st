@@ -38,7 +38,7 @@ Diagnostico >> equals: otroDiagnostico [
 
 { #category : 'getters' }
 Diagnostico >> getColTratamientos [
-^colTratamientos .
+^colTratamientos copy.
 ]
 
 { #category : 'getters' }

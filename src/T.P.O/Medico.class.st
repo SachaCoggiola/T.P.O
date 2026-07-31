@@ -41,3 +41,8 @@ Medico >> inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApel
 	colMatriculas := OrderedCollection new.
 	colMatriculas add: unaMatricula.
 ]
+
+{ #category : 'propiosDelTipo' }
+Medico >> tieneMatricula: unaMatricula [
+^colMatriculas includes: unaMatricula 
+]
