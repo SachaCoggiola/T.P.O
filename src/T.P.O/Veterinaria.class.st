@@ -60,6 +60,12 @@ Veterinaria >> agregarMedico: unMedico [
 	colMedicos add: unMedico.
 ]
 
+{ #category : 'add' }
+Veterinaria >> agregarTurno: unTurno [
+"METODO TEMPORAL"
+colTurnos add: unTurno .
+]
+
 { #category : 'propiosDelTipo' }
 Veterinaria >> buscarCliente: unDiagnostico [
 	|elCliente unaMascota|

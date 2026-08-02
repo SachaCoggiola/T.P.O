@@ -28,6 +28,15 @@ VeterinariaVisual >> initialize [
 ]
 
 { #category : 'accessing' }
+VeterinariaVisual >> listarTurnosFecha [
+ | ventana |
+
+    ventana := ListarTurnosFechaInterfaz new.
+    ventana veterinaria: veterinaria.
+    ventana openInWorld.
+]
+
+{ #category : 'accessing' }
 VeterinariaVisual >> registrarCliente [
     | ventana |
 

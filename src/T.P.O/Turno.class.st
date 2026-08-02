@@ -75,6 +75,13 @@ Turno >> getMotivo [
 ]
 
 { #category : 'initialization' }
+Turno >> inicializarConFecha: unaFecha yHora: unaHora [ 
+"METODO TEMPORAL PARA TESTEAR"
+fecha := unaFecha .
+hora := unaHora .
+]
+
+{ #category : 'initialization' }
 Turno >> inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico [
 	fecha := unaFecha .
 	hora := unaHora .
@@ -103,6 +110,14 @@ Turno >> tieneFecha: otraFecha [
 { #category : 'propiosDelTipo' }
 Turno >> tieneTratamiento [ 
 ^false
+]
+
+{ #category : 'getters' }
+Turno >> toString [
+^ ('Turno: ', fecha asString, ' | ', hora asString,
+      ' | Cliente: ', unCliente,
+      ' | Mascota: ', unaMascota,
+      ' | Médico: ', unMedico).
 ]
 
 { #category : 'propiosDelTipo' }
