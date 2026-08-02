@@ -29,7 +29,7 @@ Farmacologico >> calcularMonto [
 		
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Farmacologico >> esFarmacologico [ 
 ^true
 ]
