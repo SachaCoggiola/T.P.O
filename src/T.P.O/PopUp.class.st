@@ -19,20 +19,21 @@ PopUp class >> mostrar: unTexto [
 
 { #category : 'initialization' }
 PopUp >> initialize [
-    super initialize.
-    self setLabel: 'Mensaje'; color: Color veryLightGray; extent: 420@220.
+	super initialize.
+	self setLabel: 'Mensaje'; color: Color veryLightGray; extent: 420@220.
 
-    texto := RubScrolledTextMorph new.
-    texto position: 15@15; extent: 390@140.
-    texto textArea beReadOnly; contents: ''.
-    self addMorph: texto.
-
-    botonCerrar := BotonAccion new.
-    botonCerrar label: 'Cerrar'; position: 160@170; mouseAction: [ self delete ].
-    self addMorph: botonCerrar.
+	texto := RubScrolledTextMorph new.
+	texto position: 15@15; extent: 390@140.
+	texto textArea beReadOnly.
+	texto setText: ''.
+	self addMorph: texto.
+	
+	botonCerrar := BotonAccion new.
+	botonCerrar label: 'Cerrar'; position: 160@170; mouseAction: [ self delete ].
+	self addMorph: botonCerrar.
 ]
 
 { #category : 'propiosDelTipo' }
 PopUp >> mensaje: unTexto [
-    texto textArea contents: unTexto.
+    texto setText: (unTexto asString).
 ]

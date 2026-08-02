@@ -22,6 +22,11 @@ Persona >> getApellido [
 ]
 
 { #category : 'getters' }
+Persona >> getDni [
+^nroDoc 
+]
+
+{ #category : 'getters' }
 Persona >> getDomicilio [
 ^domicilio.
 ]

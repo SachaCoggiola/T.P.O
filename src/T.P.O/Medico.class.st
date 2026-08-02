@@ -10,7 +10,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'constructor' }
 Medico class >> crearConNombre: unNombre conApellido: unApellido conNroDni: unNroDni conDomicilio: unDomicilio conFechaNacimiento: unaFecha conCuil: unCuil conMatricula: unaMatricula [
 	|medico|
 		medico := self new.

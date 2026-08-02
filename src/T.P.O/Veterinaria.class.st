@@ -49,11 +49,11 @@ Veterinaria >> agendarTurno: unTurno [
 Veterinaria >> agregarCliente: unCliente [
 	|cargado|
 	cargado := true.
-	(colClientes anySatisfy: [ :cadaCliente | cadaCliente equals: unCliente ]) 
+	(colClientes anySatisfy: [ :cadaCliente | unCliente equals: cadaCliente ]) 
 		ifFalse: 
-			[ 	colClientes add: unCliente. ] 
+			[ 	colClientes add: unCliente ] 
 		ifTrue: 
-			[ cargado := false. ].
+			[ cargado := false ].
 	^cargado 
 		
 	
@@ -83,6 +83,13 @@ Veterinaria >> buscarCliente: unDiagnostico [
 		elCliente := colClientes detect: [ :cadaCliente | cadaCliente tieneMascota: unaMascota ] ifNone: [ nil ].
 ^elCliente .
 
+]
+
+{ #category : 'propiosDelTipo' }
+Veterinaria >> buscarClienteConDni: unDni [
+	|cliente|
+	cliente := colClientes detect: [ :cadaCliente | cadaCliente getDni = unDni ] ifNone: nil.
+^cliente 
 ]
 
 { #category : 'propiosDelTipo' }

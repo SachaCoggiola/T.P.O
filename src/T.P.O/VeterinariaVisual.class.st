@@ -5,16 +5,32 @@ Class {
 		'veterinaria',
 		'registrarCliente',
 		'listarTurnosFecha',
+		'registrarMascota',
+		'botonCerrar',
 		'origen'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
 }
 
+{ #category : 'as yet unclassified' }
+VeterinariaVisual class >> abrirMenuVet: unaVet [
+	|window|
+	window := self new.
+	window veterinaria: unaVet.
+	unaVet addDependent: window.
+	window openInWorld.
+	^window 
+]
+
+{ #category : 'propiosDelTipo' }
+VeterinariaVisual >> cerrar [
+	self delete
+]
+
 { #category : 'initialization' }
 VeterinariaVisual >> initialize [ 
 	super initialize.
-	veterinaria := Veterinaria new.
 	self color: Color darkGray.
 	self position: 45@45.
 	self bounds: (45@45 extent: 350@420).
@@ -25,16 +41,26 @@ VeterinariaVisual >> initialize [
 	registrarCliente position: origen + (10@10).
 	registrarCliente label: 'Registrar un nuevo cliente'.
 	
+	registrarMascota := BotonAccion new.
+	self addMorph: registrarMascota.
+	registrarMascota position: registrarCliente position + (0@40).
+	registrarMascota label: 'Registrar una nueva mascota'.
+	
 	listarTurnosFecha := BotonAccion new.
 	self addMorph: listarTurnosFecha .
-	origen := self innerBounds origin.
-	listarTurnosFecha position: origen + (10@40).
+	listarTurnosFecha position: registrarMascota position + (0@40).
    listarTurnosFecha label: 'Listar los turnos de una fecha ingresada'.
+
+	botonCerrar := BotonAccion new.
+	self addMorph: botonCerrar.
+	botonCerrar mouseAction: [ self cerrar ].
+	botonCerrar position: (330@400).
+	botonCerrar label: 'Cerrar'.
 	
-	veterinaria addDependent: self.
 	self update: veterinaria.
 	
 	registrarCliente mouseAction: [ self registrarCliente ].
+	registrarMascota mouseAction: [ self registrarMascota ].
 	listarTurnosFecha mouseAction: [ self listarTurnosFecha ].
 ]
 
@@ -54,4 +80,18 @@ VeterinariaVisual >> registrarCliente [
     ventana := RegistrarClienteVisual new.
     ventana veterinaria: veterinaria.
     ventana openInWorld.
+]
+
+{ #category : 'accessing' }
+VeterinariaVisual >> registrarMascota [
+	| ventana |
+
+    ventana := RegistrarMascotaVisual new.
+    ventana veterinaria: veterinaria.
+    ventana openInWorld.
+]
+
+{ #category : 'accessing' }
+VeterinariaVisual >> veterinaria: unaVet [
+	veterinaria := unaVet
 ]

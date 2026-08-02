@@ -10,17 +10,24 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
-Cliente class >> crearConNombre: unNombre conApellido: unApellido conNroDni: unNroDni conDomicilio: unDomicilio conEmail: unEmail conTelefono: unTel conMascota: unaMascota [
+{ #category : 'constructor' }
+Cliente class >> crearConNombre: unNombre conApellido: unApellido conNroDni: unNroDni conDomicilio: unDomicilio conEmail: unEmail conTelefono: unTel [ 
 	|cliente|
 		cliente := self new.
-		cliente inicializarConNroDoc: unNroDni conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio conTelefono: unTel conEmail: unEmail conMascota: unaMascota.
+		cliente inicializarConNroDoc: unNroDni conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio conTelefono: unTel conEmail: unEmail.
 		^cliente.
 ]
 
 { #category : 'propiosDelTipo' }
 Cliente >> agregarMascota: unaMascota [
-	colMascotas add: unaMascota.
+	|cargado|
+	cargado := true.
+		(colMascotas anySatisfy: [ :cadaMascota | cadaMascota equals: unaMascota ]) 
+			ifFalse: 
+				[ 	colMascotas add: unaMascota ] 
+			ifTrue: 
+				[ cargado := false ].
+	^cargado 
 ]
 
 { #category : 'getters' }
@@ -34,12 +41,11 @@ Cliente >> getTelContacto [
 ]
 
 { #category : 'initialization' }
-Cliente >> inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio conTelefono: unTelefono conEmail: unEmail conMascota: unaMascota [
+Cliente >> inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio conTelefono: unTelefono conEmail: unEmail [
 	self inicializarConNroDoc: unNroDoc conNombre: unNombre conApellido: unApellido conDomicilio: unDomicilio.
 	telContacto := unTelefono.
 	email := unEmail.
 	colMascotas := OrderedCollection new.
-	colMascotas add: unaMascota.
 ]
 
 { #category : 'propiosDelTipo' }
