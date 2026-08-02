@@ -11,7 +11,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'initialization' }
+{ #category : 'propiosDelTipo' }
 ListarTurnosFechaInterfaz >> agregarBotonListarTurnos [
     | x y boton |
 
@@ -25,6 +25,11 @@ ListarTurnosFechaInterfaz >> agregarBotonListarTurnos [
         yourself.
     boton position: x @ y.
     self addMorph: boton.
+]
+
+{ #category : 'propiosDelTipo' }
+ListarTurnosFechaInterfaz >> cerrar [ 
+self delete.
 ]
 
 { #category : 'initialization' }
@@ -74,7 +79,6 @@ ListarTurnosFechaInterfaz >> initialize [
         borderColor: Color black;
         borderWidth: 2;
         extent: 400 @ 300.
-"INICIALIZO ACÁ LA VETERINARIA ????"
     self crearComponentes .
 ]
 
@@ -148,7 +152,7 @@ ListarTurnosFechaInterfaz >> validarFecha [
 ^esValido .
 ]
 
-{ #category : 'initialization' }
+{ #category : 'accessing' }
 ListarTurnosFechaInterfaz >> veterinaria: unaVeterinaria [
 veterinaria := unaVeterinaria .
 ]

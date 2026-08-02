@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'veterinaria',
 		'registrarCliente',
+		'listarTurnosFecha',
 		'origen'
 	],
 	#category : 'T.P.O',
@@ -24,10 +25,17 @@ VeterinariaVisual >> initialize [
 	registrarCliente position: origen + (10@10).
 	registrarCliente label: 'Registrar un nuevo cliente'.
 	
+	listarTurnosFecha := BotonAccion new.
+	self addMorph: listarTurnosFecha .
+	origen := self innerBounds origin.
+	listarTurnosFecha position: origen + (10@40).
+   listarTurnosFecha label: 'Listar los turnos de una fecha ingresada'.
+	
 	veterinaria addDependent: self.
 	self update: veterinaria.
 	
 	registrarCliente mouseAction: [ self registrarCliente ].
+	listarTurnosFecha mouseAction: [ self listarTurnosFecha ].
 ]
 
 { #category : 'accessing' }
