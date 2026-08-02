@@ -47,7 +47,16 @@ Veterinaria >> agendarTurno: unTurno [
 
 { #category : 'add' }
 Veterinaria >> agregarCliente: unCliente [
-	colClientes add: unCliente.
+	|cargado|
+	cargado := true.
+	(colClientes anySatisfy: [ :cadaCliente | cadaCliente equals: unCliente ]) 
+		ifFalse: 
+			[ 	colClientes add: unCliente. ] 
+		ifTrue: 
+			[ cargado := false. ].
+	^cargado 
+		
+	
 ]
 
 { #category : 'add' }
@@ -96,7 +105,9 @@ Veterinaria >> cancelarTurnoPendiente: unTurno [
 
 { #category : 'propiosDelTipo' }
 Veterinaria >> facturasPendientes [	
-	^(colFacturas select: [ :facturas |facturas verificarSaldoPendiente > 0]) collect: [ :pendiente |{pendiente getCliente . pendiente verificarSaldoPendiente } ]. 
+	|listaPendientes|
+	listaPendientes := colFacturas select: [ :facturas |facturas verificarSaldoPendiente > 0].
+	^listaPendientes collect: [ :pendiente | { pendiente getCliente . pendiente verificarSaldoPendiente } ]. 
 ]
 
 { #category : 'propiosDelTipo' }
