@@ -29,8 +29,16 @@ Class {
 
 { #category : 'propiosDelTipo' }
 RegistrarMascotaVisual >> buscarCliente [
-cliente := veterinaria buscarClienteConDni: campoDni contents asNumber.
-cliente ifNil: [ self informar: 'No se ha encontrado un cliente con el dni ingresado' ] ifNotNil: [ self informar: 'Cliente encontrado' ] .
+	|contenido|
+	contenido := campoDni contents.
+	( contenido trimBoth isEmpty ) ifFalse: [
+		(contenido allSatisfy: [ :c | c isDigit ]) ifFalse: [
+			self informar: 'El DNI debe contener únicamente números.'.
+		] ifTrue: [
+			cliente := veterinaria buscarClienteConDni: contenido asNumber.
+			cliente ifNil: [ self informar: 'No se ha encontrado un cliente con el DNI ingresado' ] ifNotNil: [ self informar: 'Cliente encontrado' ] .
+		].
+	] ifTrue: [ self informar: 'Ingrese el DNI de un cliente' ]
 ]
 
 { #category : 'propiosDelTipo' }
@@ -149,22 +157,26 @@ RegistrarMascotaVisual >> validarCampos [
 
 { #category : 'propiosDelTipo' }
 RegistrarMascotaVisual >> validarId [
-  | numero valido |
+	| numero valido |
 	valido := true.
-   campoId contents isEmpty ifTrue: [
-       self informar: 'Debe ingresar un id de mascota.'.
-       valido := false.
-   ].
-   id := campoId contents.
-   (id allSatisfy: [ :c | c isDigit ]) ifFalse: [
-       self informar: 'El id debe contener únicamente números.'.
-       valido := false.
-   ].
-   numero := id asNumber.
-   ((numero > 0) and: [ numero < 100000000 ]) ifFalse: [
-       self informar: 'El id debe tener entre 1 y 8 dígitos.'.
-       valido := false
-   ].
+	campoId contents isEmpty ifTrue: [
+		self informar: 'Debe ingresar un Id.'.
+		valido := false.
+	].
+	valido ifTrue: [ 
+		id := campoId contents.
+		(id allSatisfy: [ :c | c isDigit ]) ifFalse: [
+		self informar: 'El Id debe contener únicamente números.'.
+		valido := false.
+		].
+		valido ifTrue: [ 
+			numero := id asNumber.
+			((numero > 0) and: [ numero < 100000000 ]) ifFalse: [
+			self informar: 'El Id debe tener entre 1 y 8 dígitos.'.
+			valido := false
+			].
+		].
+	].
 	^valido
 ]
 

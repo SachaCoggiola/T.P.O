@@ -119,22 +119,26 @@ RegistrarClienteVisual >> validarCampos [
 
 { #category : 'propiosDelTipo' }
 RegistrarClienteVisual >> validarDni [
-   | numero valido |
+	| numero valido |
 	valido := true.
-   campoDni contents isEmpty ifTrue: [
-       self informar: 'Debe ingresar un DNI.'.
-       valido := false.
-   ].
-   dni := campoDni contents.
-   (dni allSatisfy: [ :c | c isDigit ]) ifFalse: [
-       self informar: 'El DNI debe contener únicamente números.'.
-       valido := false.
-   ].
-   numero := dni asNumber.
-   ((numero > 0) and: [ numero < 100000000 ]) ifFalse: [
-       self informar: 'El DNI debe tener entre 1 y 8 dígitos.'.
-       valido := false
-   ].
+	campoDni contents isEmpty ifTrue: [
+		self informar: 'Debe ingresar un DNI.'.
+		valido := false.
+	].
+	valido ifTrue: [ 
+		dni := campoDni contents.
+		(dni allSatisfy: [ :c | c isDigit ]) ifFalse: [
+		self informar: 'El DNI debe contener únicamente números.'.
+		valido := false.
+		].
+		valido ifTrue: [ 
+			numero := dni asNumber.
+			((numero > 0) and: [ numero < 100000000 ]) ifFalse: [
+			self informar: 'El DNI debe tener entre 1 y 8 dígitos.'.
+			valido := false
+			].
+		].
+	].
 	^valido
 ]
 

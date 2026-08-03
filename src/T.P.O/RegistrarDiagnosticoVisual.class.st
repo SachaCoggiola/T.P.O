@@ -28,10 +28,28 @@ Class {
 RegistrarDiagnosticoVisual >> buscarMascota [
 	|contenido|
 	contenido := campoMascota contents.
-	contenido ifNotNil: [ 
-		mascota := veterinaria buscarMascotaConId: campoMascota contents asNumber.
-		mascota ifNil: [ self informar: 'No se ha encontrado una mascota con el id ingresado' ] ifNotNil: [ self informar: 'Mascota encontrada' ] .
-	].
+	contenido trimBoth isEmpty ifFalse: [
+		(contenido allSatisfy: [ :c | c isDigit ]) ifFalse: [
+			self informar: 'El id debe contener únicamente números.'.
+		] ifTrue: [
+			mascota := veterinaria buscarMascotaConId: contenido asNumber.
+			mascota ifNil: [ self informar: 'No se ha encontrado una mascota con el id ingresado' ] ifNotNil: [ self informar: 'Mascota encontrada' ] .
+		].
+	] ifTrue: [ self informar: 'Ingrese el id de una mascota' ]
+]
+
+{ #category : 'propiosDelTipo' }
+RegistrarDiagnosticoVisual >> buscarMedico [
+	|contenido|
+	contenido := campoMedico contents. 
+	( contenido trimBoth isEmpty ) ifFalse: [
+		(contenido allSatisfy: [ :c | c isDigit ]) ifFalse: [
+			self informar: 'El DNI debe contener únicamente números.'.
+		] ifTrue: [
+			medico := veterinaria buscarMedicoConDni: contenido asNumber.
+			medico ifNil: [ self informar: 'No se ha encontrado un medico con el DNI ingresado' ] ifNotNil: [ self informar: 'Medico encontrado' ] .
+		].
+	] ifTrue: [ self informar: 'Ingrese el DNI de un medico' ]
 ]
 
 { #category : 'propiosDelTipo' }
@@ -121,22 +139,26 @@ RegistrarDiagnosticoVisual >> validarCampos [
 
 { #category : 'propiosDelTipo' }
 RegistrarDiagnosticoVisual >> validarId [
-  | numero valido |
+	| numero valido |
 	valido := true.
-   campoId contents isEmpty ifTrue: [
-       self informar: 'Debe ingresar un id de diagnostico.'.
-       valido := false.
-   ].
-   id := campoId contents.
-   (id allSatisfy: [ :c | c isDigit ]) ifFalse: [
-       self informar: 'El id debe contener únicamente números.'.
-       valido := false.
-   ].
-   numero := id asNumber.
-   ((numero > 0) and: [ numero < 100000000 ]) ifFalse: [
-       self informar: 'El id debe tener entre 1 y 8 dígitos.'.
-       valido := false
-   ].
+	campoId contents isEmpty ifTrue: [
+		self informar: 'Debe ingresar un Id.'.
+		valido := false.
+	].
+	valido ifTrue: [ 
+		id := campoId contents.
+		(id allSatisfy: [ :c | c isDigit ]) ifFalse: [
+		self informar: 'El Id debe contener únicamente números.'.
+		valido := false.
+		].
+		valido ifTrue: [ 
+			numero := id asNumber.
+			((numero > 0) and: [ numero < 100000000 ]) ifFalse: [
+			self informar: 'El Id debe tener entre 1 y 8 dígitos.'.
+			valido := false
+			].
+		].
+	].
 	^valido
 ]
 
