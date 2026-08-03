@@ -82,6 +82,14 @@ VeterinariaVisual >> registrarCliente [
     ventana openInWorld.
 ]
 
+{ #category : 'propiosDelTipo' }
+VeterinariaVisual >> registrarDiagnostico [
+	|ventana|
+	ventana := RegistrarDiagnosticoVisual new.
+	ventana veterinaria: veterinaria.
+	ventana openInWorld.
+]
+
 { #category : 'accessing' }
 VeterinariaVisual >> registrarMascota [
 	| ventana |

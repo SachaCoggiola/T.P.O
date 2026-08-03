@@ -101,6 +101,26 @@ Veterinaria >> buscarClienteConMascota: unaMascota [
 ]
 
 { #category : 'propiosDelTipo' }
+Veterinaria >> buscarMascotaConId: unId [
+	| mascota |
+	mascota := nil.
+	colClientes do: [:cadaCliente |
+		mascota ifNil: [
+			mascota := cadaCliente buscarMascotaConId: unId
+		].
+	].
+^mascota 
+
+]
+
+{ #category : 'propiosDelTipo' }
+Veterinaria >> buscarMedicoConDni: unDni [
+	|medico|
+	medico := colMedicos detect: [ :cadaMedico | cadaMedico getDni = unDni ] ifNone: nil.
+^medico 
+]
+
+{ #category : 'propiosDelTipo' }
 Veterinaria >> cancelarTurnoPendiente: unTurno [
 |turnoBuscado rta|
   rta := false.
