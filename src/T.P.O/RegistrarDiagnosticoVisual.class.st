@@ -128,6 +128,25 @@ RegistrarDiagnosticoVisual >> initialize [
 
 { #category : 'propiosDelTipo' }
 RegistrarDiagnosticoVisual >> registrar [
+	|diagnostico registrado|
+	registrado := false.
+	mascota 
+	ifNil: [ self informar: 'Buscar la mascota de la cual desea registrar el diagnostico' ]
+	ifNotNil: [
+		medico 
+		ifNil: [ self informar: 'Buscar el medico que realiza el tratamiento' ]
+		ifNotNil: [  
+			( self validarId and: [ self validarCampos ] ) ifFalse: [ registrado := false. self informar: 'Completar los datos de forma correcta.' ] 
+			ifTrue: [
+				fecha := campoFecha contents .
+				descripcion := campoDescripcion contents.
+				diagnostico := Diagnostico crearConFecha: fecha conDescripcion: descripcion conMedico: medico conMascota: mascota conId: id.
+				registrado := veterinaria agregarDiagnostico: diagnostico .
+				registrado ifTrue: [ self informar: 'El diagnostico se registro con exito.' ] ifFalse: [ self informar: 'El diagnostico ingresado ya se encuentra registrado.' ].
+			].
+		].
+	].
+^registrado 
 ]
 
 { #category : 'propiosDelTipo' }

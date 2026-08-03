@@ -61,7 +61,14 @@ Veterinaria >> agregarCliente: unCliente [
 
 { #category : 'add' }
 Veterinaria >> agregarDiagnostico: unDiagnostico [
-	colDiagnosticos add: unDiagnostico.
+	|cargado|
+	cargado := true.
+	(colDiagnosticos anySatisfy: [ :cadaDiagnostico | unDiagnostico equals: cadaDiagnostico ]) 
+		ifFalse: 
+			[ 	colDiagnosticos add: unDiagnostico ] 
+		ifTrue: 
+			[ cargado := false ].
+	^cargado 
 ]
 
 { #category : 'add' }
@@ -111,6 +118,14 @@ Veterinaria >> buscarMascotaConId: unId [
 	].
 ^mascota 
 
+]
+
+{ #category : 'propiosDelTipo' }
+Veterinaria >> buscarMedicamento: unNombre [
+	|medicamento aux|
+	aux := colStockMedicamentos detect: [ :stock | (stock getMedicamento getNombre) = unNombre ].
+	medicamento := aux getMedicamento.
+	^medicamento 
 ]
 
 { #category : 'propiosDelTipo' }

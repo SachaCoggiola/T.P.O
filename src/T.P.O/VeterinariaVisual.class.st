@@ -6,6 +6,8 @@ Class {
 		'registrarCliente',
 		'listarTurnosFecha',
 		'registrarMascota',
+		'registrarDiagnostico',
+		'registrarTratamiento',
 		'botonCerrar',
 		'origen'
 	],
@@ -25,6 +27,7 @@ VeterinariaVisual class >> abrirMenuVet: unaVet [
 
 { #category : 'propiosDelTipo' }
 VeterinariaVisual >> cerrar [
+	"self submorphs do: [ :cadaSubmorph | cadaSubmorph delete ]."
 	self delete
 ]
 
@@ -46,9 +49,19 @@ VeterinariaVisual >> initialize [
 	registrarMascota position: registrarCliente position + (0@40).
 	registrarMascota label: 'Registrar una nueva mascota'.
 	
+	registrarDiagnostico := BotonAccion new.
+	self addMorph: registrarDiagnostico.
+	registrarDiagnostico position: registrarMascota position + (0@40).
+	registrarDiagnostico label: 'Registrar un nuevo diagnostico'.
+
+	registrarTratamiento := BotonAccion new.
+	self addMorph: registrarTratamiento.
+	registrarTratamiento position: registrarDiagnostico position + (0@40).
+	registrarTratamiento label: 'Registrar un nuevo Tratamiento'.
+	
 	listarTurnosFecha := BotonAccion new.
 	self addMorph: listarTurnosFecha .
-	listarTurnosFecha position: registrarMascota position + (0@40).
+	listarTurnosFecha position: registrarTratamiento position + (0@40).
    listarTurnosFecha label: 'Listar los turnos de una fecha ingresada'.
 
 	botonCerrar := BotonAccion new.
@@ -61,6 +74,7 @@ VeterinariaVisual >> initialize [
 	
 	registrarCliente mouseAction: [ self registrarCliente ].
 	registrarMascota mouseAction: [ self registrarMascota ].
+	registrarDiagnostico mouseAction: [ self registrarDiagnostico ].
 	listarTurnosFecha mouseAction: [ self listarTurnosFecha ].
 ]
 

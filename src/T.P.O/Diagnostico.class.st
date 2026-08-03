@@ -23,7 +23,17 @@ Diagnostico class >> crearConFecha: unaFecha conDescripcion: unaDescripcion conM
 
 { #category : 'add' }
 Diagnostico >> agregarTratamiento: unTratamiento [
-colTratamientos add: unTratamiento.
+	|agregado|
+	(self tieneTratamiento: unTratamiento)
+	ifFalse: [ 
+		colTratamientos add: unTratamiento.
+		agregado := true.	
+	] 
+	ifTrue: [ 
+		agregado := false 
+	].
+^agregado 
+	
 ]
 
 { #category : 'propiosDelTipo' }

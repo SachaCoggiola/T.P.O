@@ -90,6 +90,7 @@ AsignarTratamientoVisual >> registrarFarmacologico [
 	diagnostico ifNil: [ self informar: 'Ingrese el diagnostico al cual quiera añadirle un tratamiento nuevo.' ] 
 		ifNotNil: [ 
 			ventana := RegistrarFarmacologicoVisual new.
+			ventana veterinaria: veterinaria.
 			ventana diagnostico: diagnostico.
 			ventana openInWorld.
 		]
@@ -97,6 +98,14 @@ AsignarTratamientoVisual >> registrarFarmacologico [
 
 { #category : 'propiosDelTipo' }
 AsignarTratamientoVisual >> registrarQuirurgico [
+	|ventana|
+	diagnostico ifNil: [ self informar: 'Ingrese el diagnostico al cual quiera añadirle un tratamiento nuevo.' ] 
+		ifNotNil: [ 
+			ventana := RegistrarQuirurgicoVisual new.
+			ventana veterinaria: veterinaria.
+			ventana diagnostico: diagnostico.
+			ventana openInWorld.
+		]
 ]
 
 { #category : 'accessing' }
