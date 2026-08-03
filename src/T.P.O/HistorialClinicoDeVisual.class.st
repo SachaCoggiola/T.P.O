@@ -2,16 +2,22 @@ Class {
 	#name : 'HistorialClinicoDeVisual',
 	#superclass : 'BorderedMorph',
 	#instVars : [
-		'mascotaInput',
+		'mascotaIdInput',
 		'resultadoMorph',
 		'veterinaria',
 		'mascotaObjeto',
 		'origen',
-		'botonHistorialClinico'
+		'botonHistorialClinico',
+		'botonCerrar'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
 }
+
+{ #category : 'propiosDelTipo' }
+HistorialClinicoDeVisual >> cerrar [ 
+self delete.
+]
 
 { #category : 'initialization' }
 HistorialClinicoDeVisual >> crearComponentes [
@@ -21,22 +27,21 @@ HistorialClinicoDeVisual >> crearComponentes [
     y := 15.
 
     etiqueta := LabelMorph new
-        contents: 'Ingrese la Mascota:';
+        contents: 'Ingrese el ID de su Mascota:';
         color: Color black;
         yourself.
     etiqueta position: origen + (x@y).
     self addMorph: etiqueta.
 
     y := y + 30.
-    mascotaInput := LabelWithTextFieldMorph new
-	     label: 'Mascota: ';
+    mascotaIdInput := LabelWithTextFieldMorph new
+	     label: 'ID Mascota: ';
 	     color: Color lightBlue;
         borderWidth: 1;
 	     position: origen + (x@y).
-    self addMorph: mascotaInput .
+    self addMorph: mascotaIdInput .
 
-    "3. Botón para listar los turnos luego de ingresar la fecha"
-    y := mascotaInput position y + 30.
+    y := mascotaIdInput position y + 30.
     botonHistorialClinico := BotonAccion new
 	     mouseAction: [ self historialClinico ];
         position: origen + (x@y);
@@ -44,7 +49,14 @@ HistorialClinicoDeVisual >> crearComponentes [
         yourself.
     self addMorph: botonHistorialClinico .
 
-    "4. Mostrar resultados (StringMorph)"
+    y := y + 40.
+    botonCerrar := BotonAccion new
+	     mouseAction: [ self cerrar ];
+  	     position: origen + (x@y);
+	     label: 'Cerrar';
+	    yourself.
+    self addMorph: botonCerrar.
+
     y := y + 40.
     resultadoMorph := StringMorph new
         contents: '';
@@ -57,7 +69,40 @@ HistorialClinicoDeVisual >> crearComponentes [
 
 { #category : 'method' }
 HistorialClinicoDeVisual >> historialClinico [
+| listaDiagnosticosM textoResultado esValido |
 
+    esValido := true.
+
+    "Verificar que resultadoMorph exista y no sea nil"
+    resultadoMorph ifNil: [
+        resultadoMorph := StringMorph new
+            contents: 'Error: resultadoMorph no inicializado';
+            color: Color red;
+            position: 20 @ 200;
+            yourself.
+        self addMorph: resultadoMorph.
+        ^ self
+    ].
+
+    esValido := self validarId .
+
+(esValido) ifTrue: [  
+
+      listaDiagnosticosM := veterinaria historialClinicoDe: mascotaObjeto .
+
+      textoResultado := String streamContents: [ :stream |
+          listaDiagnosticosM ifEmpty: [
+              stream nextPutAll: 'No hay diagnosticos para ', mascotaObjeto asString, '.'.
+          ] ifNotEmpty: [
+              stream nextPutAll: 'Diagnosticos de ', mascotaObjeto asString, ':'; cr; cr.
+              listaDiagnosticosM do: [ :diag |
+                  stream nextPutAll: '- ', diag asString; cr.
+              ].
+          ].
+      ].
+
+      resultadoMorph contents: textoResultado.
+].
 ]
 
 { #category : 'initialization' }
@@ -71,6 +116,12 @@ HistorialClinicoDeVisual >> initialize [
         bounds: (45@45 extent: 350@420).
 	 origen := self innerBounds origin.
     self crearComponentes .
+]
+
+{ #category : 'method' }
+HistorialClinicoDeVisual >> validarId [ 
+|esValido|
+ 
 ]
 
 { #category : 'accessing' }

@@ -7,7 +7,8 @@ Class {
 		'veterinaria',
 		'fechaObjeto',
 		'origen',
-		'botonListarTurnos'
+		'botonListarTurnos',
+		'botonCerrar'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
@@ -33,7 +34,7 @@ ListarTurnosFechaInterfaz >> crearComponentes [
     etiqueta position: origen + (x@y).
     self addMorph: etiqueta.
 
-    "2. Campo para ingresar la fecha (StringMorph editable)"
+    "2. Campo para ingresar la fecha"
     y := y + 30.
     fechaInput := LabelWithTextFieldMorph new
 	     label: 'Fecha: ';
@@ -51,7 +52,16 @@ ListarTurnosFechaInterfaz >> crearComponentes [
         yourself.
     self addMorph: botonListarTurnos .
 
-    "4. Mostrar resultados (StringMorph)"
+    "4. Botón para cerrar la ventana"
+    y := y + 40.
+    botonCerrar := BotonAccion new
+	     mouseAction: [ self cerrar ];
+  	     position: origen + (x@y);
+	     label: 'Cerrar';
+	    yourself.
+    self addMorph: botonCerrar.
+
+    "5. Mostrar resultados (StringMorph)"
     y := y + 40.
     resultadoMorph := StringMorph new
         contents: '';
@@ -78,8 +88,6 @@ ListarTurnosFechaInterfaz >> initialize [
 { #category : 'method' }
 ListarTurnosFechaInterfaz >> listarTurnos [
 | turnosFiltrados textoResultado  esValido |
-
-    esValido := true.
 
     "Verificar que resultadoMorph exista y no sea nil"
     resultadoMorph ifNil: [
