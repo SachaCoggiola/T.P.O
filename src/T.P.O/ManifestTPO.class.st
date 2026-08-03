@@ -10,8 +10,22 @@ Class {
 }
 
 { #category : 'code-critics' }
+ManifestTPO class >> ruleGuardingClauseRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGPackageDefinition #(#'T.P.O')) #'2026-08-03T16:54:30.223-03:00') )
+]
+
+{ #category : 'code-critics' }
 ManifestTPO class >> ruleLongMethodsRuleV1FalsePositive [
 
 	<ignoreForCoverage>
 	^ #(#(#(#RGMethodDefinition #(#RegistrarClienteVisual #initialize #false)) #'2026-08-03T00:50:59.795-03:00') #(#(#RGMethodDefinition #(#RegistrarDiagnosticoVisual #initialize #false)) #'2026-08-03T00:57:34.693-03:00') #(#(#RGMethodDefinition #(#AsignarTratamientoVisual #initialize #false)) #'2026-08-03T01:37:29.944-03:00') )
+]
+
+{ #category : 'code-critics' }
+ManifestTPO class >> ruleReGuardClauseRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGPackageDefinition #(#'T.P.O')) #'2026-08-03T16:54:42.322-03:00') )
 ]

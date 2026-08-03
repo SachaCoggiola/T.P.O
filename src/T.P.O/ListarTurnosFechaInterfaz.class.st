@@ -1,6 +1,6 @@
 Class {
 	#name : 'ListarTurnosFechaInterfaz',
-	#superclass : 'PanelMorph',
+	#superclass : 'BorderedMorph',
 	#instVars : [
 		'fechaInput',
 		'resultadoMorph',
@@ -72,6 +72,11 @@ ListarTurnosFechaInterfaz >> crearComponentes [
 
 ]
 
+{ #category : 'propiosDelTipo' }
+ListarTurnosFechaInterfaz >> informar: unTexto [
+	PopUp mostrar: unTexto.
+]
+
 { #category : 'initialization' }
 ListarTurnosFechaInterfaz >> initialize [
     super initialize.
@@ -89,42 +94,29 @@ ListarTurnosFechaInterfaz >> initialize [
 ListarTurnosFechaInterfaz >> listarTurnos [
 | turnosFiltrados textoResultado  esValido |
 
-    "Verificar que resultadoMorph exista y no sea nil"
-    resultadoMorph ifNil: [
-        resultadoMorph := StringMorph new
-            contents: 'Error: resultadoMorph no inicializado';
-            color: Color red;
-            position: 20 @ 200;
-            yourself.
-        self addMorph: resultadoMorph.
-        ^ self
-    ].
-
     esValido := self validarFecha .
 
 (esValido) ifTrue: [  
 
-   "Obtener turnos de Veterinaria"
+      self informar: 'Fecha ingresada correctamente'.
+
+   "Llamamos al método de Veterinaria"
       turnosFiltrados := veterinaria listarTurnosFecha: fechaObjeto.
 
-    "Generar texto para mostrar en el resultado"
-      textoResultado := String streamContents: [ :stream |
-          turnosFiltrados ifEmpty: [
-              stream nextPutAll: 'No hay turnos para el ', fechaObjeto asString, '.'.
-          ] ifNotEmpty: [
-              stream nextPutAll: 'Turnos para el ', fechaObjeto asString, ':'; cr; cr.
-              turnosFiltrados do: [ :turno |
-                  stream nextPutAll: '- ', turno toString; cr.
-              ].
-          ].
-      ].
+      textoResultado := ''.
 
-    "Mostrar resultados"
+      (turnosFiltrados) ifEmpty: [ 
+	textoResultado := 'No hay turnos para el ', fechaObjeto asString, '.'.
+	                   ] ifNotEmpty: [ 
+	textoResultado := 'Turnos para el ', fechaObjeto asString, ':'; cr; cr.
+              turnosFiltrados do: [ :turno | '- ', turno toString; cr. ].
+	                   ].
+
       resultadoMorph contents: textoResultado.
 ].
 ]
 
-{ #category : 'method' }
+{ #category : 'as yet unclassified' }
 ListarTurnosFechaInterfaz >> validarFecha [
 |esValido partesFecha fechaTexto |
     esValido := true.
@@ -149,5 +141,5 @@ ListarTurnosFechaInterfaz >> validarFecha [
 
 { #category : 'accessing' }
 ListarTurnosFechaInterfaz >> veterinaria: unaVeterinaria [
-veterinaria := unaVeterinaria .
+^veterinaria := unaVeterinaria .
 ]

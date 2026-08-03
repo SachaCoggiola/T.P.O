@@ -63,3 +63,9 @@ Persona >> setDomicilio: unDomicilio [
 Persona >> setNombre: unNombre [
 	nombre := unNombre.
 ]
+
+{ #category : 'getters' }
+Persona >> toString [
+^ ('Nombre: ', nombre, apellido,
+      ' | Nro DNI: ' , nroDoc)
+]

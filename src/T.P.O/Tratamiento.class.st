@@ -72,6 +72,13 @@ Tratamiento >> setEstado: unEstado [
 ]
 
 { #category : 'propiosDelTipo' }
+Tratamiento >> toString [
+^ ('Fecha: ', fecha asString,
+      ' | Motivo: ' , motivo,
+      ' | Estado: ' , estado)
+]
+
+{ #category : 'propiosDelTipo' }
 Tratamiento >> verificarTratamiento: dia [
 ^false.
 ]

@@ -30,6 +30,11 @@ Mascota >> equals: unaMascota [
 ]
 
 { #category : 'getters' }
+Mascota >> getColAplicaciones [.
+^colAplicaciones .
+]
+
+{ #category : 'getters' }
 Mascota >> getEspecie [
 ^especie.
 ]
@@ -95,6 +100,14 @@ Mascota >> tieneVacunaVencida [
 		].
 	].
 ^ vencida
+]
+
+{ #category : 'getters' }
+Mascota >> toString [
+^ ('Nombre: ', nombre,
+      ' | Especie: ' , especie,
+      ' | Raza: ' , raza)
+
 ]
 
 { #category : 'propiosDelTipo' }
