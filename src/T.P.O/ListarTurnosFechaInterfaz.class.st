@@ -5,27 +5,13 @@ Class {
 		'fechaInput',
 		'resultadoMorph',
 		'veterinaria',
-		'fechaObjeto'
+		'fechaObjeto',
+		'origen',
+		'botonListarTurnos'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
 }
-
-{ #category : 'propiosDelTipo' }
-ListarTurnosFechaInterfaz >> agregarBotonListarTurnos [
-    | x y boton |
-
-    x := 20.
-    y := fechaInput position y + 40.
-
-    boton := PluggableButtonMorph new
-        model: self;
-        label: 'Listar turnos';
-        action: #listarTurnos;
-        yourself.
-    boton position: x @ y.
-    self addMorph: boton.
-]
 
 { #category : 'propiosDelTipo' }
 ListarTurnosFechaInterfaz >> cerrar [ 
@@ -36,36 +22,41 @@ self delete.
 ListarTurnosFechaInterfaz >> crearComponentes [
     | x y etiqueta |
 
-    x := 20.
-    y := 20.
+    x := 5.
+    y := 15.
 
     "1. Etiqueta: 'Ingrese fecha (DD MM YYYY):'"
     etiqueta := LabelMorph new
         contents: 'Ingrese fecha (DD MM YYYY):';
         color: Color black;
         yourself.
-    etiqueta position: x @ y.
+    etiqueta position: origen + (x@y).
     self addMorph: etiqueta.
 
     "2. Campo para ingresar la fecha (StringMorph editable)"
     y := y + 30.
-    fechaInput := StringMorph new
-        contents: '01 08 2026';  "Texto guía en formato DD MM YYYY"
-        color: Color black;
-        borderColor: Color gray;
+    fechaInput := LabelWithTextFieldMorph new
+	     label: 'Fecha: ';
+	     color: Color lightBlue;
         borderWidth: 1;
-        extent: 200 @ 25;
-        position: x @ y;
-        backgroundColor: Color white;
-        yourself.
+	     position: origen + (x@y).
     self addMorph: fechaInput.
 
-    "3. Mostrar resultados (StringMorph)"
+    "3. Botón para listar los turnos luego de ingresar la fecha"
+    y := fechaInput position y + 30.
+    botonListarTurnos := BotonAccion new
+	     mouseAction: [ self listarTurnos ];
+        position: origen + (x@y);
+	     label: 'Listar turnos con esta fecha';
+        yourself.
+    self addMorph: botonListarTurnos .
+
+    "4. Mostrar resultados (StringMorph)"
     y := y + 40.
     resultadoMorph := StringMorph new
         contents: '';
         color: Color blue;
-        position: x @ y;
+        position: origen + (x@y);
         yourself.
     self addMorph: resultadoMorph.
 
@@ -78,15 +69,15 @@ ListarTurnosFechaInterfaz >> initialize [
         color: Color veryLightGray;
         borderColor: Color black;
         borderWidth: 2;
-        extent: 400 @ 300.
+        position: 45@45;
+        bounds: (45@45 extent: 350@420).
+	 origen := self innerBounds origin.
     self crearComponentes .
 ]
 
 { #category : 'method' }
 ListarTurnosFechaInterfaz >> listarTurnos [
 | turnosFiltrados textoResultado  esValido |
-
-"COMENTARIO: no sé como modificar el input para testearlo, revisar en la etapa de testeo"
 
     esValido := true.
 
@@ -104,8 +95,7 @@ ListarTurnosFechaInterfaz >> listarTurnos [
     esValido := self validarFecha .
 
 (esValido) ifTrue: [  
-	   self agregarBotonListarTurnos .
-	
+
    "Obtener turnos de Veterinaria"
       turnosFiltrados := veterinaria listarTurnosFecha: fechaObjeto.
 
@@ -133,9 +123,6 @@ ListarTurnosFechaInterfaz >> validarFecha [
 
   "Obtener el texto ingresado en el campo fechaInput"
     fechaTexto := fechaInput contents asString trimBoth.
-
-  "Normalizar el formato: reemplazar guiones por espacios"
-    fechaTexto := fechaTexto copyReplaceAll: '-' with: ' '.
 
   "Pasamos manualmente la fecha a int en formato DD MM YYYY"
     partesFecha := fechaTexto findTokens: ' '.
