@@ -54,3 +54,10 @@ Aplicacion >> tieneRefuerzo: otraAplicacion [
 Aplicacion >> tieneVacuna: otraVacuna [
 ^(unaVacuna equals: otraVacuna )
 ]
+
+{ #category : 'getters' }
+Aplicacion >> toString [
+^ ('Aplicacion: ', fecha asString,
+      ' | ', 'Médico: ' , unMedico toString,
+      ' | ', 'Vacuna:  ' , unaVacuna toString).
+]

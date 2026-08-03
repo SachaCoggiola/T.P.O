@@ -114,10 +114,10 @@ Turno >> tieneTratamiento [
 
 { #category : 'getters' }
 Turno >> toString [
-^ ('Turno: ', fecha asString, ' | ', hora asString,
-      ' | Cliente: ', unCliente,
-      ' | Mascota: ', unaMascota,
-      ' | Médico: ', unMedico).
+^ ('Turno: ', fecha asString, ' - ', hora asString,
+      ' | Cliente: ', unCliente toString ,
+      ' | Mascota: ', unaMascota toString ,
+      ' | Médico: ', unMedico toString ).
 ]
 
 { #category : 'propiosDelTipo' }

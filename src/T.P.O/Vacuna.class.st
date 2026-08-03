@@ -51,3 +51,9 @@ Vacuna >> inicializarConNombre: unNombre yLab: unLaboratorio yEspecie: unaEspeci
 	especie := unaEspecie .
 	( cantMeses >= 1 ) ifTrue: [ mesesVigencia := cantMeses ] .
 ]
+
+{ #category : 'getters' }
+Vacuna >> toString [
+^ ('Vacuna: ', nombre,
+      ' | Meses Vigencia: ', mesesVigencia asString ).
+]

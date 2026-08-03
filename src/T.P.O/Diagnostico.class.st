@@ -101,3 +101,11 @@ Diagnostico >> tieneTratamiento: otroTratamiento [
 ^( colTratamientos anySatisfy:
 	[:cadaTratamiento | cadaTratamiento = otroTratamiento ] ).
 ]
+
+{ #category : 'getters' }
+Diagnostico >> toString [
+^ ('Diagnóstico: ', descripcion ,
+      ' | Fecha: ' , fecha asString,
+      ' | Médico: ' , medico toString,
+      ' | Mascota: ' , mascota toString).
+]
