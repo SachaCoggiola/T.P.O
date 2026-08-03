@@ -138,6 +138,7 @@ RegistrarDiagnosticoVisual >> registrar [
 		ifNotNil: [  
 			( self validarId and: [ self validarCampos ] ) ifFalse: [ registrado := false. self informar: 'Completar los datos de forma correcta.' ] 
 			ifTrue: [
+				id := campoId contents asNumber.
 				fecha := campoFecha contents .
 				descripcion := campoDescripcion contents.
 				diagnostico := Diagnostico crearConFecha: fecha conDescripcion: descripcion conMedico: medico conMascota: mascota conId: id.

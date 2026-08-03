@@ -119,7 +119,7 @@ Quirurgico >> tipoAnestesiaValido: unTipoAnestesia [
 { #category : 'propiosDelTipo' }
 Quirurgico >> verificarTratamiento: diaValido [
 	|esValido|
-		esValido := ( diaValido and: [ ( nivelRiesgo ~= 2 ) or: [ tipoAnestesia = 'general' ] ] ).
+		esValido := ( diaValido and: [ ( nivelRiesgo ~= 2 ) or: [ tipoAnestesia = 'General' ] ] ).
 ^esValido.
 		  
 ]

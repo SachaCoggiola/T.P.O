@@ -24,7 +24,7 @@ AsignarTratamientoVisual >> buscarDiagnostico [
 		(contenido allSatisfy: [ :c | c isDigit ]) ifFalse: [
 			self informar: 'El id debe contener únicamente números.'.
 		] ifTrue: [ 
-			diagnostico := veterinaria buscarMascotaConId: contenido asNumber.
+			diagnostico := veterinaria buscarDiagnosticoConId: contenido asNumber.
 			diagnostico ifNil: [ self informar: 'No se ha encontrado un diagnostico con el id ingresado' ] ifNotNil: [ self informar: 'Diagnostico encontrada' ] .
 		].
 	] ifTrue: [ self informar: 'Ingrese el id de un diagnostico' ]
@@ -51,14 +51,14 @@ AsignarTratamientoVisual >> initialize [
 	botonFarmacologico := BotonAccion new.
 	self addMorph: botonFarmacologico .
 	botonFarmacologico mouseAction: [ self registrarFarmacologico ].	
-	botonFarmacologico position: (330@105).
-	botonFarmacologico label: 'Registrar'.
+	botonFarmacologico position: (20@210).
+	botonFarmacologico label: 'Registrar tratamiento Farmacologico'.
 	
 	botonQuirurgico := BotonAccion new.
 	self addMorph: botonQuirurgico .
 	botonQuirurgico mouseAction: [ self registrarQuirurgico ].	
-	botonQuirurgico position: (330@105).
-	botonQuirurgico label: 'Registrar'.
+	botonQuirurgico position: (330@210).
+	botonQuirurgico label: 'Registrar tratamiento Quirurgico'.
 	
 	botonCerrar := BotonAccion new.
 	self addMorph: botonCerrar.

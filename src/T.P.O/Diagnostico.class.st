@@ -99,5 +99,5 @@ Diagnostico >> tieneMedico: otroMedico [
 { #category : 'propiosDelTipo' }
 Diagnostico >> tieneTratamiento: otroTratamiento [
 ^( colTratamientos anySatisfy:
-	[:cadaTratamiento | cadaTratamiento equals: otroTratamiento ] ).
+	[:cadaTratamiento | cadaTratamiento = otroTratamiento ] ).
 ]

@@ -75,6 +75,7 @@ VeterinariaVisual >> initialize [
 	registrarCliente mouseAction: [ self registrarCliente ].
 	registrarMascota mouseAction: [ self registrarMascota ].
 	registrarDiagnostico mouseAction: [ self registrarDiagnostico ].
+	registrarTratamiento mouseAction: [ self registrarTratamiento ].
 	listarTurnosFecha mouseAction: [ self listarTurnosFecha ].
 ]
 
@@ -111,6 +112,14 @@ VeterinariaVisual >> registrarMascota [
     ventana := RegistrarMascotaVisual new.
     ventana veterinaria: veterinaria.
     ventana openInWorld.
+]
+
+{ #category : 'accessing' }
+VeterinariaVisual >> registrarTratamiento [
+	|ventana|
+	ventana := AsignarTratamientoVisual new.
+	ventana veterinaria: veterinaria.
+	ventana openInWorld.
 ]
 
 { #category : 'accessing' }

@@ -108,8 +108,16 @@ Veterinaria >> buscarClienteConMascota: unaMascota [
 ]
 
 { #category : 'propiosDelTipo' }
+Veterinaria >> buscarDiagnosticoConId: unId [
+	|diagnostico|
+	diagnostico := colDiagnosticos detect: [ :cadaDiagnostico | cadaDiagnostico getId = unId ] ifNone: [ nil ].
+^diagnostico 
+
+]
+
+{ #category : 'propiosDelTipo' }
 Veterinaria >> buscarMascotaConId: unId [
-	| mascota |
+	|mascota|
 	mascota := nil.
 	colClientes do: [:cadaCliente |
 		mascota ifNil: [
@@ -258,10 +266,10 @@ Veterinaria >> registrarTratamiento: unTratamiento conDiagnostico: unDiagnostico
 			medicamento := unTratamiento getMedicamento.
 			dosis := unTratamiento getDosis.
 			registrado := self revisarStock: medicamento Y: dosis.
-			] 
-		].
-	(registrado) ifTrue: [ unDiagnostico agregarTratamiento: unTratamiento ].
-	^registrado 
+			].
+		registrado := unDiagnostico agregarTratamiento: unTratamiento. 
+	].
+^registrado 
 ]
 
 { #category : 'propiosDelTipo' }

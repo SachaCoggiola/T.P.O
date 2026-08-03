@@ -30,6 +30,14 @@ Cliente >> agregarMascota: unaMascota [
 	^cargado 
 ]
 
+{ #category : 'propiosDelTipo' }
+Cliente >> buscarMascotaConId: unId [
+	|mascota|
+	mascota := colMascotas detect: [ :cadaMascota | cadaMascota getId = unId ] ifNone: [ nil ].
+	^mascota
+	
+]
+
 { #category : 'getters' }
 Cliente >> getEmail [
 ^email.

@@ -82,13 +82,13 @@ RegistrarQuirurgicoVisual >> initialize [
 	Quirurgico inicializarTablas.	
 	campoNivel := DropListMorph new.
 	campoNivel list: Quirurgico aumentoRiesgo keys asOrderedCollection.
-	campoNivel position: (20@20).
+	campoNivel position: campoNombre position + (0@60).
 	campoNivel extent: (150@25).
 	self addMorph: campoNivel.
 	
 	campoTipo := DropListMorph new.
 	campoTipo list: Quirurgico costoAnestesia keys asOrderedCollection.
-	campoTipo position: (60@20).
+	campoTipo position: campoNivel position + (0@60).
 	campoTipo extent: (150@25).
 	self addMorph: campoTipo.
 ]
@@ -107,14 +107,15 @@ RegistrarQuirurgicoVisual >> registrar [
 		ifNil: 
 			[ self informar: 'Elegir el nivel de riesgo del tratamiento quirurgico a registrar' ]
 		ifNotNil: [
-			( self validarCampos ) ifFalse: [ registrado := false. self informar: 'Completar los datos de forma correcta.' ] 
-			ifTrue: [  
-				fecha := campoFecha contents.
-				motivo := campoMotivo contents.
-				nombre := campoNombre contents.
-				quirurgico := Quirurgico crearConNombre: nombre conNivelRiesgo: nivelRiesgo conTipoAnestesia: tipoAnestesia conFecha: fecha conMotivo: motivo.
-				registrado := veterinaria registrarTratamiento: quirurgico conDiagnostico: diagnostico.
-				registrado ifTrue: [ self informar: 'El tratamiento se registro con exito' ] ifFalse: [ self informar: 'El tratamiento ingresado no es valido, no se ha podido registrar el tratamiento.' ].
+			self validarFecha ifTrue: [
+				( self validarCampos ) ifFalse: [ self informar: 'Completar los datos de forma correcta.' ] 
+				ifTrue: [  
+					motivo := campoMotivo contents.
+					nombre := campoNombre contents.
+					quirurgico := Quirurgico crearConNombre: nombre conNivelRiesgo: nivelRiesgo conTipoAnestesia: tipoAnestesia conFecha: fecha conMotivo: motivo.
+					registrado := veterinaria registrarTratamiento: quirurgico conDiagnostico: diagnostico.
+					registrado ifTrue: [ self informar: 'El tratamiento se registro con exito' ] ifFalse: [ self informar: 'El tratamiento ingresado no es valido, no se ha podido registrar el tratamiento.' ].
+				].
 			].
 		].
 	]. 
@@ -126,6 +127,29 @@ RegistrarQuirurgicoVisual >> validarCampos [
 	|completos|
 	completos := { campoFecha . campoMotivo . campoNombre } allSatisfy: [ :cadaCampo | cadaCampo contents isNotEmpty ] .
 ^completos
+]
+
+{ #category : 'method' }
+RegistrarQuirurgicoVisual >> validarFecha [
+|esValido partesFecha fechaTexto |
+    esValido := true.
+
+  "Obtener el texto ingresado en el campo fechaInput"
+    fechaTexto := campoFecha contents asString trimBoth.
+
+  "Pasamos manualmente la fecha a int en formato DD MM YYYY"
+    partesFecha := fechaTexto findTokens: ' '.
+    fecha := [
+        Date
+            year: partesFecha third asInteger
+            month: partesFecha second asInteger
+            day: partesFecha first asInteger
+    ] on: Error do: [
+        self informar: 'Formato incorrecto. Use DD MM YYYY (ej: 01 08 2026)'.
+        esValido := false
+    ].
+
+^esValido .
 ]
 
 { #category : 'accessing' }
