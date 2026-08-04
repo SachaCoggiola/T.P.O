@@ -8,17 +8,18 @@ Class {
 		'colMedicos',
 		'colDiagnosticos',
 		'colStockMedicamentos',
-		'cuit'
+		'cuit',
+		'nombre'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
 }
 
 { #category : 'creation' }
-Veterinaria class >> crearConCuit: unCuit [
+Veterinaria class >> crearConCuit: unCuit conNombre: unNombre [
 	|veterinaria|
 		veterinaria := self new.
-		veterinaria inicializarCuit: unCuit.
+		veterinaria inicializarCuit: unCuit conNombre: unNombre.
 		^veterinaria 
 ]
 
@@ -116,6 +117,13 @@ Veterinaria >> buscarDiagnosticoConId: unId [
 ]
 
 { #category : 'propiosDelTipo' }
+Veterinaria >> buscarFacturaConCliente: cliente conDiagnostico: diagnostico [
+	|factura|
+	factura := colFacturas detect: [ :cadaFactura | (cadaFactura getCliente equals: cliente) and: [ cadaFactura getDiagnostico equals: diagnostico ] ] ifNone: [ nil ] .
+^factura 
+]
+
+{ #category : 'propiosDelTipo' }
 Veterinaria >> buscarMascotaConId: unId [
 	|mascota|
 	mascota := nil.
@@ -198,6 +206,11 @@ Veterinaria >> getCuit [
 ^cuit.
 ]
 
+{ #category : 'getters' }
+Veterinaria >> getNombre [
+^nombre
+]
+
 { #category : 'propiosDelTipo' }
 Veterinaria >> historialClinicoDe: unaMascota [
 |listaDiagnosticosMascota|
@@ -217,7 +230,8 @@ Veterinaria >> historialTurnosDe: unCliente [
 ]
 
 { #category : 'initialization' }
-Veterinaria >> inicializarCuit: unCuit [
+Veterinaria >> inicializarCuit: unCuit conNombre: unNombre [
+	nombre := unNombre.
 	cuit := unCuit.
 	colFacturas := OrderedCollection new.
 	colTurnos := OrderedCollection new.

@@ -10,6 +10,14 @@ Class {
 	#package : 'T.P.O'
 }
 
+{ #category : 'as yet unclassified' }
+Pago class >> crearConMonto: unMonto conMedioPago: medioPago [
+	|pago|
+	pago := self new.
+	pago inicializarConMonto: unMonto conMedioPago: medioPago.
+^pago
+]
+
 { #category : 'getters' }
 Pago >> getFecha [
 ^fecha.
@@ -23,4 +31,11 @@ Pago >> getMedioDePago [
 { #category : 'getters' }
 Pago >> getMonto [
 ^(montoAbonado + ((montoAbonado * unMedioPago getRecargo) / 100)).
+]
+
+{ #category : 'initialization' }
+Pago >> inicializarConMonto: unMonto conMedioPago: medioPago [
+	montoAbonado := unMonto.
+	unMedioPago := medioPago.
+	fecha := Date today.
 ]

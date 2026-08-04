@@ -18,7 +18,7 @@ Tratamiento >> calcularMonto [
 ^costoBase.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 Tratamiento >> esFarmacologico [
 ^false
 ]

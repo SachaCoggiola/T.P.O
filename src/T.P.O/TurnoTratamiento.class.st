@@ -29,7 +29,7 @@ TurnoTratamiento >> inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMoti
 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'propiosDelTipo' }
 TurnoTratamiento >> tieneTratamiento [ 
 ^true
 ]

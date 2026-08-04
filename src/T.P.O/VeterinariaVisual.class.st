@@ -8,7 +8,12 @@ Class {
 		'registrarMascota',
 		'registrarDiagnostico',
 		'registrarTratamiento',
+		'registrarPago',
+		'facturarDiagnostico',
+		'inicializarSistema',
+		'facturar',
 		'botonCerrar',
+		'etiqueta',
 		'origen'
 	],
 	#category : 'T.P.O',
@@ -31,17 +36,31 @@ VeterinariaVisual >> cerrar [
 	self delete
 ]
 
+{ #category : 'accessing' }
+VeterinariaVisual >> facturarDiagnostico [
+	|ventana|
+	
+	ventana := FacturarDiagnostico new.
+	ventana veterinaria: veterinaria.
+	ventana openInWorld.
+]
+
+{ #category : 'propiosDelTipo' }
+VeterinariaVisual >> informar: unTexto [
+	PopUp mostrar: unTexto.
+]
+
 { #category : 'initialization' }
 VeterinariaVisual >> initialize [ 
 	super initialize.
-	self color: Color darkGray.
+	self color: (Color fromHexString: '024a86').
 	self position: 45@45.
-	self bounds: (45@45 extent: 350@420).
+	self bounds: (45@45 extent: 400@500).
 	
 	registrarCliente := BotonAccion new.
 	self addMorph: registrarCliente.
 	origen := self innerBounds origin.
-	registrarCliente position: origen + (10@10).
+	registrarCliente position: origen + (30@40).
 	registrarCliente label: 'Registrar un nuevo cliente'.
 	
 	registrarMascota := BotonAccion new.
@@ -59,15 +78,25 @@ VeterinariaVisual >> initialize [
 	registrarTratamiento position: registrarDiagnostico position + (0@40).
 	registrarTratamiento label: 'Registrar un nuevo Tratamiento'.
 	
+	registrarPago := BotonAccion new.
+	self addMorph: registrarPago.
+	registrarPago position: registrarTratamiento position + (0@40).
+	registrarPago label: 'Registrar un nuevo Pago'.
+
+	facturar := BotonAccion new.
+	self addMorph: facturar.
+	facturar position: registrarPago position + (0@40).
+	facturar label: 'Facturar un diagnostico'.
+	
 	listarTurnosFecha := BotonAccion new.
 	self addMorph: listarTurnosFecha .
-	listarTurnosFecha position: registrarTratamiento position + (0@40).
+	listarTurnosFecha position: facturar position + (0@40).
    listarTurnosFecha label: 'Listar los turnos de una fecha ingresada'.
 
 	botonCerrar := BotonAccion new.
 	self addMorph: botonCerrar.
 	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (330@400).
+	botonCerrar position: (330@480).
 	botonCerrar label: 'Cerrar'.
 	
 	self update: veterinaria.
@@ -76,6 +105,8 @@ VeterinariaVisual >> initialize [
 	registrarMascota mouseAction: [ self registrarMascota ].
 	registrarDiagnostico mouseAction: [ self registrarDiagnostico ].
 	registrarTratamiento mouseAction: [ self registrarTratamiento ].
+	registrarPago mouseAction: [ self registrarPago ].
+	facturar mouseAction: [ self facturarDiagnostico ].
 	listarTurnosFecha mouseAction: [ self listarTurnosFecha ].
 ]
 
@@ -115,6 +146,14 @@ VeterinariaVisual >> registrarMascota [
 ]
 
 { #category : 'accessing' }
+VeterinariaVisual >> registrarPago [
+	|ventana|
+	ventana := RegistrarPagoVisual new.
+	ventana veterinaria: veterinaria.
+	ventana openInWorld.
+]
+
+{ #category : 'accessing' }
 VeterinariaVisual >> registrarTratamiento [
 	|ventana|
 	ventana := AsignarTratamientoVisual new.
@@ -124,5 +163,10 @@ VeterinariaVisual >> registrarTratamiento [
 
 { #category : 'accessing' }
 VeterinariaVisual >> veterinaria: unaVet [
-	veterinaria := unaVet
+	veterinaria := unaVet.
+	etiqueta := LabelMorph new.
+	self addMorph: etiqueta.
+	etiqueta contents: veterinaria getNombre.
+	etiqueta position: origen + (10@10).
+	etiqueta color: Color black .
 ]

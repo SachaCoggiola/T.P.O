@@ -1,23 +1,22 @@
 Class {
-	#name : 'AsignarTratamientoVisual',
+	#name : 'FacturarDiagnostico',
 	#superclass : 'BorderedMorph',
 	#instVars : [
-		'diagnostico',
 		'campoDiagnostico',
-		'etiqueta',
-		'botonCerrar',
-		'botonFarmacologico',
-		'botonQuirurgico',
-		'botonBuscarDiagnostico',
+		'diagnostico',
 		'veterinaria',
-		'origen'
+		'origen',
+		'botonFacturar',
+		'botonCerrar',
+		'etiqueta',
+		'botonBuscarDiagnostico'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
 }
 
 { #category : 'propiosDelTipo' }
-AsignarTratamientoVisual >> buscarDiagnostico [
+FacturarDiagnostico >> buscarDiagnostico [
 	|contenido|
 	contenido := campoDiagnostico contents.
 	contenido trimBoth isEmpty ifFalse: [
@@ -31,35 +30,38 @@ AsignarTratamientoVisual >> buscarDiagnostico [
 ]
 
 { #category : 'propiosDelTipo' }
-AsignarTratamientoVisual >> cerrar [
+FacturarDiagnostico >> cerrar [
 	self delete.
 ]
 
 { #category : 'propiosDelTipo' }
-AsignarTratamientoVisual >> informar: unTexto [
+FacturarDiagnostico >> facturar [
+	diagnostico ifNil: [ self informar: 'Buscar el diagnostico el cual quiera facturar' ] 
+	ifNotNil: [ 
+		veterinaria generarFactura: diagnostico.
+		self informar: 'Se ha facturado el diagnostico exitosamente'
+		 ] 
+]
+
+{ #category : 'propiosDelTipo' }
+FacturarDiagnostico >> informar: unTexto [
 	PopUp mostrar: unTexto.
 ]
 
 { #category : 'initialization' }
-AsignarTratamientoVisual >> initialize [ 
+FacturarDiagnostico >> initialize [ 
 	super initialize.
 	self color: (Color fromHexString: '024a86').
 	self position: 45@45.
 	self bounds: (45@45 extent: 350@420).
 	origen := self innerBounds origin.
 	
-	botonFarmacologico := BotonAccion new.
-	self addMorph: botonFarmacologico .
-	botonFarmacologico mouseAction: [ self registrarFarmacologico ].	
-	botonFarmacologico position: (20@210).
-	botonFarmacologico label: 'Registrar tratamiento Farmacologico'.
-	
-	botonQuirurgico := BotonAccion new.
-	self addMorph: botonQuirurgico .
-	botonQuirurgico mouseAction: [ self registrarQuirurgico ].	
-	botonQuirurgico position: (330@210).
-	botonQuirurgico label: 'Registrar tratamiento Quirurgico'.
-	
+	botonFacturar := BotonAccion new.
+	self addMorph: botonFacturar .
+	botonFacturar mouseAction: [ self facturar ].	
+	botonFacturar position: (20@210).
+	botonFacturar label: 'Facturar diagnostico'.
+
 	botonCerrar := BotonAccion new.
 	self addMorph: botonCerrar.
 	botonCerrar mouseAction: [ self cerrar ].
@@ -68,7 +70,7 @@ AsignarTratamientoVisual >> initialize [
 	
 	etiqueta := LabelMorph new.
 	self addMorph: etiqueta.
-	etiqueta contents: 'Ingrese el Id del diagnostico al cual quiera cargar el tratamiento.'.
+	etiqueta contents: 'Ingrese el Id del diagnostico al cual quiera facturar.'.
 	etiqueta position: origen + (5@15).
 	etiqueta color: Color black .
 	
@@ -84,31 +86,7 @@ AsignarTratamientoVisual >> initialize [
 	botonBuscarDiagnostico label: 'Buscar diagnostico'.
 ]
 
-{ #category : 'propiosDelTipo' }
-AsignarTratamientoVisual >> registrarFarmacologico [
-	|ventana|
-	diagnostico ifNil: [ self informar: 'Ingrese el diagnostico al cual quiera añadirle un tratamiento nuevo.' ] 
-		ifNotNil: [ 
-			ventana := RegistrarFarmacologicoVisual new.
-			ventana veterinaria: veterinaria.
-			ventana diagnostico: diagnostico.
-			ventana openInWorld.
-		]
-]
-
-{ #category : 'propiosDelTipo' }
-AsignarTratamientoVisual >> registrarQuirurgico [
-	|ventana|
-	diagnostico ifNil: [ self informar: 'Ingrese el diagnostico al cual quiera añadirle un tratamiento nuevo.' ] 
-		ifNotNil: [ 
-			ventana := RegistrarQuirurgicoVisual new.
-			ventana veterinaria: veterinaria.
-			ventana diagnostico: diagnostico.
-			ventana openInWorld.
-		]
-]
-
 { #category : 'accessing' }
-AsignarTratamientoVisual >> veterinaria: unaVeterinaria [
+FacturarDiagnostico >> veterinaria: unaVeterinaria [
 ^veterinaria := unaVeterinaria 
 ]
