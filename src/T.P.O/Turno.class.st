@@ -108,6 +108,11 @@ Turno >> tieneFecha: otraFecha [
 ]
 
 { #category : 'propiosDelTipo' }
+Turno >> tieneMedico: otroMedico [
+^(unMedico equals: otroMedico).
+]
+
+{ #category : 'propiosDelTipo' }
 Turno >> tieneTratamiento [ 
 ^false
 ]
@@ -123,6 +128,7 @@ Turno >> toString [
 { #category : 'propiosDelTipo' }
 Turno >> validarTurno [
 "Valida que el turno tenga una fecha y hora mayor a la actual"
+
 ^( (fecha >= Date today ) and: (hora >= Time now) ).
 ]
 

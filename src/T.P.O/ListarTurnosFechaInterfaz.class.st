@@ -38,7 +38,7 @@ ListarTurnosFechaInterfaz >> crearComponentes [
     y := y + 30.
     fechaInput := LabelWithTextFieldMorph new
 	     label: 'Fecha: ';
-	     color: Color lightBlue;
+	     color: (Color fromHexString: '655884');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: fechaInput.
@@ -48,6 +48,8 @@ ListarTurnosFechaInterfaz >> crearComponentes [
     botonListarTurnos := BotonAccion new
 	     mouseAction: [ self listarTurnos ];
         position: origen + (x@y);
+        color:(Color fromHexString: '655884');
+        borderColor: Color black;
 	     label: 'Listar turnos con esta fecha';
         yourself.
     self addMorph: botonListarTurnos .
@@ -56,6 +58,8 @@ ListarTurnosFechaInterfaz >> crearComponentes [
     y := y + 40.
     botonCerrar := BotonAccion new
 	     mouseAction: [ self cerrar ];
+	     color:(Color fromHexString: '655884');
+	     borderColor: Color black;
   	     position: origen + (x@y);
 	     label: 'Cerrar';
 	    yourself.
@@ -65,7 +69,7 @@ ListarTurnosFechaInterfaz >> crearComponentes [
     y := y + 40.
     resultadoMorph := StringMorph new
         contents: '';
-        color: Color blue;
+        color: Color black;
         position: origen + (x@y);
         yourself.
     self addMorph: resultadoMorph.
@@ -81,7 +85,7 @@ ListarTurnosFechaInterfaz >> informar: unTexto [
 ListarTurnosFechaInterfaz >> initialize [
     super initialize.
     self
-        color: Color veryLightGray;
+        color: (Color fromHexString: 'eaebd1');
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
@@ -90,7 +94,7 @@ ListarTurnosFechaInterfaz >> initialize [
     self crearComponentes .
 ]
 
-{ #category : 'method' }
+{ #category : 'as yet unclassified' }
 ListarTurnosFechaInterfaz >> listarTurnos [
 | turnosFiltrados textoResultado  esValido |
 
@@ -116,7 +120,7 @@ ListarTurnosFechaInterfaz >> listarTurnos [
 ].
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'method' }
 ListarTurnosFechaInterfaz >> validarFecha [
 |esValido partesFecha fechaTexto |
     esValido := true.

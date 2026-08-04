@@ -30,6 +30,24 @@ VeterinariaVisual class >> abrirMenuVet: unaVet [
 	^window 
 ]
 
+{ #category : 'accessing' }
+VeterinariaVisual >> atenderSolicitudTurno [
+ | ventana |
+
+    ventana := AtenderSolicitudTurnoVisual new.
+    ventana veterinaria: veterinaria.
+    ventana openInWorld.
+]
+
+{ #category : 'accessing' }
+VeterinariaVisual >> cancelarTurnoPendiente [
+ | ventana |
+
+    ventana := CancelarTurnoPendienteVisual new.
+    ventana veterinaria: veterinaria.
+    ventana openInWorld.
+]
+
 { #category : 'propiosDelTipo' }
 VeterinariaVisual >> cerrar [
 	"self submorphs do: [ :cadaSubmorph | cadaSubmorph delete ]."
@@ -43,6 +61,33 @@ VeterinariaVisual >> facturarDiagnostico [
 	ventana := FacturarDiagnostico new.
 	ventana veterinaria: veterinaria.
 	ventana openInWorld.
+]
+
+{ #category : 'accessing' }
+VeterinariaVisual >> facturasPendientesCliente [
+ | ventana |
+
+    ventana := FacturasPendientesClienteVisual new.
+    ventana veterinaria: veterinaria.
+    ventana openInWorld.
+]
+
+{ #category : 'accessing' }
+VeterinariaVisual >> historialClinicoDe [
+ | ventana |
+
+    ventana := HistorialClinicoDeVisual new.
+    ventana veterinaria: veterinaria.
+    ventana openInWorld.
+]
+
+{ #category : 'accessing' }
+VeterinariaVisual >> historialTurnosDe [
+ | ventana |
+
+    ventana := HistorialTurnosDeVisual new.
+    ventana veterinaria: veterinaria.
+    ventana openInWorld.
 ]
 
 { #category : 'propiosDelTipo' }
@@ -111,6 +156,15 @@ VeterinariaVisual >> initialize [
 ]
 
 { #category : 'accessing' }
+VeterinariaVisual >> listarTratamientosMedico [
+ | ventana |
+
+    ventana := ListarTratamientosMedicoVisual new.
+    ventana veterinaria: veterinaria.
+    ventana openInWorld.
+]
+
+{ #category : 'accessing' }
 VeterinariaVisual >> listarTurnosFecha [
  | ventana |
 
@@ -128,7 +182,7 @@ VeterinariaVisual >> registrarCliente [
     ventana openInWorld.
 ]
 
-{ #category : 'propiosDelTipo' }
+{ #category : 'accessing' }
 VeterinariaVisual >> registrarDiagnostico [
 	|ventana|
 	ventana := RegistrarDiagnosticoVisual new.

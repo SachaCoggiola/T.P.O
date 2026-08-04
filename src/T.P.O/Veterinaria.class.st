@@ -152,6 +152,17 @@ Veterinaria >> buscarMedicoConDni: unDni [
 ]
 
 { #category : 'propiosDelTipo' }
+Veterinaria >> buscarTurnoConFecha: unaFecha yHora: unaHora yDniMedico: unDNI [
+|turno|
+	turno := colTurnos detect: [ :cadaTurno | 
+		   (cadaTurno getFecha = unaFecha) and:
+		   [(cadaTurno getHora = unaHora) and: 
+			(cadaTurno tieneMedico: (self buscarMedicoConDni: unDNI) ) ] ] 
+	ifNone: [nil].
+^turno 
+]
+
+{ #category : 'propiosDelTipo' }
 Veterinaria >> cancelarTurnoPendiente: unTurno [
 |turnoBuscado rta|
   rta := false.

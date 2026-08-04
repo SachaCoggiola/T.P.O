@@ -24,6 +24,13 @@ ManifestTPO class >> ruleLongMethodsRuleV1FalsePositive [
 ]
 
 { #category : 'code-critics' }
+ManifestTPO class >> ruleNoClassCommentRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGPackageDefinition #(#'T.P.O')) #'2026-08-03T22:18:31.087-03:00') )
+]
+
+{ #category : 'code-critics' }
 ManifestTPO class >> ruleReGuardClauseRuleV1FalsePositive [
 
 	<ignoreForCoverage>
