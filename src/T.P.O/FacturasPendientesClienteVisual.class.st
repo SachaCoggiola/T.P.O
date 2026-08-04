@@ -38,7 +38,7 @@ FacturasPendientesClienteVisual >> crearComponentes [
     y := y + 30.
     dniInput := LabelWithTextFieldMorph new
 	     label: 'DNI: ';
-	     color: Color lightBlue;
+	     color: (Color fromHexString: '655884');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: dniInput.
@@ -48,6 +48,8 @@ FacturasPendientesClienteVisual >> crearComponentes [
     botonListarFacturas := BotonAccion new
 	     mouseAction: [ self listarFacturas ];
         position: origen + (x@y);
+        color:(Color fromHexString: '655884');
+	     borderColor: Color black;
 	     label: 'Listar facturas pendientes del Cliente';
         yourself.
     self addMorph: botonListarFacturas .
@@ -57,6 +59,8 @@ FacturasPendientesClienteVisual >> crearComponentes [
     botonCerrar := BotonAccion new
 	     mouseAction: [ self cerrar ];
   	     position: origen + (x@y);
+	     color:(Color fromHexString: '655884');
+	     borderColor: Color black;
 	     label: 'Cerrar';
 	    yourself.
     self addMorph: botonCerrar.
@@ -65,7 +69,7 @@ FacturasPendientesClienteVisual >> crearComponentes [
     y := y + 40.
     resultadoMorph := StringMorph new
         contents: '';
-        color: Color blue;
+        color: Color black;
         position: origen + (x@y);
         yourself.
     self addMorph: resultadoMorph.
@@ -81,7 +85,7 @@ FacturasPendientesClienteVisual >> informar: unTexto [
 FacturasPendientesClienteVisual >> initialize [
     super initialize.
     self
-        color: Color veryLightGray;
+        color: (Color fromHexString: 'eaebd1');
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
@@ -90,7 +94,7 @@ FacturasPendientesClienteVisual >> initialize [
     self crearComponentes .
 ]
 
-{ #category : 'method' }
+{ #category : 'as yet unclassified' }
 FacturasPendientesClienteVisual >> listarFacturas [
 | pendientesCliente textoResultado esValido |
 

@@ -37,7 +37,7 @@ HistorialClinicoDeVisual >> crearComponentes [
     y := y + 30.
     mascotaIdInput := LabelWithTextFieldMorph new
 	     label: 'ID Mascota: ';
-	     color: Color lightBlue;
+	     color: (Color fromHexString: '655884');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: mascotaIdInput .
@@ -46,6 +46,8 @@ HistorialClinicoDeVisual >> crearComponentes [
     botonHistorialClinico := BotonAccion new
 	     mouseAction: [ self historialClinico ];
         position: origen + (x@y);
+        color:(Color fromHexString: '655884');
+	     borderColor: Color black;
 	     label: 'Listar turnos con esta fecha';
         yourself.
     self addMorph: botonHistorialClinico .
@@ -54,6 +56,8 @@ HistorialClinicoDeVisual >> crearComponentes [
     botonCerrar := BotonAccion new
 	     mouseAction: [ self cerrar ];
   	     position: origen + (x@y);
+	     color:(Color fromHexString: '655884');
+	     borderColor: Color black;
 	     label: 'Cerrar';
 	    yourself.
     self addMorph: botonCerrar.
@@ -61,7 +65,7 @@ HistorialClinicoDeVisual >> crearComponentes [
     y := y + 40.
     resultadoMorph := StringMorph new
         contents: '';
-        color: Color blue;
+        color: Color black;
         position: origen + (x@y);
         yourself.
     self addMorph: resultadoMorph.
@@ -105,7 +109,7 @@ HistorialClinicoDeVisual >> informar: unTexto [
 HistorialClinicoDeVisual >> initialize [
     super initialize.
     self
-        color: Color veryLightGray;
+        color: (Color fromHexString: 'eaebd1');
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
