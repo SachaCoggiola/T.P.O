@@ -38,6 +38,11 @@ Cliente >> buscarMascotaConId: unId [
 	
 ]
 
+{ #category : 'propiosDelTipo' }
+Cliente >> cantMascotas [ 
+^(colMascotas size)
+]
+
 { #category : 'getters' }
 Cliente >> getEmail [
 ^email.

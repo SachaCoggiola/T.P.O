@@ -186,6 +186,11 @@ Veterinaria >> cancelarTurnoPendiente: unTurno [
 ]
 
 { #category : 'propiosDelTipo' }
+Veterinaria >> cantMascotas [
+^(colClientes inject: 0 into: [:total :cliente | total + cliente cantMascotas])
+]
+
+{ #category : 'propiosDelTipo' }
 Veterinaria >> facturasPendientes [	
 	|listaPendientes|
 	listaPendientes := colFacturas select: [ :facturas |facturas verificarSaldoPendiente > 0].
@@ -369,6 +374,13 @@ self agendarTurno: turno.
 turno setEstado: 'atendido'.
 
 ^true.
+]
+
+{ #category : 'propiosDelTipo' }
+Veterinaria >> listarClientes [
+|textoResultado|
+    textoResultado := colClientes collect: [:cliente | cliente toString, String cr ].
+    ^ (textoResultado inject: '' into: [:str :linea | str, linea, String cr]).
 ]
 
 { #category : 'propiosDelTipo' }

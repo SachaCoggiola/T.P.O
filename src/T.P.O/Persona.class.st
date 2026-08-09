@@ -66,6 +66,6 @@ Persona >> setNombre: unNombre [
 
 { #category : 'getters' }
 Persona >> toString [
-^ ('Nombre: ', nombre, apellido,
-      ' | Nro DNI: ' , nroDoc)
+^ ('Nombre: ', nombre, ' ', apellido,
+      ' | Nro DNI: ' , nroDoc asString)
 ]
