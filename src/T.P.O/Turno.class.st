@@ -75,13 +75,6 @@ Turno >> getMotivo [
 ]
 
 { #category : 'initialization' }
-Turno >> inicializarConFecha: unaFecha yHora: unaHora [ 
-"METODO TEMPORAL PARA TESTEAR"
-fecha := unaFecha .
-hora := unaHora .
-]
-
-{ #category : 'initialization' }
 Turno >> inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente: cliente yMascota: mascota yMedico: medico [
 	fecha := unaFecha .
 	hora := unaHora .
@@ -94,7 +87,7 @@ Turno >> inicializarConFecha: unaFecha yHora: unaHora yMotivo: unMotivo yCliente
 
 { #category : 'setters' }
 Turno >> setEstado: unEstado [
-	( { 'pendiente' . 'confirmado' . 'cancelado' . 'atendido' . 'ausente' } contains: unEstado) ifTrue: [ estado := unEstado ].
+	( { 'pendiente' . 'confirmado' . 'cancelado' . 'atendido' . 'ausente' } includes: unEstado) ifTrue: [ estado := unEstado ].
 ]
 
 { #category : 'propiosDelTipo' }

@@ -38,7 +38,7 @@ HistorialTurnosDeVisual >> crearComponentes [
     y := y + 30.
     dniInput := LabelWithTextFieldMorph new
 	     label: 'DNI: ';
-	     color: (Color fromHexString: '655884');
+	     color: (Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: dniInput.
@@ -48,7 +48,7 @@ HistorialTurnosDeVisual >> crearComponentes [
     botonListarTurnos := BotonAccion new
 	     mouseAction: [ self listarTurnos ];
         position: origen + (x@y);
-        color:(Color fromHexString: '655884');
+        color:(Color fromHexString: '313668');
 	     borderColor: Color black;
 	     label: 'Listar facturas pendientes del Cliente';
         yourself.
@@ -59,7 +59,7 @@ HistorialTurnosDeVisual >> crearComponentes [
     botonCerrar := BotonAccion new
 	     mouseAction: [ self cerrar ];
   	     position: origen + (x@y);
-	      color:(Color fromHexString: '655884');
+	      color:(Color fromHexString: '313668');
 	     borderColor: Color black;
 	     label: 'Cerrar';
 	    yourself.
@@ -85,7 +85,7 @@ HistorialTurnosDeVisual >> informar: unTexto [
 HistorialTurnosDeVisual >> initialize [
     super initialize.
     self
-        color: (Color fromHexString: 'eaebd1');
+        color: (Color fromHexString: '92d2bf');
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;

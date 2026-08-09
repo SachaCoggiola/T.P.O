@@ -14,7 +14,7 @@ BotonAccion >> initialize [
 	super initialize.
 	
 	self color: Color black.
-	self borderColor: Color white.
+	self borderColor: Color black .
 	self borderWidth: 1.
 ]
 

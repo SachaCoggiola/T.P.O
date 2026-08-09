@@ -59,47 +59,55 @@ self delete.
 
 { #category : 'initialization' }
 AtenderSolicitudTurnoVisual >> crearComponentes [
-    | x y etiqueta |
+    | x y etiqueta1 etiqueta2 |
 
-    x := 5.
+    x := 10.
     y := 15.
 
-    etiqueta := LabelMorph new
-        contents: 'Ingrese fecha (DD MM YYYY), hora (00:00), DNI del médico, DNI del cliente y ID de la mascota (los 3 sin puntos):';
+    etiqueta1 := LabelMorph new
+        contents: 'Ingrese fecha (DD MM YYYY), hora (00:00), DNI del médico,';
         color: Color black;
         yourself.
-    etiqueta position: origen + (x@y).
-    self addMorph: etiqueta.
+    etiqueta1 position: origen + (x@y).
+    self addMorph: etiqueta1.
+
+    y := y + 19.
+    etiqueta2 := LabelMorph new
+        contents: ' DNI del cliente y ID de la mascota (los 3 sin puntos):';
+        color: Color black;
+        yourself.
+    etiqueta2 position: origen + (x@y).
+    self addMorph: etiqueta2.
 
 
-    y := y + 30.
+    y := y + 50.
     fechaInput := LabelWithTextFieldMorph new
 	     label: 'Fecha: ';
-	     color: (Color fromHexString: '655884');
+	     color: (Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: fechaInput.
 
-    y := y + 30.
+    y := fechaInput position y + 10.
     horaStrInput := LabelWithTextFieldMorph new
 	     label: 'Hora: ';
-	     color:(Color fromHexString: '655884');
+	     color:(Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: horaStrInput .
 
-    y := y + 30.
+    y := horaStrInput position y + 10.
     dniMedicoInput := LabelWithTextFieldMorph new
 	     label: 'DNI del Médico: ';
-	     color: (Color fromHexString: '655884');
+	     color: (Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: dniMedicoInput .
 
-     y := y + 30.
+     y := dniMedicoInput position y + 10.
     idMascotaInput := LabelWithTextFieldMorph new
 	     label: 'ID de la mascota: ';
-	     color: (Color fromHexString: '655884');
+	     color: (Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: idMascotaInput .
@@ -109,18 +117,18 @@ AtenderSolicitudTurnoVisual >> crearComponentes [
     botonAgendarTurno := BotonAccion new
 	     mouseAction: [ self agendarTurno ];
         position: origen + (x@y);
-        color:(Color fromHexString: '655884');
+        color:(Color fromHexString: '313668');
 	     borderColor: Color black;
 	     label: 'Agendar el turno';
         yourself.
     self addMorph: botonAgendarTurno .
 
     "4. Botón para cerrar la ventana"
-    y := y + 40.
+    y := (botonAgendarTurno position y + 2).
     botonCerrar := BotonAccion new
 	     mouseAction: [ self cerrar ];
   	     position: origen + (x@y);
-	     color:(Color fromHexString: '655884');
+	     color:(Color fromHexString: '313668');
 	     borderColor: Color black;
 	     label: 'Cerrar';
 	    yourself.
@@ -146,11 +154,11 @@ AtenderSolicitudTurnoVisual >> informar: unTexto [
 AtenderSolicitudTurnoVisual >> initialize [
     super initialize.
     self
-        color: (Color fromHexString: 'eaebd1');
+        color: (Color fromHexString: '92d2bf');
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
-        bounds: (45@45 extent: 350@420).
+        bounds: (45@45 extent: 440@450).
 	 origen := self innerBounds origin.
     self crearComponentes .
 ]

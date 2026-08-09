@@ -10,7 +10,7 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'creation' }
 Medicamento class >> crearConNombre: unNombre conPrecio: unPrecio conVentaLibre: esLibre [
 	|medicamento|
 		medicamento := self new.

@@ -68,7 +68,7 @@ Tratamiento >> obtenerDia [
 
 { #category : 'setters' }
 Tratamiento >> setEstado: unEstado [
-	( { 'pendiente' . 'cancelado' . 'realizado' } contains: unEstado ) ifTrue: [ estado := unEstado ].
+	( { 'pendiente' . 'cancelado' . 'realizado' } includes: unEstado ) ifTrue: [ estado := unEstado ].
 ]
 
 { #category : 'propiosDelTipo' }

@@ -22,7 +22,7 @@ Farmacologico class >> crearConMedicamento: unMedicamento conDosis: unaDosis con
 Farmacologico >> calcularMonto [
 	|monto valorMedicina|
 		monto := super calcularMonto.
-		valorMedicina := medicamento obtenerValorMedicamento.
+		valorMedicina := self obtenerValorMedicamento.
 		monto := monto + valorMedicina.
 		( monto > 40000 ) ifTrue: [ monto := monto*90/100 ].
 ^monto. 

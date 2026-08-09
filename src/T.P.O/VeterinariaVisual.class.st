@@ -3,6 +3,7 @@ Class {
 	#superclass : 'BorderedMorph',
 	#instVars : [
 		'veterinaria',
+		'botonInicializar',
 		'registrarCliente',
 		'listarTurnosFecha',
 		'registrarMascota',
@@ -14,7 +15,13 @@ Class {
 		'facturar',
 		'botonCerrar',
 		'etiqueta',
-		'origen'
+		'origen',
+		'listarTratamientosMedico',
+		'historialTurnos',
+		'historialClinicoDe',
+		'facturasPendientes',
+		'cancelarTurno',
+		'atenderSolicitudTurno'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
@@ -52,6 +59,115 @@ VeterinariaVisual >> cancelarTurnoPendiente [
 VeterinariaVisual >> cerrar [
 	"self submorphs do: [ :cadaSubmorph | cadaSubmorph delete ]."
 	self delete
+]
+
+{ #category : 'initialization' }
+VeterinariaVisual >> crearComponentes [
+ registrarCliente := BotonAccion new
+color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: registrarCliente.
+	origen := self innerBounds origin.
+	registrarCliente position: origen + (30@40).
+	registrarCliente label: 'Registrar un nuevo cliente'.
+	
+	registrarMascota := BotonAccion new
+	color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: registrarMascota.
+	registrarMascota position: registrarCliente position + (0@40).
+	registrarMascota label: 'Registrar una nueva mascota'.
+	
+	registrarDiagnostico := BotonAccion new
+	color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: registrarDiagnostico.
+	registrarDiagnostico position: registrarMascota position + (0@40).
+	registrarDiagnostico label: 'Registrar un nuevo diagnostico'.
+
+	registrarTratamiento := BotonAccion new
+	color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: registrarTratamiento.
+	registrarTratamiento position: registrarDiagnostico position + (0@40).
+	registrarTratamiento label: 'Registrar un nuevo Tratamiento'.
+	
+	registrarPago := BotonAccion new
+	color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: registrarPago.
+	registrarPago position: registrarTratamiento position + (0@40).
+	registrarPago label: 'Registrar un nuevo Pago'.
+
+	facturar := BotonAccion new
+	color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: facturar.
+	facturar position: registrarPago position + (0@40).
+	facturar label: 'Facturar un diagnostico'.
+	
+	listarTurnosFecha := BotonAccion new
+	color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: listarTurnosFecha .
+	listarTurnosFecha position: facturar position + (0@40).
+   listarTurnosFecha label: 'Listar los turnos de una fecha ingresada'.
+
+   listarTratamientosMedico := BotonAccion new
+   color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: listarTratamientosMedico .
+	listarTratamientosMedico position: listarTurnosFecha position + (0@40).
+   listarTratamientosMedico label: 'Listar los tratamientos de un médico ingresado'.
+
+   historialTurnos := BotonAccion new
+   color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: historialTurnos .
+	historialTurnos position: listarTratamientosMedico position + (0@40).
+   historialTurnos label: 'Listar el historial de turnos de un cliente'.
+
+   historialClinicoDe := BotonAccion new
+   color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: historialClinicoDe .
+	historialClinicoDe position: historialTurnos position + (0@40).
+   historialClinicoDe label: 'Listar el historial clinico de una mascota'.
+
+   facturasPendientes := BotonAccion new
+   color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: facturasPendientes .
+	facturasPendientes position: historialClinicoDe position + (0@40).
+   facturasPendientes label: 'Listar las facturas pendientes de un cliente'.
+
+   cancelarTurno := BotonAccion new
+   color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: cancelarTurno .
+	cancelarTurno position: facturasPendientes position + (0@40).
+   cancelarTurno label: 'Cancelar un turno pendiente'.
+
+   atenderSolicitudTurno := BotonAccion new
+   color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: atenderSolicitudTurno .
+	atenderSolicitudTurno position: cancelarTurno position + (0@40).
+   atenderSolicitudTurno label: 'Atender la solicitud de un turno'.
+   
+	registrarCliente mouseAction: [ self registrarCliente ].
+	registrarMascota mouseAction: [ self registrarMascota ].
+	registrarDiagnostico mouseAction: [ self registrarDiagnostico ].
+	registrarTratamiento mouseAction: [ self registrarTratamiento ].
+	registrarPago mouseAction: [ self registrarPago ].
+	facturar mouseAction: [ self facturarDiagnostico ].
+	listarTurnosFecha mouseAction: [ self listarTurnosFecha ].
+	listarTratamientosMedico mouseAction: [ self listarTratamientosMedico ].
+	historialTurnos mouseAction: [ self historialTurnosDe ].
+	historialClinicoDe mouseAction: [ self historialClinicoDe ].
+	facturasPendientes mouseAction: [ self facturasPendientesCliente ].
+	cancelarTurno mouseAction: [ self cancelarTurnoPendiente ].
+	atenderSolicitudTurno mouseAction: [ self atenderSolicitudTurno ]. 
 ]
 
 { #category : 'accessing' }
@@ -97,62 +213,37 @@ VeterinariaVisual >> informar: unTexto [
 
 { #category : 'initialization' }
 VeterinariaVisual >> initialize [ 
+   |inicializado|
+   inicializado := false.
+
 	super initialize.
-	self color: (Color fromHexString: '024a86').
+	self color: (Color fromHexString: '92d2bf').
 	self position: 45@45.
-	self bounds: (45@45 extent: 400@500).
+	self bounds: (45@45 extent: 400@620).
 	
-	registrarCliente := BotonAccion new.
-	self addMorph: registrarCliente.
+	botonInicializar := BotonAccion new.
+	self addMorph: botonInicializar .
 	origen := self innerBounds origin.
-	registrarCliente position: origen + (30@40).
-	registrarCliente label: 'Registrar un nuevo cliente'.
-	
-	registrarMascota := BotonAccion new.
-	self addMorph: registrarMascota.
-	registrarMascota position: registrarCliente position + (0@40).
-	registrarMascota label: 'Registrar una nueva mascota'.
-	
-	registrarDiagnostico := BotonAccion new.
-	self addMorph: registrarDiagnostico.
-	registrarDiagnostico position: registrarMascota position + (0@40).
-	registrarDiagnostico label: 'Registrar un nuevo diagnostico'.
+	botonInicializar color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	botonInicializar position: origen + (30@40).
+	botonInicializar label: 'Inicializar el Sistema'.
 
-	registrarTratamiento := BotonAccion new.
-	self addMorph: registrarTratamiento.
-	registrarTratamiento position: registrarDiagnostico position + (0@40).
-	registrarTratamiento label: 'Registrar un nuevo Tratamiento'.
-	
-	registrarPago := BotonAccion new.
-	self addMorph: registrarPago.
-	registrarPago position: registrarTratamiento position + (0@40).
-	registrarPago label: 'Registrar un nuevo Pago'.
-
-	facturar := BotonAccion new.
-	self addMorph: facturar.
-	facturar position: registrarPago position + (0@40).
-	facturar label: 'Facturar un diagnostico'.
-	
-	listarTurnosFecha := BotonAccion new.
-	self addMorph: listarTurnosFecha .
-	listarTurnosFecha position: facturar position + (0@40).
-   listarTurnosFecha label: 'Listar los turnos de una fecha ingresada'.
-
-	botonCerrar := BotonAccion new.
+   botonCerrar := BotonAccion new
+   color: (Color fromHexString: '#313668');
+   borderColor: Color black.
 	self addMorph: botonCerrar.
 	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (330@480).
+	botonCerrar position: (330@600).
 	botonCerrar label: 'Cerrar'.
+	
+	botonInicializar mouseAction: [
+		 veterinaria inicializarSistema .
+		 self crearComponentes ].
 	
 	self update: veterinaria.
 	
-	registrarCliente mouseAction: [ self registrarCliente ].
-	registrarMascota mouseAction: [ self registrarMascota ].
-	registrarDiagnostico mouseAction: [ self registrarDiagnostico ].
-	registrarTratamiento mouseAction: [ self registrarTratamiento ].
-	registrarPago mouseAction: [ self registrarPago ].
-	facturar mouseAction: [ self facturarDiagnostico ].
-	listarTurnosFecha mouseAction: [ self listarTurnosFecha ].
+	
 ]
 
 { #category : 'accessing' }

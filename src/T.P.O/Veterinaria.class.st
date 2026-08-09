@@ -74,13 +74,26 @@ Veterinaria >> agregarDiagnostico: unDiagnostico [
 
 { #category : 'add' }
 Veterinaria >> agregarMedico: unMedico [
-	colMedicos add: unMedico.
+	|cargado|
+	cargado := true.
+	(colMedicos anySatisfy: [ :cadaMedico | cadaMedico equals: unMedico ]) 
+		ifFalse: 
+			[ 	colMedicos add: unMedico ] 
+		ifTrue: 
+			[ cargado := false ].
+	^cargado 
 ]
 
 { #category : 'add' }
-Veterinaria >> agregarTurno: unTurno [
-"METODO TEMPORAL"
-colTurnos add: unTurno .
+Veterinaria >> agregarStock: unStock [
+	|cargado|
+	cargado := true.
+	(colStockMedicamentos anySatisfy: [ :cadaStock | cadaStock equals: unStock ]) 
+		ifFalse: 
+			[ colStockMedicamentos add: unStock ] 
+		ifTrue: 
+			[ cargado := false ].
+	^cargado 
 ]
 
 { #category : 'propiosDelTipo' }
@@ -119,7 +132,7 @@ Veterinaria >> buscarDiagnosticoConId: unId [
 { #category : 'propiosDelTipo' }
 Veterinaria >> buscarFacturaConCliente: cliente conDiagnostico: diagnostico [
 	|factura|
-	factura := colFacturas detect: [ :cadaFactura | (cadaFactura getCliente equals: cliente) and: [ cadaFactura getDiagnostico equals: diagnostico ] ] ifNone: [ nil ] .
+	factura := colFacturas detect: [:cadaFactura | (cadaFactura getCliente equals: cliente) and: (cadaFactura getDiagnostico equals: diagnostico) ] ifNone: [ nil ] .
 ^factura 
 ]
 
@@ -180,18 +193,14 @@ Veterinaria >> facturasPendientes [
 ]
 
 { #category : 'propiosDelTipo' }
-Veterinaria >> facturasPendientesCliente: elCliente [
-|listaPendientesCliente listaFacturasCliente|
-  listaFacturasCliente := OrderedCollection new.
-  listaPendientesCliente := OrderedCollection new.
-  
-  listaFacturasCliente := colFacturas select: 
-                          [ :unaFactura | unaFactura tieneCliente: elCliente ].
+Veterinaria >> facturasPendientesCliente: arg1 [
 
-  listaPendientesCliente := listaFacturasCliente select: 
-                            [ :unaFactura | (unaFactura verificarSaldoPendiente) > 0 ].
-
-^listaPendientesCliente .
+	| tmp1 tmp2 |
+	tmp2 := OrderedCollection new.
+	tmp1 := OrderedCollection new.
+	tmp2 := colFacturas select: [ :arg2 | arg2 tieneCliente: arg1 ].
+	tmp1 := tmp2 select: [ :arg3 | arg3 verificarSaldoPendiente > 0 ].
+	^ tmp1
 ]
 
 { #category : 'propiosDelTipo' }
@@ -223,12 +232,12 @@ Veterinaria >> getNombre [
 ]
 
 { #category : 'propiosDelTipo' }
-Veterinaria >> historialClinicoDe: unaMascota [
-|listaDiagnosticosMascota|
-  listaDiagnosticosMascota := OrderedCollection new.
-  listaDiagnosticosMascota := colDiagnosticos select: 
-                              [ :unDiagnostico | unDiagnostico tieneMascota: unaMascota ].
-^listaDiagnosticosMascota .
+Veterinaria >> historialClinicoDe: arg1 [
+
+	| tmp1 |
+	tmp1 := OrderedCollection new.
+	tmp1 := colDiagnosticos select: [ :arg2 | arg2 tieneMascota: arg1 ].
+	^ tmp1
 ]
 
 { #category : 'propiosDelTipo' }
@@ -250,6 +259,116 @@ Veterinaria >> inicializarCuit: unCuit conNombre: unNombre [
 	colMedicos := OrderedCollection new.
 	colDiagnosticos := OrderedCollection new.
 	colStockMedicamentos := OrderedCollection new.
+]
+
+{ #category : 'initialization' }
+Veterinaria >> inicializarSistema [
+"Para la verificación del funcionamiento correcto del sistema, se debe entregar con un conjunto inicial de datos."
+	|medico1 medico2 cliente1 cliente2 cliente3 mascota1 mascota2a mascota2b mascota3 medicamento stock diagnostico2 diagnostico3a diagnostico3b tratQuirurgico tratFarmacologico tratFarmacologico2b turno matricula pago fact1 fact2|
+	matricula := Matricula crearConNumero: 1058 conColegioEmisor: 'Universidad de Buenos Aires' conFechaInscripcion: (Date year: 1950 month: 5 day: 12) conFechaVigencia: (Date year: 2027 month: 9 day: 3) conTipo: 'Nacional'.
+
+	medico1 := Medico crearConNombre: 'Rene' conApellido: 'Favaloro' conNroDni: 12345678 conDomicilio: 'San martin 550' conFechaNacimiento: (Date year: 1973 month: 7 day: 12)  conCuil: 23123456780 conMatricula: matricula.
+
+	matricula := Matricula crearConNumero: 3789 conColegioEmisor: 'Universidad Nacional del Comahue' conFechaInscripcion: (Date year: 2000 month: 8 day: 22) conFechaVigencia: (Date year: 2028 month: 10 day: 23) conTipo: 'Nacional'.
+	medico2 := Medico crearConNombre: 'Gregorio' conApellido: 'Alvarez' conNroDni: 87654321 conDomicilio: 'Tucuman 321' conFechaNacimiento: (Date year: 1989 month: 11 day: 28)  conCuil: 23876543210 conMatricula: matricula.
+	
+	self agregarMedico: medico1 .
+	self agregarMedico: medico2.
+
+mascota1 := Mascota crearConNombre: 'Rocky' conEspecie: 'Perro' conRaza: 'Dogo argentino' conFechaNacimiento: (Date year: 2022 month: 2 day: 5) conPeso: 10 conId: 1.
+mascota2a := Mascota crearConNombre: 'Marley' conEspecie: 'Perro' conRaza: 'Mixto' conFechaNacimiento: (Date year: 2021 month: 8 day: 11) conPeso: 12 conId: 3.
+mascota2b := Mascota crearConNombre: 'Hidan' conEspecie: 'Gato' conRaza: 'Mixto' conFechaNacimiento: (Date year: 2023 month: 8 day: 25) conPeso: 5 conId: 4.
+mascota3 := Mascota crearConNombre: 'Niza' conEspecie: 'Perro' conRaza: 'Mixto' conFechaNacimiento: (Date year: 2018 month: 11 day: 12) conPeso: 15 conId: 5.
+cliente1 := Cliente crearConNombre: 'Tomas' conApellido: 'Castillo' conNroDni: 30123456 conDomicilio: 'Entre rios 155' conEmail: 'tomascast@gmail.com' conTelefono: 111234567.
+cliente2 := Cliente crearConNombre: 'Nicolas' conApellido: 'Torres' conNroDni: 35123456 conDomicilio: 'Islas Malvinas 728' conEmail: 'nicotorres@gmail.com' conTelefono: 2991234567.
+cliente3 := Cliente crearConNombre: 'Emiliano' conApellido: 'Martinez' conNroDni: 28123456 conDomicilio: 'Cordoba 1230' conEmail: 'emimart@gmail.com' conTelefono: 117654321.
+cliente1 agregarMascota: mascota1.
+cliente2 agregarMascota: mascota2a.
+cliente2 agregarMascota: mascota2b.
+cliente3 agregarMascota: mascota3.
+
+self agregarCliente: cliente1 .
+self agregarCliente: cliente2.
+self agregarCliente: cliente3.
+
+diagnostico2 := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 1) conDescripcion: 'Estomago obstruido' conMedico: medico1 conMascota: mascota1 conId: 1.
+self agregarDiagnostico: diagnostico2.
+tratQuirurgico := Quirurgico crearConNombre: 'Interversion quirurgica de urgencia, exploracion estomacal' conNivelRiesgo: 2 conTipoAnestesia: 'General' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Estomago obstruido'.
+
+diagnostico2 agregarTratamiento: tratQuirurgico.
+
+diagnostico2 := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 1) conDescripcion: 'Otitis' conMedico: medico1 conMascota: mascota2a conId: 1.
+medicamento := Medicamento crearConNombre: 'Otifree' conPrecio: 10000 conVentaLibre: true.
+stock := StockMedicamento crearConId: 1 conCantidad: 500 conMedicamento: medicamento.
+self agregarStock: stock.
+tratFarmacologico := Farmacologico crearConMedicamento: medicamento conDosis: 10 conFrecuencia: '8h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Tratar Otitis'.
+diagnostico2 agregarTratamiento: tratFarmacologico.
+medicamento := Medicamento crearConNombre: 'Rostrum' conPrecio: 15000 conVentaLibre: true.
+stock := StockMedicamento crearConId: 2 conCantidad: 300 conMedicamento: medicamento.
+self agregarStock: stock.
+tratFarmacologico := Farmacologico crearConMedicamento: medicamento conDosis: 1 conFrecuencia: '8h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Prevenir infeccion'.
+diagnostico2 agregarTratamiento: tratFarmacologico.
+
+diagnostico2 := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 1) conDescripcion: 'Estomago obstruido' conMedico: medico1 conMascota: mascota1 conId: 1.
+self agregarDiagnostico: diagnostico2.
+tratQuirurgico := Quirurgico crearConNombre: 'Interversion quirurgica de urgencia, exploracion estomacal' conNivelRiesgo: 2 conTipoAnestesia: 'General' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Estomago obstruido'.
+
+diagnostico2 agregarTratamiento: tratQuirurgico.
+
+diagnostico2 := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 1) conDescripcion: 'Otitis' conMedico: medico1 conMascota: mascota2a conId: 1.
+medicamento := Medicamento crearConNombre: 'Otifree' conPrecio: 10000 conVentaLibre: true.
+stock := StockMedicamento crearConId: 1 conCantidad: 500 conMedicamento: medicamento.
+self agregarStock: stock.
+tratFarmacologico := Farmacologico crearConMedicamento: medicamento conDosis: 10 conFrecuencia: '8h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Tratar Otitis'.
+diagnostico2 agregarTratamiento: tratFarmacologico.
+medicamento := Medicamento crearConNombre: 'Rostrum' conPrecio: 15000 conVentaLibre: true.
+stock := StockMedicamento crearConId: 2 conCantidad: 300 conMedicamento: medicamento.
+self agregarStock: stock.
+tratFarmacologico := Farmacologico crearConMedicamento: medicamento conDosis: 1 conFrecuencia: '8h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Prevenir infeccion'.
+diagnostico2 agregarTratamiento: tratFarmacologico.
+
+diagnostico2 := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 1) conDescripcion: 'Lastimadura en ojo izquierdo por pelea' conMedico: medico1 conMascota: mascota2b conId: 2.
+tratFarmacologico2b := Farmacologico crearConMedicamento: medicamento conDosis: 1 conFrecuencia: '8h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Prevenir infeccion'.
+diagnostico2 agregarTratamiento: tratFarmacologico2b.
+tratQuirurgico := Quirurgico crearConNombre: 'Coser herida con puntos quirurgicos' conNivelRiesgo: 1 conTipoAnestesia: 'Local' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Lastimadura en ojo izquierdo por pelea'.
+diagnostico2 agregarTratamiento: tratQuirurgico.
+
+diagnostico3a := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 15) conDescripcion: 'Lastimadura en pata trasera izquierda, por pelea' conMedico: medico2 conMascota: mascota3 conId: 3.
+tratQuirurgico := Quirurgico crearConNombre: 'Coser herida con puntos quirurgicos' conNivelRiesgo: 1 conTipoAnestesia: 'Local' conFecha: (Date year: 2026 month: 8 day: 15) conMotivo: 'Herida en la pata trasera izquierda'.
+diagnostico3a agregarTratamiento: tratQuirurgico.
+
+diagnostico3b := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 15) conDescripcion: 'Lastimadura en pata trasera izquierda, por pelea' conMedico: medico2 conMascota: mascota3 conId: 4.
+tratFarmacologico := Farmacologico crearConMedicamento: medicamento conDosis: 1 conFrecuencia: '8h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Prevenir infeccion'.
+diagnostico3b agregarTratamiento: tratFarmacologico.
+medicamento := Medicamento crearConNombre: 'petArmor' conPrecio: 20000 conVentaLibre: true.
+stock := StockMedicamento crearConId: 3 conCantidad: 1000 conMedicamento: medicamento.
+self agregarStock: stock.
+tratFarmacologico := Farmacologico crearConMedicamento: medicamento conDosis: 1 conFrecuencia: '10h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Para el dolor'.
+diagnostico3b agregarTratamiento: tratFarmacologico.
+
+self generarFactura: diagnostico2.
+pago := Pago crearConMonto: 10000 conMedioPago:(MedioPago crearConNombre: 'Efectivo').
+fact1 := (self buscarFacturaConCliente: cliente2 conDiagnostico: diagnostico2).
+fact1 registrarPago: pago.
+
+self generarFactura: diagnostico3a.
+pago := Pago crearConMonto: diagnostico3a calcularMontoFinal conMedioPago:(MedioPago crearConNombre: 'Efectivo').
+fact2 := self buscarFacturaConCliente: cliente3 conDiagnostico: diagnostico3a.
+fact2 registrarPago: pago.
+
+turno := TurnoConsulta crearConFecha: (Date year: 2026 month: 8 day: 24) yHora: (Time fromString: '14:00') yMotivo: 'Revision general' yCliente: cliente1 yMascota: mascota1 yMedico: medico1 yTipoAtencion: 'General'.
+self agendarTurno: turno.
+turno cancelarTurno.
+
+turno := TurnoTratamiento crearConFecha: (Date year: 2026 month: 8 day: 24) yHora: (Time fromString: '15:00') yMotivo: 'Revision progreso de la herida' yCliente: cliente2 yMascota: mascota2b yMedico: medico2 yTratamiento: tratFarmacologico2b.
+self agendarTurno: turno.
+turno confirmarTurno.
+
+turno := TurnoConsulta crearConFecha: (Date year: 2026 month: 6 day: 3) yHora: (Time fromString: '17:00') yMotivo: 'Revision general' yCliente: cliente3 yMascota: mascota3 yMedico: medico1 yTipoAtencion: 'General'.
+self agendarTurno: turno.
+turno setEstado: 'atendido'.
+
+^true.
 ]
 
 { #category : 'propiosDelTipo' }
@@ -307,14 +426,12 @@ Veterinaria >> revisarStock: medicamento Y: dosis [
 ]
 
 { #category : 'propiosDelTipo' }
-Veterinaria >> verificarTratamiento: unTratamiento [
-	|esValido rta|
-	esValido := false.
-	rta := colDiagnosticos anySatisfy: [:cadaDiagnostico | cadaDiagnostico                                                          tieneTratamiento: unTratamiento ].
+Veterinaria >> verificarTratamiento: arg1 [
 
-	rta  ifTrue: [ 
-		esValido := (unTratamiento getEstado = 'pendiente').
-	].
-
-^esValido .
+	| tmp1 tmp2 |
+	tmp1 := false.
+	tmp2 := colDiagnosticos anySatisfy: [ :arg2 |
+		        arg2 tieneTratamiento: arg1 ].
+	tmp2 ifTrue: [ tmp1 := arg1 getEstado = 'pendiente' ].
+	^ tmp1
 ]

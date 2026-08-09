@@ -33,14 +33,14 @@ LabelWithTextFieldMorph >> initialize [
 	
 	label := TextMorph new.
 	label contents: ''.
-	label color: Color black.
+	label color: Color white.
 	posicion := self innerBounds origin.
 	label position: posicion + (5@0).
 	label fit.
 	self addMorph: label.
 	
 	campoTexto := RubTextFieldMorph new.
-	campoTexto borderColor: Color black.
+	campoTexto borderColor: Color white.
 	campoTexto borderWidth: 1.
 	campoTexto position: label position + (0@20).
 	campoTexto extent: self width - (40@40). 

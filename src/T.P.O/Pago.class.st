@@ -30,7 +30,7 @@ Pago >> getMedioDePago [
 
 { #category : 'getters' }
 Pago >> getMonto [
-^(montoAbonado + ((montoAbonado * unMedioPago getRecargo) / 100)).
+^(montoAbonado + ((montoAbonado * (unMedioPago getRecargo)) / 100)).
 ]
 
 { #category : 'initialization' }

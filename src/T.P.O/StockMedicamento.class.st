@@ -23,6 +23,12 @@ StockMedicamento >> actualizarCantidad: unaCantidad [
 	cantidad := cantidad + unaCantidad.
 ]
 
+{ #category : 'propiosDelTipo' }
+StockMedicamento >> equals: otroStock [
+^(id = (otroStock getId )).
+
+]
+
 { #category : 'getters' }
 StockMedicamento >> getCantidad [
 ^cantidad.

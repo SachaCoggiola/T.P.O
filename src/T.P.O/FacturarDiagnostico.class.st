@@ -53,13 +53,13 @@ FacturarDiagnostico >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '024a86').
 	self position: 45@45.
-	self bounds: (45@45 extent: 350@420).
+	self bounds: (45@45 extent: 400@360).
 	origen := self innerBounds origin.
 	
 	botonFacturar := BotonAccion new.
 	self addMorph: botonFacturar .
 	botonFacturar mouseAction: [ self facturar ].	
-	botonFacturar position: (20@210).
+	botonFacturar position: origen + (20@40).
 	botonFacturar label: 'Facturar diagnostico'.
 
 	botonCerrar := BotonAccion new.
@@ -82,7 +82,7 @@ FacturarDiagnostico >> initialize [
 	botonBuscarDiagnostico := BotonAccion new.
 	self addMorph: botonBuscarDiagnostico .
 	botonBuscarDiagnostico mouseAction: [ self buscarDiagnostico ].	
-	botonBuscarDiagnostico position: (330@105).
+	botonBuscarDiagnostico position: (300@105).
 	botonBuscarDiagnostico label: 'Buscar diagnostico'.
 ]
 

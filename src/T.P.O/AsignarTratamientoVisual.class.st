@@ -45,19 +45,19 @@ AsignarTratamientoVisual >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '024a86').
 	self position: 45@45.
-	self bounds: (45@45 extent: 350@420).
+	self bounds: (45@45 extent: 440@420).
 	origen := self innerBounds origin.
 	
 	botonFarmacologico := BotonAccion new.
 	self addMorph: botonFarmacologico .
 	botonFarmacologico mouseAction: [ self registrarFarmacologico ].	
-	botonFarmacologico position: (20@210).
+	botonFarmacologico position: (50@210).
 	botonFarmacologico label: 'Registrar tratamiento Farmacologico'.
 	
 	botonQuirurgico := BotonAccion new.
 	self addMorph: botonQuirurgico .
 	botonQuirurgico mouseAction: [ self registrarQuirurgico ].	
-	botonQuirurgico position: (330@210).
+	botonQuirurgico position: (290@210).
 	botonQuirurgico label: 'Registrar tratamiento Quirurgico'.
 	
 	botonCerrar := BotonAccion new.
@@ -80,7 +80,7 @@ AsignarTratamientoVisual >> initialize [
 	botonBuscarDiagnostico := BotonAccion new.
 	self addMorph: botonBuscarDiagnostico .
 	botonBuscarDiagnostico mouseAction: [ self buscarDiagnostico ].	
-	botonBuscarDiagnostico position: (330@105).
+	botonBuscarDiagnostico position: (310@105).
 	botonBuscarDiagnostico label: 'Buscar diagnostico'.
 ]
 

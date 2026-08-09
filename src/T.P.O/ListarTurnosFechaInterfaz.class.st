@@ -38,7 +38,7 @@ ListarTurnosFechaInterfaz >> crearComponentes [
     y := y + 30.
     fechaInput := LabelWithTextFieldMorph new
 	     label: 'Fecha: ';
-	     color: (Color fromHexString: '655884');
+	     color: (Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: fechaInput.
@@ -48,7 +48,7 @@ ListarTurnosFechaInterfaz >> crearComponentes [
     botonListarTurnos := BotonAccion new
 	     mouseAction: [ self listarTurnos ];
         position: origen + (x@y);
-        color:(Color fromHexString: '655884');
+        color:(Color fromHexString: '313668');
         borderColor: Color black;
 	     label: 'Listar turnos con esta fecha';
         yourself.
@@ -58,7 +58,7 @@ ListarTurnosFechaInterfaz >> crearComponentes [
     y := y + 40.
     botonCerrar := BotonAccion new
 	     mouseAction: [ self cerrar ];
-	     color:(Color fromHexString: '655884');
+	     color:(Color fromHexString: '313668');
 	     borderColor: Color black;
   	     position: origen + (x@y);
 	     label: 'Cerrar';
@@ -85,7 +85,7 @@ ListarTurnosFechaInterfaz >> informar: unTexto [
 ListarTurnosFechaInterfaz >> initialize [
     super initialize.
     self
-        color: (Color fromHexString: 'eaebd1');
+        color: (Color fromHexString: '92d2bf');
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;

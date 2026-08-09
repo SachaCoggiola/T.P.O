@@ -38,7 +38,7 @@ ListarTratamientosMedicoVisual >> crearComponentes [
     y := y + 30.
     dniInput := LabelWithTextFieldMorph new
 	     label: 'DNI: ';
-	     color: (Color fromHexString: '655884');
+	     color: (Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: dniInput.
@@ -48,7 +48,7 @@ ListarTratamientosMedicoVisual >> crearComponentes [
     botonListarTratamientos := BotonAccion new
 	     mouseAction: [ self listarTratamientos ];
         position: origen + (x@y);
-        color:(Color fromHexString: '655884');
+        color:(Color fromHexString: '313668');
 	     borderColor: Color black;
 	     label: 'Listar tratamientos del médico';
         yourself.
@@ -59,7 +59,7 @@ ListarTratamientosMedicoVisual >> crearComponentes [
     botonCerrar := BotonAccion new
 	     mouseAction: [ self cerrar ];
   	     position: origen + (x@y);
-	     color:(Color fromHexString: '655884');
+	     color:(Color fromHexString: '313668');
 	     borderColor: Color black;
 	     label: 'Cerrar';
 	    yourself.
@@ -85,7 +85,7 @@ ListarTratamientosMedicoVisual >> informar: unTexto [
 ListarTratamientosMedicoVisual >> initialize [
     super initialize.
     self
-        color: (Color fromHexString: 'eaebd1');
+        color: (Color fromHexString: '92d2bf');
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;

@@ -70,23 +70,23 @@ CancelarTurnoPendienteVisual >> crearComponentes [
     y := y + 30.
     fechaInput := LabelWithTextFieldMorph new
 	     label: 'Fecha: ';
-	     color: (Color fromHexString: '655884');
+	     color: (Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: fechaInput.
 
-    y := y + 30.
+    y := fechaInput position y + 30.
     horaStrInput := LabelWithTextFieldMorph new
 	     label: 'Hora: ';
-	     color: (Color fromHexString: '655884');
+	     color: (Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: horaStrInput .
 
-    y := y + 30.
+    y := horaStrInput position y + 30.
     dniMedicoInput := LabelWithTextFieldMorph new
 	     label: 'DNI del Médico: ';
-	     color: (Color fromHexString: '655884');
+	     color: (Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: dniMedicoInput .
@@ -96,7 +96,7 @@ CancelarTurnoPendienteVisual >> crearComponentes [
     botonCancelarTurno := BotonAccion new
 	     mouseAction: [ self cancelarTurno ];
         position: origen + (x@y);
-        color:(Color fromHexString: '655884');
+        color:(Color fromHexString: '313668');
 	     borderColor: Color black;
 	     label: 'Cancelar el Turno pendiente';
         yourself.
@@ -108,7 +108,7 @@ CancelarTurnoPendienteVisual >> crearComponentes [
 	     mouseAction: [ self cerrar ];
   	     position: origen + (x@y);
 	     label: 'Cerrar';
-	     color:(Color fromHexString: '655884');
+	     color:(Color fromHexString: '313668');
 	     borderColor: Color black;
 	     yourself.
     self addMorph: botonCerrar.
@@ -133,11 +133,11 @@ CancelarTurnoPendienteVisual >> informar: unTexto [
 CancelarTurnoPendienteVisual >> initialize [
     super initialize.
     self
-        color: (Color fromHexString: 'eaebd1');
+        color: (Color fromHexString: '92d2bf');
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
-        bounds: (45@45 extent: 350@420).
+        bounds: (45@45 extent: 410@410).
 	 origen := self innerBounds origin.
     self crearComponentes .
 ]

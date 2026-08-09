@@ -61,25 +61,25 @@ RegistrarMascotaVisual >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '024a86').
 	self position: 45@45.
-	self bounds: (45@45 extent: 350@420).
+	self bounds: (45@45 extent: 470@420).
 	origen := self innerBounds origin.
 	
 	botonBuscarCliente := BotonAccion new.
 	self addMorph: botonBuscarCliente .
 	botonBuscarCliente mouseAction: [ self buscarCliente ].	
-	botonBuscarCliente position: (330@105).
+	botonBuscarCliente position: (310@105).
 	botonBuscarCliente label: 'Buscar cliente con DNI'.
 	
 	botonRegistrar := BotonAccion new.
 	self addMorph: botonRegistrar .
 	botonRegistrar mouseAction: [ self registrar ].	
-	botonRegistrar position: (330@210).
+	botonRegistrar position: (310@210).
 	botonRegistrar label: 'Registrar'.
 	
 	botonCerrar := BotonAccion new.
 	self addMorph: botonCerrar.
 	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (330@315).
+	botonCerrar position: (310@315).
 	botonCerrar label: 'Cerrar'.
 	
 	etiqueta := LabelMorph new.
