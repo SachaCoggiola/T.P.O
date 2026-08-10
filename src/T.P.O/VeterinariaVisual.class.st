@@ -21,7 +21,8 @@ Class {
 		'historialClinicoDe',
 		'facturasPendientes',
 		'cancelarTurno',
-		'atenderSolicitudTurno'
+		'atenderSolicitudTurno',
+		'botonVentanaDatos'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
@@ -47,6 +48,15 @@ VeterinariaVisual >> atenderSolicitudTurno [
 ]
 
 { #category : 'accessing' }
+VeterinariaVisual >> botonDatos [
+| ventana |
+
+    ventana := VentanaDatosVisual new
+    initialize: veterinaria .
+    ventana openInWorld.
+]
+
+{ #category : 'accessing' }
 VeterinariaVisual >> cancelarTurnoPendiente [
  | ventana |
 
@@ -63,12 +73,21 @@ VeterinariaVisual >> cerrar [
 
 { #category : 'initialization' }
 VeterinariaVisual >> crearComponentes [
- registrarCliente := BotonAccion new
-color: (Color fromHexString: '#313668');
+
+   origen := self innerBounds origin.
+
+   botonVentanaDatos := BotonAccion new
+   color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	self addMorph: botonVentanaDatos.
+	botonVentanaDatos position: origen + (30@40).
+	botonVentanaDatos label: 'Mostrar datos de clientes y mascotas'.
+
+   registrarCliente := BotonAccion new
+   color: (Color fromHexString: '#313668');
    borderColor: Color black.
 	self addMorph: registrarCliente.
-	origen := self innerBounds origin.
-	registrarCliente position: origen + (30@40).
+	registrarCliente position: botonVentanaDatos position + (0@40).
 	registrarCliente label: 'Registrar un nuevo cliente'.
 	
 	registrarMascota := BotonAccion new
@@ -155,6 +174,7 @@ color: (Color fromHexString: '#313668');
 	atenderSolicitudTurno position: cancelarTurno position + (0@40).
    atenderSolicitudTurno label: 'Atender la solicitud de un turno'.
    
+   botonVentanaDatos mouseAction: [ self botonDatos ].
 	registrarCliente mouseAction: [ self registrarCliente ].
 	registrarMascota mouseAction: [ self registrarMascota ].
 	registrarDiagnostico mouseAction: [ self registrarDiagnostico ].
@@ -219,7 +239,7 @@ VeterinariaVisual >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '92d2bf').
 	self position: 45@45.
-	self bounds: (45@45 extent: 400@620).
+	self bounds: (45@45 extent: 400@650).
 	
 	botonInicializar := BotonAccion new.
 	self addMorph: botonInicializar .
@@ -234,7 +254,7 @@ VeterinariaVisual >> initialize [
    borderColor: Color black.
 	self addMorph: botonCerrar.
 	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (330@600).
+	botonCerrar position: (330@640).
 	botonCerrar label: 'Cerrar'.
 	
 	botonInicializar mouseAction: [
