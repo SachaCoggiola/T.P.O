@@ -65,13 +65,15 @@ ListarTurnosFechaInterfaz >> crearComponentes [
 	    yourself.
     self addMorph: botonCerrar.
 
-    "5. Mostrar resultados (StringMorph)"
+    "5. Mostrar resultados"
     y := y + 40.
-    resultadoMorph := StringMorph new
-        contents: '';
-        color: Color black;
+   resultadoMorph := RubScrolledTextMorph new
+        setText: '';
+        color: (Color fromHexString: '463168');
         position: origen + (x@y);
+		  extent: (300@200);
         yourself.
+    resultadoMorph textArea beReadOnly.
     self addMorph: resultadoMorph.
 
 ]
@@ -112,11 +114,11 @@ ListarTurnosFechaInterfaz >> listarTurnos [
       (turnosFiltrados) ifEmpty: [ 
 	textoResultado := 'No hay turnos para el ', fechaObjeto asString, '.'.
 	                   ] ifNotEmpty: [ 
-	textoResultado := 'Turnos para el ', fechaObjeto asString, ':'; cr; cr.
-              turnosFiltrados do: [ :turno | '- ', turno toString; cr. ].
+	textoResultado := 'Turnos para el ', fechaObjeto asString, ':',String cr.
+              turnosFiltrados do: [ :turno | textoResultado := (textoResultado, '- ', turno toString, String cr, String cr) ].
 	                   ].
 
-      resultadoMorph contents: textoResultado.
+      resultadoMorph setText: textoResultado.
 ].
 ]
 
@@ -136,7 +138,7 @@ ListarTurnosFechaInterfaz >> validarFecha [
             month: partesFecha second asInteger
             day: partesFecha first asInteger
     ] on: Error do: [
-        resultadoMorph contents: 'Formato incorrecto. Use DD MM YYYY (ej: 01 08 2026)'.
+        resultadoMorph setText: 'Formato incorrecto. Use DD MM YYYY (ej: 01 08 2026)'.
         esValido := false
     ].
 

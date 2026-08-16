@@ -67,6 +67,11 @@ Factura >> registrarPago: unPago [
 ]
 
 { #category : 'propiosDelTipo' }
+Factura >> tieneCliente: unCliente [
+^cliente equals: unCliente.
+]
+
+{ #category : 'propiosDelTipo' }
 Factura >> tieneDiagnostico: unDiagnostico [
 ^(diagnostico equals: unDiagnostico).
 ]
@@ -74,6 +79,15 @@ Factura >> tieneDiagnostico: unDiagnostico [
 { #category : 'propiosDelTipo' }
 Factura >> tienePago: unPago [
 ^colPagos includes: unPago
+]
+
+{ #category : 'propiosDelTipo' }
+Factura >> toString [
+^('Cliente: ', cliente toString, String cr,
+'Diagnostico: ', diagnostico toString, String cr,
+'Monto: ', montoTotal asString, String cr,
+'Fecha: ', fecha asString, String cr,
+'CUIT Veterinaria: ', cuitVeterinaria asString)
 ]
 
 { #category : 'propiosDelTipo' }

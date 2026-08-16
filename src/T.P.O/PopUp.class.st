@@ -23,7 +23,7 @@ PopUp >> initialize [
 	self setLabel: 'Mensaje'; color: Color veryLightGray; extent: 420@220.
 
 	texto := RubScrolledTextMorph new.
-	texto position: 15@15; extent: 390@140.
+	texto position: 15@30; extent: 390@130.
 	texto textArea beReadOnly.
 	texto setText: ''.
 	self addMorph: texto.

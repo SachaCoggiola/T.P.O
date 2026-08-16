@@ -10,7 +10,6 @@ Class {
 		'idMascota',
 		'horaStrInput',
 		'horaObjeto',
-		'resultadoMorph',
 		'veterinaria',
 		'turnoObjeto',
 		'origen',
@@ -23,7 +22,7 @@ Class {
 
 { #category : 'method' }
 AtenderSolicitudTurnoVisual >> agendarTurno [ 
-| fueAgendado textoResultado |
+| fueAgendado |
 
 (self validarFecha) ifTrue: [  
 	self informar: 'Fecha ingresada correctamente'.
@@ -34,17 +33,16 @@ AtenderSolicitudTurnoVisual >> agendarTurno [
 	     (self validarId) ifTrue: [  
 	      self informar: 'ID ingresado correctamente'.
 	
-        turnoObjeto := veterinaria buscarTurnoConFecha: fechaObjeto yHora: horaObjeto yDniMedico: dniMedico.
+        turnoObjeto := veterinaria buscarTurnoConFecha: fechaObjeto yHora: horaObjeto yDniMedico: dniMedico asNumber.
         (turnoObjeto) ifNotNil: [  
           fueAgendado := veterinaria agendarTurno: turnoObjeto .
 
           (fueAgendado) ifTrue: [ 
-	         textoResultado := 'El turno ', turnoObjeto toString, ' fue agendado.'; cr.
+	         self informar: 'El turno ', turnoObjeto toString, ' fue agendado.', String cr.
 	       ] ifFalse: [ 
-	         textoResultado := 'El turno ', turnoObjeto toString, ' no se pudo agendar.'; cr.
+	         self informar: 'El turno ', turnoObjeto toString, ' no se pudo agendar.', String cr.
 	       ].
  
-          resultadoMorph contents: textoResultado.
         ] ifNil: [ self informar: 'No existe el turno ingresado' ]
       ].
    ].
@@ -134,15 +132,6 @@ AtenderSolicitudTurnoVisual >> crearComponentes [
 	    yourself.
     self addMorph: botonCerrar.
 
-    "5. Mostrar resultados (StringMorph)"
-    y := y + 40.
-    resultadoMorph := StringMorph new
-        contents: '';
-        color: Color black;
-        position: origen + (x@y);
-        yourself.
-    self addMorph: resultadoMorph.
-
 ]
 
 { #category : 'propiosDelTipo' }
@@ -204,7 +193,7 @@ AtenderSolicitudTurnoVisual >> validarFecha [
             month: partesFecha second asInteger
             day: partesFecha first asInteger
     ] on: Error do: [
-        resultadoMorph contents: 'Formato incorrecto. Use DD MM YYYY (ej: 01 08 2026)'.
+        self informar: 'Formato incorrecto. Use DD MM YYYY (ej: 01 08 2026)'.
         esValido := false
     ].
 ] ifFalse: [ esValido := false. ].
@@ -225,7 +214,7 @@ AtenderSolicitudTurnoVisual >> validarHora [
   ]. 
 (valido) ifTrue: [ 
 	"Asumo que los índices de String comienzan en 0"
-	((horaStrInput includesSubstring: ':') and: (horaStrInput size = 4)) ifFalse: [ 
+	((horaStrInput includesSubstring: ':') and: (horaStrInput size = 5)) ifFalse: [ 
 		self informar: 'Debe seguir el formato 00:00'.
 		valido := false.
 	 ].

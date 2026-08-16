@@ -8,7 +8,6 @@ Class {
 		'dniMedico',
 		'horaStrInput',
 		'horaObjeto',
-		'resultadoMorph',
 		'veterinaria',
 		'turnoObjeto',
 		'origen',
@@ -21,7 +20,7 @@ Class {
 
 { #category : 'as yet unclassified' }
 CancelarTurnoPendienteVisual >> cancelarTurno [ 
-| fueCancelado textoResultado |
+| fueCancelado |
 
 (self validarFecha) ifTrue: [  
 	self informar: 'Fecha ingresada correctamente'.
@@ -30,17 +29,17 @@ CancelarTurnoPendienteVisual >> cancelarTurno [
       (self validarDni) ifTrue: [  
 	     self informar: 'DNI ingresado correctamente'.
 	
-        turnoObjeto := veterinaria buscarTurnoConFecha: fechaObjeto yHora: horaObjeto yDniMedico: dniMedico.
+        turnoObjeto := veterinaria buscarTurnoConFecha: fechaObjeto yHora: horaObjeto yDniMedico: dniMedico asNumber.
         (turnoObjeto) ifNotNil: [  
           fueCancelado := veterinaria cancelarTurnoPendiente: turnoObjeto .
 
           (fueCancelado) ifTrue: [ 
-	         textoResultado := 'El turno ', turnoObjeto toString, ' fue cancelado.'; cr.
+	         self informar: 'El turno ', turnoObjeto toString, ' fue cancelado.', 
+	         String cr.
 	       ] ifFalse: [ 
-	         textoResultado := 'El turno ', turnoObjeto toString, ' no estaba pendiente y                                no se pudo cancelar.'; cr.
+	         self informar: 'El turno ', turnoObjeto toString, ' no estaba pendiente y no se pudo cancelar.', String cr.
 	       ].
- 
-          resultadoMorph contents: textoResultado.
+
         ] ifNil: [ self informar: 'No existe el turno ingresado' ]
       ].
    ].
@@ -60,7 +59,7 @@ CancelarTurnoPendienteVisual >> crearComponentes [
     y := 15.
 
     etiqueta := LabelMorph new
-        contents: 'Ingrese fecha (DD MM YYYY), hora (00:00), y DNI del médico (sin puntos):';
+        contents: 'Ingrese fecha (DD MM YYYY), hora (00:00),',String cr,' y DNI del médico (sin puntos):';
         color: Color black;
         yourself.
     etiqueta position: origen + (x@y).
@@ -112,15 +111,6 @@ CancelarTurnoPendienteVisual >> crearComponentes [
 	     borderColor: Color black;
 	     yourself.
     self addMorph: botonCerrar.
-
-    "5. Mostrar resultados (StringMorph)"
-    y := y + 40.
-    resultadoMorph := StringMorph new
-        contents: '';
-        color: Color black;
-        position: origen + (x@y);
-        yourself.
-    self addMorph: resultadoMorph.
 
 ]
 
@@ -183,10 +173,12 @@ CancelarTurnoPendienteVisual >> validarFecha [
             month: partesFecha second asInteger
             day: partesFecha first asInteger
     ] on: Error do: [
-        resultadoMorph contents: 'Formato incorrecto. Use DD MM YYYY (ej: 01 08 2026)'.
+        self informar: 'Formato incorrecto en fecha. Use DD MM YYYY (ej: 01 08 2026)'.
         esValido := false
     ].
-] ifFalse: [ esValido := false. ].
+] ifFalse: [ esValido := false.
+self informar: 'Formato incorrecto en fecha. Use DD MM YYYY (ej: 01 08 2026)'.
+ ].
 
 ^esValido .
 ]
@@ -204,8 +196,8 @@ CancelarTurnoPendienteVisual >> validarHora [
   ]. 
 (valido) ifTrue: [ 
 	"Asumo que los índices de String comienzan en 0"
-	((horaStrInput includesSubstring: ':') and: (horaStrInput size = 4)) ifFalse: [ 
-		self informar: 'Debe seguir el formato 00:00'.
+	((horaStrInput includesSubstring: ':') and: (horaStrInput size = 5)) ifFalse: [ 
+		self informar: 'Debe seguir el formato 00:00 en hora'.
 		valido := false.
 	 ].
 ].

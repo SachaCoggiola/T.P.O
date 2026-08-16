@@ -67,11 +67,13 @@ ListarTratamientosMedicoVisual >> crearComponentes [
 
 
     y := y + 40.
-    resultadoMorph := StringMorph new
-        contents: '';
-        color: Color black;
+    resultadoMorph := RubScrolledTextMorph new
+        setText: '';
+        color: (Color fromHexString: '463168');
         position: origen + (x@y);
+		  extent: (300@200);
         yourself.
+    resultadoMorph textArea beReadOnly.
     self addMorph: resultadoMorph.
 
 ]
@@ -103,7 +105,7 @@ ListarTratamientosMedicoVisual >> listarTratamientos [
 (esValido) ifTrue: [  
 
       self informar: 'DNI ingresado correctamente'.
-      medicoObjeto := veterinaria buscarMedicoConDni: dni .
+      medicoObjeto := veterinaria buscarMedicoConDni: dni asNumber .
 
       tratamientosMedico := veterinaria listarTratamientosMedico: medicoObjeto .
 
@@ -112,11 +114,11 @@ ListarTratamientosMedicoVisual >> listarTratamientos [
       (tratamientosMedico) ifEmpty: [ 
 	textoResultado := 'No hay tratamientos realizados por ', medicoObjeto getNombre, '.'.
 	                   ] ifNotEmpty: [ 
-	textoResultado := 'Tratamientos por ', medicoObjeto getNombre, ':'; cr; cr.
-              tratamientosMedico do: [ :trat | '- ', trat toString; cr. ].
+	textoResultado := 'Tratamientos por ', medicoObjeto getNombre, ':', String cr.
+              tratamientosMedico do: [ :trat | textoResultado := (textoResultado, '- ', trat toString, String cr, String cr) ].
 	                   ].
 
-      resultadoMorph contents: textoResultado.
+      resultadoMorph setText: textoResultado.
 ].
 ]
 

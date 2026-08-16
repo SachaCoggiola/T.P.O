@@ -50,7 +50,7 @@ HistorialTurnosDeVisual >> crearComponentes [
         position: origen + (x@y);
         color:(Color fromHexString: '313668');
 	     borderColor: Color black;
-	     label: 'Listar facturas pendientes del Cliente';
+	     label: 'Listar el historial de turnos del cliente';
         yourself.
     self addMorph: botonListarTurnos .
 
@@ -67,11 +67,13 @@ HistorialTurnosDeVisual >> crearComponentes [
 
 
     y := y + 40.
-    resultadoMorph := StringMorph new
-        contents: '';
-        color: Color black;
+    resultadoMorph := RubScrolledTextMorph new
+        setText: '';
+        color: (Color fromHexString: '463168');
         position: origen + (x@y);
+		  extent: (300@200);
         yourself.
+    resultadoMorph textArea beReadOnly.
     self addMorph: resultadoMorph.
 
 ]
@@ -103,7 +105,7 @@ HistorialTurnosDeVisual >> listarTurnos [
 (esValido) ifTrue: [  
 
       self informar: 'DNI ingresado correctamente'.
-      clienteObjeto := veterinaria buscarClienteConDni: dni .
+      clienteObjeto := veterinaria buscarClienteConDni: dni asNumber.
 
       turnosCliente := veterinaria historialTurnosDe: clienteObjeto .
 
@@ -112,11 +114,10 @@ HistorialTurnosDeVisual >> listarTurnos [
       (turnosCliente ) ifEmpty: [ 
 	textoResultado := 'No hay turnos de ', clienteObjeto getNombre, '.'.
 	                   ] ifNotEmpty: [ 
-	textoResultado := 'Turnos de ', clienteObjeto getNombre, ':'; cr; cr.
-              turnosCliente do: [ :turno | '- ', turno toString; cr. ].
-	                   ].
-
-      resultadoMorph contents: textoResultado.
+	textoResultado := 'Turnos de ', clienteObjeto getNombre, ':', String cr.
+              turnosCliente do: [ :turno | textoResultado := (textoResultado, '- ', turno toString, String cr, String cr) ].
+                      ].
+      resultadoMorph setText: textoResultado.
 ].
 ]
 

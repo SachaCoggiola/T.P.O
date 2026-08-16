@@ -48,7 +48,7 @@ HistorialClinicoDeVisual >> crearComponentes [
         position: origen + (x@y);
         color:(Color fromHexString: '313668');
 	     borderColor: Color black;
-	     label: 'Listar turnos con esta fecha';
+	     label: 'Listar historial clínico (diagnosticos y vacunas aplicadas)';
         yourself.
     self addMorph: botonHistorialClinico .
 
@@ -63,11 +63,13 @@ HistorialClinicoDeVisual >> crearComponentes [
     self addMorph: botonCerrar.
 
     y := y + 40.
-    resultadoMorph := StringMorph new
-        contents: '';
-        color: Color black;
+   resultadoMorph := RubScrolledTextMorph new
+        setText: '';
+        color: (Color fromHexString: '463168');
         position: origen + (x@y);
+		  extent: (300@200);
         yourself.
+    resultadoMorph textArea beReadOnly.
     self addMorph: resultadoMorph.
 
 ]
@@ -77,26 +79,39 @@ HistorialClinicoDeVisual >> historialClinico [
 | listaDiagnosticosM textoResultado esValido listaAplicacionesM |
 
     esValido := self validarId .
+    textoResultado := ''.
 
 (esValido) ifTrue: [  
-	   self informar: 'ID ingresado correctamente'.
-	   mascotaObjeto := veterinaria buscarMascotaConId: mascotaId .
+	 mascotaObjeto := veterinaria buscarMascotaConId: mascotaId asNumber.
 
-      listaDiagnosticosM := veterinaria historialClinicoDe: mascotaObjeto .
-      
-      textoResultado := ''.
+  (mascotaObjeto) ifNotNil: [  
+    listaDiagnosticosM := veterinaria historialClinicoDe: mascotaObjeto .
 
-      (listaDiagnosticosM ) ifEmpty: [ 
-	textoResultado := 'No hay Diagnosticos para ', mascotaObjeto getNombre , '.'.
+    (listaDiagnosticosM ) ifEmpty: [ 
+	   textoResultado := 'No hay Diagnosticos para ',mascotaObjeto 
+	   getNombre, '.'.
 	                   ] ifNotEmpty: [ 
-	textoResultado := 'Diagnosticos para ', mascotaObjeto getNombre, ':'; cr; cr.
-              listaDiagnosticosM do: [ :diag | '- ', diag toString; cr. ].
-   listaAplicacionesM := mascotaObjeto getColAplicaciones .
-   textoResultado := textoResultado + 'Y Aplicaciones de vacunas:'; cr; cr.
-              listaAplicacionesM do: [ :ap | '- ', ap toString; cr. ].
-	                   ].
+	   textoResultado := 'Diagnosticos para ', mascotaObjeto getNombre, 
+	   ':',String cr.
+              listaDiagnosticosM do: [ :diag | textoResultado := 
+	           (textoResultado, '- ', diag toString, String cr) ].
+      listaAplicacionesM := mascotaObjeto getColAplicaciones .
+
+     (listaAplicacionesM) ifNotEmpty: [  
+       textoResultado := (textoResultado, 'Y Aplicaciones de 
+       vacunas:',String cr,String cr).
+       listaAplicacionesM do: [:ap | textoResultado := (textoResultado, 
+	    '- ', ap toString, String cr) ].
+     ] ifEmpty: [ 
+       textoResultado := (textoResultado, 'La mascota no tiene aplicaciones de vacunas.').
+     ].
+   ].
+  ] ifNil: [ 
+    textoResultado := 'No existen mascotas con el id: ', mascotaId 
+    asString,'.'.
+  ].
    
-      resultadoMorph contents: textoResultado.
+   resultadoMorph setText: textoResultado.
 ].
 ]
 

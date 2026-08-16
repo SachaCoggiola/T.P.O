@@ -24,9 +24,10 @@ FacturarDiagnostico >> buscarDiagnostico [
 			self informar: 'El id debe contener únicamente números.'.
 		] ifTrue: [ 
 			diagnostico := veterinaria buscarDiagnosticoConId: contenido asNumber.
-			diagnostico ifNil: [ self informar: 'No se ha encontrado un diagnostico con el id ingresado' ] ifNotNil: [ self informar: 'Diagnostico encontrada' ] .
+			diagnostico ifNil: [ self informar: 'No se ha encontrado un diagnostico con el id ingresado' ] ifNotNil: [ self informar: 'Diagnostico encontrado' ] .
 		].
 	] ifTrue: [ self informar: 'Ingrese el id de un diagnostico' ]
+
 ]
 
 { #category : 'propiosDelTipo' }
@@ -38,9 +39,13 @@ FacturarDiagnostico >> cerrar [
 FacturarDiagnostico >> facturar [
 	diagnostico ifNil: [ self informar: 'Buscar el diagnostico el cual quiera facturar' ] 
 	ifNotNil: [ 
-		veterinaria generarFactura: diagnostico.
-		self informar: 'Se ha facturado el diagnostico exitosamente'
+	(veterinaria generarFactura: diagnostico) 
+	ifTrue: [ 
+			self informar: 'Se ha facturado el diagnostico exitosamente']
+	ifFalse: [ 
+			self informar: 'No se ha podido facturar el diagnostico' ]
 		 ] 
+
 ]
 
 { #category : 'propiosDelTipo' }
@@ -49,8 +54,8 @@ FacturarDiagnostico >> informar: unTexto [
 ]
 
 { #category : 'initialization' }
-FacturarDiagnostico >> initialize [ 
-	super initialize.
+FacturarDiagnostico >> initialize [
+   super initialize.
 	self color: (Color fromHexString: '024a86').
 	self position: 45@45.
 	self bounds: (45@45 extent: 400@360).
@@ -59,7 +64,7 @@ FacturarDiagnostico >> initialize [
 	botonFacturar := BotonAccion new.
 	self addMorph: botonFacturar .
 	botonFacturar mouseAction: [ self facturar ].	
-	botonFacturar position: origen + (20@40).
+	botonFacturar position: (130@315).
 	botonFacturar label: 'Facturar diagnostico'.
 
 	botonCerrar := BotonAccion new.
@@ -84,6 +89,7 @@ FacturarDiagnostico >> initialize [
 	botonBuscarDiagnostico mouseAction: [ self buscarDiagnostico ].	
 	botonBuscarDiagnostico position: (300@105).
 	botonBuscarDiagnostico label: 'Buscar diagnostico'.
+
 ]
 
 { #category : 'accessing' }

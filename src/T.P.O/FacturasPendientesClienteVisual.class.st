@@ -66,13 +66,16 @@ FacturasPendientesClienteVisual >> crearComponentes [
     self addMorph: botonCerrar.
 
 
-    y := y + 40.
-    resultadoMorph := StringMorph new
-        contents: '';
-        color: Color black;
+     y := y + 40.
+    resultadoMorph := RubScrolledTextMorph new
+        setText: '';
+        color: (Color fromHexString: '463168');
         position: origen + (x@y);
+		  extent: (300@200);
         yourself.
+    resultadoMorph textArea beReadOnly.
     self addMorph: resultadoMorph.
+
 
 ]
 
@@ -103,7 +106,7 @@ FacturasPendientesClienteVisual >> listarFacturas [
 (esValido) ifTrue: [  
 
       self informar: 'DNI ingresado correctamente'.
-      clienteObjeto := veterinaria buscarClienteConDni: dni .
+      clienteObjeto := veterinaria buscarClienteConDni: dni asNumber.
 
       pendientesCliente := veterinaria facturasPendientesCliente: clienteObjeto .
 
@@ -112,11 +115,11 @@ FacturasPendientesClienteVisual >> listarFacturas [
       (pendientesCliente ) ifEmpty: [ 
 	textoResultado := 'No hay facturas pendientes de ', clienteObjeto getNombre, '.'.
 	                   ] ifNotEmpty: [ 
-	textoResultado := 'Facturas pendientes de ', clienteObjeto getNombre, ':'; cr; cr.
-              pendientesCliente do: [ :fact | '- ', fact toString; cr. ].
+	'Facturas pendientes de ', clienteObjeto getNombre, ':', String cr.
+              pendientesCliente do: [ :fact | textoResultado := (textoResultado, '- ', fact toString, String cr, String cr) ].
 	                   ].
 
-      resultadoMorph contents: textoResultado.
+      resultadoMorph setText: textoResultado.
 ].
 ]
 
