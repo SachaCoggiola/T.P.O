@@ -19,6 +19,11 @@ Tratamiento >> calcularMonto [
 ]
 
 { #category : 'propiosDelTipo' }
+Tratamiento >> equals: otroTrat [
+^((fecha asDate = otroTrat getFecha ) and: [(motivo = otroTrat getMotivo) and: (estado = otroTrat getEstado)]).
+]
+
+{ #category : 'propiosDelTipo' }
 Tratamiento >> esFarmacologico [
 ^false
 ]
@@ -45,7 +50,7 @@ Tratamiento >> getEstado [
 
 { #category : 'getters' }
 Tratamiento >> getFecha [
-^fecha.
+^fecha .
 ]
 
 { #category : 'getters' }

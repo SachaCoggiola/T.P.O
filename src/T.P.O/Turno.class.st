@@ -120,13 +120,14 @@ Turno >> toString [
 
 { #category : 'propiosDelTipo' }
 Turno >> validarTurno [
-"Valida que el turno tenga una fecha y hora mayor a la actual"
+"Valida que el turno tenga una fecha"
 
-^( (fecha >= Date today ) and: (hora >= Time now) ).
+^( (fecha asDate >= Date today ) ).
 ]
 
 { #category : 'propiosDelTipo' }
 Turno >> verificarDisponibilidad: unTurno [
+"Si hay disponibilidad devuelve true, sino devuelve false."
 	|rta2 rta1|
 		rta2 :=  true.
 		rta1 := ( (unTurno getFecha = fecha) and: (unTurno getHora = hora) ).

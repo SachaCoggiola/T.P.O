@@ -2,52 +2,90 @@ Class {
 	#name : 'AtenderSolicitudTurnoVisual',
 	#superclass : 'BorderedMorph',
 	#instVars : [
+		'clasifTurno',
 		'fechaInput',
 		'fechaObjeto',
 		'dniMedicoInput',
-		'dniMedico',
+		'medico',
 		'idMascotaInput',
-		'idMascota',
+		'mascota',
 		'horaStrInput',
 		'horaObjeto',
 		'veterinaria',
 		'turnoObjeto',
 		'origen',
 		'botonCerrar',
-		'botonAgendarTurno'
+		'botonAgendarTurno',
+		'cliente',
+		'dniClienteInput',
+		'botonConsulta',
+		'botonTrat',
+		'motivo',
+		'tratamiento',
+		'tipoAtencion',
+		'motivoInput',
+		'tipoAtencionInput'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
 }
 
 { #category : 'method' }
-AtenderSolicitudTurnoVisual >> agendarTurno [ 
-| fueAgendado |
+AtenderSolicitudTurnoVisual >> buscarCliente [
+	|contenido valido|
+	contenido := dniClienteInput contents.
+	valido := false.
+	( contenido trimBoth isEmpty ) ifFalse: [
+		(contenido allSatisfy: [ :c | c isDigit ]) ifFalse: [
+			self informar: 'El DNI debe contener únicamente números.'.
+		] ifTrue: [
+			cliente := veterinaria buscarClienteConDni: contenido asNumber.
+			cliente ifNil: [ self informar: 'No se ha encontrado un cliente con el DNI ingresado' ]
+			 ifNotNil: [               
+				self informar: 'Cliente encontrado'.
+				valido := true. ] .
+		].
+	] ifTrue: [ self informar: 'Ingrese el DNI de un cliente' ].
+^valido.
+]
 
-(self validarFecha) ifTrue: [  
-	self informar: 'Fecha ingresada correctamente'.
-	(self validarHora) ifTrue: [ 
-      self informar: 'Hora ingresada correctamente'.
-      (self validarDni) ifTrue: [  
-	     self informar: 'DNI ingresado correctamente'.
-	     (self validarId) ifTrue: [  
-	      self informar: 'ID ingresado correctamente'.
-	
-        turnoObjeto := veterinaria buscarTurnoConFecha: fechaObjeto yHora: horaObjeto yDniMedico: dniMedico asNumber.
-        (turnoObjeto) ifNotNil: [  
-          fueAgendado := veterinaria agendarTurno: turnoObjeto .
+{ #category : 'propiosDelTipo' }
+AtenderSolicitudTurnoVisual >> buscarMascota [
+	|contenido valido|
+	contenido := idMascotaInput contents. 
+	valido := false.
+	( contenido trimBoth isEmpty ) ifFalse: [
+		(contenido allSatisfy: [ :c | c isDigit ]) ifFalse: [
+			self informar: 'El ID debe contener únicamente números.'.
+		] ifTrue: [
+		   cliente ifNotNil: [ 
+			mascota := cliente buscarMascotaConId: contenido asNumber.
+			mascota ifNil: [ self informar: 'No se ha encontrado una mascota con el ID ingresado.' ]
+			 ifNotNil: [ self informar: 'Mascota encontrada'.
+			           	valido := true. ] .
+			 ] ifNil: 
+		   [ self informar: 'No existe el cliente con la mascota']
+		].
+	] ifTrue: [ self informar: 'Ingrese el ID de una mascota' ].
+^valido.
+]
 
-          (fueAgendado) ifTrue: [ 
-	         self informar: 'El turno ', turnoObjeto toString, ' fue agendado.', String cr.
-	       ] ifFalse: [ 
-	         self informar: 'El turno ', turnoObjeto toString, ' no se pudo agendar.', String cr.
-	       ].
- 
-        ] ifNil: [ self informar: 'No existe el turno ingresado' ]
-      ].
-   ].
-].  
-].
+{ #category : 'method' }
+AtenderSolicitudTurnoVisual >> buscarMedico [
+	|contenido valido|
+	contenido := dniMedicoInput contents. 
+	valido := false.
+	( contenido trimBoth isEmpty ) ifFalse: [
+		(contenido allSatisfy: [ :c | c isDigit ]) ifFalse: [
+			self informar: 'El DNI debe contener únicamente números.'.
+		] ifTrue: [
+			medico := veterinaria buscarMedicoConDni: contenido asNumber.
+			medico ifNil: [ self informar: 'No se ha encontrado un medico con el DNI ingresado' ]
+			 ifNotNil: [ self informar: 'Medico encontrado'.
+				valido := true. ] .
+		].
+	] ifTrue: [ self informar: 'Ingrese el DNI de un medico' ].
+^valido.
 ]
 
 { #category : 'propiosDelTipo' }
@@ -57,26 +95,20 @@ self delete.
 
 { #category : 'initialization' }
 AtenderSolicitudTurnoVisual >> crearComponentes [
-    | x y etiqueta1 etiqueta2 |
+    | x y etiqueta1 |
 
     x := 10.
     y := 15.
 
+    botonTrat delete.
+    botonConsulta delete.
+
     etiqueta1 := LabelMorph new
-        contents: 'Ingrese fecha (DD MM YYYY), hora (00:00), DNI del médico,';
+        contents: 'Ingrese los datos necesarios, fecha con formato (DD MM YYYY), hora (00:00)';
         color: Color black;
         yourself.
     etiqueta1 position: origen + (x@y).
     self addMorph: etiqueta1.
-
-    y := y + 19.
-    etiqueta2 := LabelMorph new
-        contents: ' DNI del cliente y ID de la mascota (los 3 sin puntos):';
-        color: Color black;
-        yourself.
-    etiqueta2 position: origen + (x@y).
-    self addMorph: etiqueta2.
-
 
     y := y + 50.
     fechaInput := LabelWithTextFieldMorph new
@@ -93,6 +125,7 @@ AtenderSolicitudTurnoVisual >> crearComponentes [
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: horaStrInput .
+    
 
     y := horaStrInput position y + 10.
     dniMedicoInput := LabelWithTextFieldMorph new
@@ -110,10 +143,35 @@ AtenderSolicitudTurnoVisual >> crearComponentes [
 	     position: origen + (x@y).
     self addMorph: idMascotaInput .
 
+   y := idMascotaInput position y + 10.
+    dniClienteInput := LabelWithTextFieldMorph new
+	     label: 'DNI del cliente: ';
+	     color: (Color fromHexString: '313668');
+        borderWidth: 1;
+	     position: origen + (x@y).
+    self addMorph: dniClienteInput .
 
-    y := idMascotaInput position y + 30.
+    y := dniClienteInput position y + 10.
+    motivoInput := LabelWithTextFieldMorph new
+	     label: 'Motivo: ';
+	     color:(Color fromHexString: '313668');
+        borderWidth: 1;
+	     position: origen + (x@y).
+    self addMorph: motivoInput .
+
+    (clasifTurno = 'C') ifTrue: [ 
+	y := motivoInput position y + 10.
+    tipoAtencionInput := LabelWithTextFieldMorph new
+	     label: 'Tipo Atención: ';
+	     color:(Color fromHexString: '313668');
+        borderWidth: 1;
+	     position: origen + (x@y).
+    self addMorph: tipoAtencionInput .
+	 ].
+
+    y := y + 70.
     botonAgendarTurno := BotonAccion new
-	     mouseAction: [ self agendarTurno ];
+	     mouseAction: [ self registrarTurno ];
         position: origen + (x@y);
         color:(Color fromHexString: '313668');
 	     borderColor: Color black;
@@ -147,34 +205,79 @@ AtenderSolicitudTurnoVisual >> initialize [
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
-        bounds: (45@45 extent: 440@450).
+        bounds: (45@45 extent: 440@580).
 	 origen := self innerBounds origin.
-    self crearComponentes .
+	
+	 botonConsulta := BotonAccion new.
+	self addMorph: botonConsulta .
+	botonConsulta color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	botonConsulta mouseAction: [ clasifTurno := 'C' .
+		self crearComponentes .].	
+	botonConsulta position: (50@210).
+	botonConsulta label: 'Registrar turno de consulta'.
+	
+	botonTrat := BotonAccion new.
+	self addMorph: botonTrat .
+	botonTrat mouseAction: [ clasifTurno := 'T'.
+		self crearComponentes . ].	
+   botonTrat color: (Color fromHexString: '#313668');
+   borderColor: Color black.
+	botonTrat position: (290@210).
+	botonTrat label: 'Registrar turno de tratamiento'.
+	
 ]
 
 { #category : 'method' }
-AtenderSolicitudTurnoVisual >> validarDni [
-	| numero valido |
-	valido := true.
-	(dniMedicoInput contents isEmpty) ifTrue: [
-		self informar: 'Debe ingresar un DNI.'.
-		valido := false.
-	].
-	valido ifTrue: [ 
-		dniMedico := dniMedicoInput contents.
-		(dniMedico allSatisfy: [ :c | c isDigit ]) ifFalse: [
-		self informar: 'El DNI debe contener únicamente números.'.
-		valido := false.
+AtenderSolicitudTurnoVisual >> registrarTurno [ 
+| fueAgendado|
+
+(self validarFecha) ifTrue: [  
+	self informar: 'Fecha ingresada correctamente'.
+	(self validarHora) ifTrue: [ 
+      self informar: 'Hora ingresada correctamente'.
+      (self buscarMedico) ifTrue: [  
+	     self informar: 'DNI ingresado correctamente'.
+	     (self buscarCliente) ifTrue: [  
+	      self informar: 'ID ingresado correctamente'.
+       	(self buscarMascota) ifTrue: [  
+		     self informar: 'Mascota ingresada correctamente'.
+ 	        motivo := motivoInput asString trimBoth.
+	       (motivo) ifNotEmpty: [  
+	
+	     (clasifTurno = 'T') ifTrue: [
+		 (tratamiento := veterinaria buscarTratamientoConFecha: fechaObjeto yMotivo: motivo) ifNotNil: [
+			turnoObjeto := TurnoTratamiento crearConFecha: fechaObjeto yHora: horaObjeto yMotivo: motivo yCliente: cliente yMascota: mascota yMedico: medico yTratamiento: tratamiento. 
+			 ] ifNil: [ self informar: 'No hay tratamiento registrado para este turno.' ].
+		 ] 
+	ifFalse: [ 
+		tipoAtencion := tipoAtencionInput asString trimBoth.
+		(tipoAtencion) ifNotEmpty: [ 
+		turnoObjeto := TurnoConsulta crearConFecha: fechaObjeto yHora: horaObjeto yMotivo: motivo yCliente: cliente yMascota: mascota yMedico: medico yTipoAtencion: tipoAtencion.
+		] ifEmpty: [ 
+		self informar: 'Debe ingresar un tipo de atención.'.
+		 ]
 		].
-		valido ifTrue: [ 
-			numero := dniMedico asNumber.
-			((numero > 0) and: (numero < 100000000)) ifFalse: [
-			self informar: 'El DNI debe tener entre 1 y 8 dígitos.'.
-			valido := false
-			].
-		].
-	].
-	^valido
+
+        (turnoObjeto) ifNotNil: [  
+          fueAgendado := veterinaria agendarTurno: turnoObjeto .
+
+          (fueAgendado) ifTrue: [ 
+	         self informar: 'El turno ', turnoObjeto toString, ' fue agendado.', String cr.
+	       ] ifFalse: [ 
+	         self informar: 'El turno ', turnoObjeto toString, ' no se pudo agendar.', String cr.
+	       ].
+ 
+        ] ifNil: [ self informar: 'No existe el turno ingresado' ]
+
+     ] ifEmpty: [ 
+self informar: 'Tiene que tener un motivo'.
+ ].
+].
+      ].
+   ].
+].  
+].
 ]
 
 { #category : 'method' }
@@ -225,31 +328,6 @@ AtenderSolicitudTurnoVisual >> validarHora [
 	 ].
 
 ^valido.
-]
-
-{ #category : 'method' }
-AtenderSolicitudTurnoVisual >> validarId [
-	| numero valido |
-	valido := true.
-	idMascotaInput contents isEmpty ifTrue: [
-		self informar: 'Debe ingresar un Id.'.
-		valido := false.
-	].
-	valido ifTrue: [ 
-		idMascota := idMascotaInput contents.
-		(idMascota allSatisfy: [ :c | c isDigit ]) ifFalse: [
-		self informar: 'El Id debe contener únicamente números.'.
-		valido := false.
-		].
-		valido ifTrue: [ 
-			numero := idMascota asNumber.
-			((numero > 0) and: [ numero < 100000000 ]) ifFalse: [
-			self informar: 'El Id debe tener entre 1 y 8 dígitos.'.
-			valido := false
-			].
-		].
-	].
-	^valido
 ]
 
 { #category : 'accessing' }

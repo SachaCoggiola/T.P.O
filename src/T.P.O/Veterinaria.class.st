@@ -28,7 +28,7 @@ Veterinaria >> agendarTurno: unTurno [
 	|exito disponible|
 	exito := false.
 	( unTurno validarTurno ) ifTrue: [ 
-		disponible := colTurnos anySatisfy: [ :cadaTurno | (cadaTurno verificarDisponibilidad: unTurno) not ].
+		disponible := (colTurnos anySatisfy: [ :cadaTurno | (cadaTurno verificarDisponibilidad: unTurno) not ]) not.
 		disponible ifTrue: [ 
 	  		( unTurno verificarMascota ) ifTrue: [ 
 				exito := true.
@@ -94,6 +94,11 @@ Veterinaria >> agregarStock: unStock [
 		ifTrue: 
 			[ cargado := false ].
 	^cargado 
+]
+
+{ #category : 'add' }
+Veterinaria >> agregarTurno: unTurno [
+colTurnos add: unTurno
 ]
 
 { #category : 'propiosDelTipo' }
@@ -162,6 +167,14 @@ Veterinaria >> buscarMedicoConDni: unDni [
 	|medico|
 	medico := colMedicos detect: [ :cadaMedico | cadaMedico getDni = unDni ] ifNone: nil.
 ^medico 
+]
+
+{ #category : 'propiosDelTipo' }
+Veterinaria >> buscarTratamientoConFecha: fechaObjeto yMotivo: motivo [
+|trat|
+trat := Quirurgico crearConNombre: '' conNivelRiesgo: 0 conTipoAnestesia: '' conFecha: fechaObjeto conMotivo: motivo.
+trat := colDiagnosticos detect: [:diag | (diag tieneTratamiento: trat) ] ifNone: [ nil ] .
+^trat.
 ]
 
 { #category : 'propiosDelTipo' }
@@ -349,15 +362,14 @@ pago := Pago crearConMonto: diagnostico3a calcularMontoFinal conMedioPago:(Medio
 fact2 := self buscarFacturaConCliente: cliente3 conDiagnostico: diagnostico3a.
 fact2 registrarPago: pago.
 
-turno := TurnoConsulta crearConFecha: (Date year: 2026 month: 8 day: 24) yHora: (Time fromString: '14:00') yMotivo: 'Revision general' yCliente: cliente1 yMascota: mascota1 yMedico: medico1 yTipoAtencion: 'General'.
-self agendarTurno: turno.
+turno := TurnoConsulta crearConFecha: (Date year: 2026 month: 11 day: 24) yHora: (Time fromString: '14:00') yMotivo: 'Revision general' yCliente: cliente1 yMascota: mascota1 yMedico: medico1 yTipoAtencion: 'General'.
+self agregarTurno: turno.
 turno cancelarTurno.
 
-turno := TurnoTratamiento crearConFecha: (Date year: 2026 month: 8 day: 24) yHora: (Time fromString: '15:00') yMotivo: 'Revision progreso de la herida' yCliente: cliente2 yMascota: mascota2b yMedico: medico2 yTratamiento: tratFarmacologico2b.
+turno := TurnoTratamiento crearConFecha: (Date year: 2026 month: 10 day: 24) yHora: (Time fromString: '15:00') yMotivo: 'Revision progreso de la herida' yCliente: cliente2 yMascota: mascota2b yMedico: medico2 yTratamiento: tratFarmacologico2b.
 self agendarTurno: turno.
-turno confirmarTurno.
 
-turno := TurnoConsulta crearConFecha: (Date year: 2026 month: 6 day: 3) yHora: (Time fromString: '17:00') yMotivo: 'Revision general' yCliente: cliente3 yMascota: mascota3 yMedico: medico1 yTipoAtencion: 'General'.
+turno := TurnoConsulta crearConFecha: (Date year: 2026 month: 10 day: 3) yHora: (Time fromString: '17:00') yMotivo: 'Revision general' yCliente: cliente3 yMascota: mascota3 yMedico: medico1 yTipoAtencion: 'General'.
 self agendarTurno: turno.
 turno setEstado: 'atendido'.
 
@@ -426,12 +438,11 @@ Veterinaria >> revisarStock: medicamento Y: dosis [
 ]
 
 { #category : 'propiosDelTipo' }
-Veterinaria >> verificarTratamiento: arg1 [
+Veterinaria >> verificarTratamiento: tratamiento [
 
-	| tmp1 tmp2 |
-	tmp1 := false.
-	tmp2 := colDiagnosticos anySatisfy: [ :arg2 |
-		        arg2 tieneTratamiento: arg1 ].
-	tmp2 ifTrue: [ tmp1 := arg1 getEstado = 'pendiente' ].
-	^ tmp1
+	| valido tieneTrat |
+	valido := false.
+	tieneTrat := colDiagnosticos anySatisfy: [ :diagnostico | diagnostico tieneTratamiento: tratamiento ].
+	tieneTrat ifTrue: [ valido := tratamiento getEstado = 'pendiente' ].
+	^ valido
 ]

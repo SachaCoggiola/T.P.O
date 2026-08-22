@@ -122,7 +122,7 @@ ListarTratamientosMedicoVisual >> listarTratamientos [
 ].
 ]
 
-{ #category : 'method' }
+{ #category : 'as yet unclassified' }
 ListarTratamientosMedicoVisual >> validarDni [
 	| numero valido |
 	valido := true.

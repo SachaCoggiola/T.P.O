@@ -123,7 +123,7 @@ FacturasPendientesClienteVisual >> listarFacturas [
 ].
 ]
 
-{ #category : 'method' }
+{ #category : 'as yet unclassified' }
 FacturasPendientesClienteVisual >> validarDni [
 	| numero valido |
 	valido := true.

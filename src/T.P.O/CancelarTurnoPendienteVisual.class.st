@@ -132,7 +132,7 @@ CancelarTurnoPendienteVisual >> initialize [
     self crearComponentes .
 ]
 
-{ #category : 'method' }
+{ #category : 'as yet unclassified' }
 CancelarTurnoPendienteVisual >> validarDni [
 	| numero valido |
 	valido := true.

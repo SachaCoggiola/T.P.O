@@ -121,7 +121,7 @@ HistorialTurnosDeVisual >> listarTurnos [
 ].
 ]
 
-{ #category : 'method' }
+{ #category : 'as yet unclassified' }
 HistorialTurnosDeVisual >> validarDni [
 	| numero valido |
 	valido := true.

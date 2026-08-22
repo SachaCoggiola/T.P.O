@@ -99,7 +99,7 @@ Diagnostico >> tieneMedico: otroMedico [
 { #category : 'propiosDelTipo' }
 Diagnostico >> tieneTratamiento: otroTratamiento [
 ^( colTratamientos anySatisfy:
-	[:cadaTratamiento | cadaTratamiento = otroTratamiento ] ).
+	[:cadaTratamiento | cadaTratamiento equals: otroTratamiento ] ).
 ]
 
 { #category : 'getters' }
