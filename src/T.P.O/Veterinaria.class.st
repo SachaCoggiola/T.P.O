@@ -39,7 +39,7 @@ Veterinaria >> agendarTurno: unTurno [
    		].
    exito ifTrue: [
 		colTurnos add: unTurno .
-		unTurno confirmarTurno.
+		unTurno confirmarTurno. "LO SACAMOS O NO ?"
 		].
 	].
 

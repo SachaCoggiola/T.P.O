@@ -97,6 +97,8 @@ self delete.
 AtenderSolicitudTurnoVisual >> crearComponentes [
     | x y etiqueta1 |
 
+    origen := self innerBounds origin.
+
     x := 10.
     y := 15.
 
@@ -110,7 +112,7 @@ AtenderSolicitudTurnoVisual >> crearComponentes [
     etiqueta1 position: origen + (x@y).
     self addMorph: etiqueta1.
 
-    y := y + 50.
+    y := etiqueta1 position y + 10.
     fechaInput := LabelWithTextFieldMorph new
 	     label: 'Fecha: ';
 	     color: (Color fromHexString: '313668');
@@ -175,7 +177,7 @@ AtenderSolicitudTurnoVisual >> crearComponentes [
         position: origen + (x@y);
         color:(Color fromHexString: '313668');
 	     borderColor: Color black;
-	     label: 'Agendar el turno';
+	     label: 'Registrar el turno';
         yourself.
     self addMorph: botonAgendarTurno .
 

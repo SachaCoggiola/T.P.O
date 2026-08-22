@@ -10,8 +10,6 @@ Class {
 		'registrarDiagnostico',
 		'registrarTratamiento',
 		'registrarPago',
-		'facturarDiagnostico',
-		'inicializarSistema',
 		'facturar',
 		'botonCerrar',
 		'etiqueta',
@@ -241,9 +239,10 @@ VeterinariaVisual >> initialize [
 	self position: 45@45.
 	self bounds: (45@45 extent: 400@650).
 	
+	origen := self innerBounds origin.
+	
 	botonInicializar := BotonAccion new.
 	self addMorph: botonInicializar .
-	origen := self innerBounds origin.
 	botonInicializar color: (Color fromHexString: '#313668');
    borderColor: Color black.
 	botonInicializar position: origen + (30@40).
