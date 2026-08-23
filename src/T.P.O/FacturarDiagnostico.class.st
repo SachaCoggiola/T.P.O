@@ -56,7 +56,7 @@ FacturarDiagnostico >> informar: unTexto [
 { #category : 'initialization' }
 FacturarDiagnostico >> initialize [
    super initialize.
-	self color: (Color fromHexString: '024a86').
+	self color: (Color fromHexString: '063F70').
 	self position: 45@45.
 	self bounds: (45@45 extent: 400@360).
 	origen := self innerBounds origin.
@@ -77,7 +77,7 @@ FacturarDiagnostico >> initialize [
 	self addMorph: etiqueta.
 	etiqueta contents: 'Ingrese el Id del diagnostico al cual quiera facturar.'.
 	etiqueta position: origen + (5@15).
-	etiqueta color: Color black .
+	etiqueta color: Color white .
 	
 	campoDiagnostico := LabelWithTextFieldMorph new.
 	self addMorph: campoDiagnostico.

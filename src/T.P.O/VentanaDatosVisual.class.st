@@ -70,6 +70,15 @@ VentanaDatosVisual >> initialize: unaVet [
 	origen := self innerBounds origin.
 	
    self crearComponentes .
+	veterinaria addDependent: self.
+
+]
+
+{ #category : 'updating' }
+VentanaDatosVisual >> update: unAspecto [
+	unAspecto = #clientes ifTrue: [ recuadroClientes setText: veterinaria listarClientes ]
+	ifFalse: [ (unAspecto = #mascotas) ifTrue: [ etiqueta2 contents: 'Cantidad de mascotas en la veterinaria: ', (veterinaria cantMascotas) asString ] ].
+
 ]
 
 { #category : 'accessing' }

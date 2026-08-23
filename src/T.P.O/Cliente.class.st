@@ -24,10 +24,12 @@ Cliente >> agregarMascota: unaMascota [
 	cargado := true.
 		(colMascotas anySatisfy: [ :cadaMascota | cadaMascota equals: unaMascota ]) 
 			ifFalse: 
-				[ 	colMascotas add: unaMascota ] 
+				[ 	colMascotas add: unaMascota.
+					 self changed: #mascotas ] 
 			ifTrue: 
 				[ cargado := false ].
-	^cargado 
+	^cargado
+
 ]
 
 { #category : 'propiosDelTipo' }

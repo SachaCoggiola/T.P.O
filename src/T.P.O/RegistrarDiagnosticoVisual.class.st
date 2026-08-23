@@ -65,7 +65,7 @@ RegistrarDiagnosticoVisual >> informar: unTexto [
 { #category : 'initialization' }
 RegistrarDiagnosticoVisual >> initialize [
 	super initialize.
-	self color: (Color fromHexString: '024a86').
+	self color: (Color fromHexString: '063F70').
 	self position: 45@45.
 	self bounds: (45@45 extent: 350@420).
 	origen := self innerBounds origin.
@@ -86,7 +86,7 @@ RegistrarDiagnosticoVisual >> initialize [
 	self addMorph: etiqueta.
 	etiqueta contents: 'Ingrese los Datos.'.
 	etiqueta position: origen + (5@15).
-	etiqueta color: Color black .
+	etiqueta color: Color white .
 	
 	campoFecha := LabelWithTextFieldMorph new.
 	self addMorph: campoFecha.

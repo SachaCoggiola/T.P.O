@@ -39,7 +39,6 @@ Veterinaria >> agendarTurno: unTurno [
    		].
    exito ifTrue: [
 		colTurnos add: unTurno .
-		unTurno confirmarTurno. "LO SACAMOS O NO ?"
 		].
 	].
 
@@ -52,10 +51,12 @@ Veterinaria >> agregarCliente: unCliente [
 	cargado := true.
 	(colClientes anySatisfy: [ :cadaCliente | unCliente equals: cadaCliente ]) 
 		ifFalse: 
-			[ 	colClientes add: unCliente ] 
+			[ 	colClientes add: unCliente. 
+				unCliente addDependent: self. self changed: #clientes ] 
 		ifTrue: 
 			[ cargado := false ].
-	^cargado 
+	^cargado
+
 		
 	
 ]
@@ -331,6 +332,7 @@ diagnostico2a agregarTratamiento: tratFarmacologico.
 
 "mascota 2.2 con 2 AV + 1 D con 1 TF y 1 TQ  (R1 y A local) "
 diagnostico2b := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 1) conDescripcion: 'Lastimadura en ojo izquierdo por pelea' conMedico: medico1 conMascota: mascota2b conId: 3.
+self agregarDiagnostico: diagnostico2b.
 tratFarmacologico2b := Farmacologico crearConMedicamento: medicamento conDosis: 1 conFrecuencia: '8h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Prevenir infeccion'.
 diagnostico2b agregarTratamiento: tratFarmacologico2b.
 tratQuirurgico := Quirurgico crearConNombre: 'Coser herida con puntos quirurgicos' conNivelRiesgo: 1 conTipoAnestesia: 'Local' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Lastimadura en ojo izquierdo por pelea'.
@@ -338,10 +340,12 @@ diagnostico2b agregarTratamiento: tratQuirurgico.
 
 "mascota 3.1 con 3 AV + 1 D con 1 TQ + 1 D con 2 TF"
 diagnostico3a := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 15) conDescripcion: 'Lastimadura en pata trasera izquierda, por pelea' conMedico: medico2 conMascota: mascota3 conId: 4.
+self agregarDiagnostico: diagnostico3a.
 tratQuirurgico := Quirurgico crearConNombre: 'Coser herida con puntos quirurgicos' conNivelRiesgo: 1 conTipoAnestesia: 'Local' conFecha: (Date year: 2026 month: 8 day: 15) conMotivo: 'Herida en la pata trasera izquierda'.
 diagnostico3a agregarTratamiento: tratQuirurgico.
 
-diagnostico3b := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 15) conDescripcion: 'Lastimadura en pata trasera izquierda, por pelea' conMedico: medico2 conMascota: mascota3 conId: 4.
+diagnostico3b := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 15) conDescripcion: 'Lastimadura en pata trasera izquierda, por pelea' conMedico: medico2 conMascota: mascota3 conId: 5.
+self agregarDiagnostico: diagnostico3b.
 tratFarmacologico := Farmacologico crearConMedicamento: medicamento conDosis: 1 conFrecuencia: '8h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Prevenir infeccion'.
 diagnostico3b agregarTratamiento: tratFarmacologico.
 medicamento := Medicamento crearConNombre: 'petArmor' conPrecio: 20000 conVentaLibre: true.
@@ -435,6 +439,12 @@ Veterinaria >> revisarStock: medicamento Y: dosis [
 	medicina := colStockMedicamentos detect: [ :stock | medicamento equals: (stock getMedicamento) ].
 	medicina ifNotNil: [ hayStock := (medicina getCantidad) > dosis ] ifNil: [ hayStock := false ].
 	^hayStock.
+]
+
+{ #category : 'updating' }
+Veterinaria >> update: unAspecto [
+	self changed: unAspecto.
+
 ]
 
 { #category : 'propiosDelTipo' }
