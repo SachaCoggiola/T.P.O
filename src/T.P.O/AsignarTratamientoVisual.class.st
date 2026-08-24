@@ -25,7 +25,7 @@ AsignarTratamientoVisual >> buscarDiagnostico [
 			self informar: 'El id debe contener únicamente números.'.
 		] ifTrue: [ 
 			diagnostico := veterinaria buscarDiagnosticoConId: contenido asNumber.
-			diagnostico ifNil: [ self informar: 'No se ha encontrado un diagnostico con el id ingresado' ] ifNotNil: [ self informar: 'Diagnostico encontrada' ] .
+			diagnostico ifNil: [ self informar: 'No se ha encontrado un diagnostico con el id ingresado' ] ifNotNil: [ self informar: 'Diagnostico encontrado' ] .
 		].
 	] ifTrue: [ self informar: 'Ingrese el id de un diagnostico' ]
 ]
@@ -45,19 +45,19 @@ AsignarTratamientoVisual >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '063F70').
 	self position: 45@45.
-	self bounds: (45@45 extent: 440@420).
+	self bounds: (45@45 extent: 600@360).
 	origen := self innerBounds origin.
 	
 	botonFarmacologico := BotonAccion new.
 	self addMorph: botonFarmacologico .
 	botonFarmacologico mouseAction: [ self registrarFarmacologico ].	
-	botonFarmacologico position: (50@210).
+	botonFarmacologico position: (70@210).
 	botonFarmacologico label: 'Registrar tratamiento Farmacologico'.
 	
 	botonQuirurgico := BotonAccion new.
 	self addMorph: botonQuirurgico .
 	botonQuirurgico mouseAction: [ self registrarQuirurgico ].	
-	botonQuirurgico position: (290@210).
+	botonQuirurgico position: (370@210).
 	botonQuirurgico label: 'Registrar tratamiento Quirurgico'.
 	
 	botonCerrar := BotonAccion new.
@@ -75,12 +75,12 @@ AsignarTratamientoVisual >> initialize [
 	campoDiagnostico := LabelWithTextFieldMorph new.
 	self addMorph: campoDiagnostico.
 	campoDiagnostico label: 'Id:'.
-	campoDiagnostico position: origen + (20@40).
+	campoDiagnostico position: origen + (20@60).
 	
 	botonBuscarDiagnostico := BotonAccion new.
 	self addMorph: botonBuscarDiagnostico .
 	botonBuscarDiagnostico mouseAction: [ self buscarDiagnostico ].	
-	botonBuscarDiagnostico position: (310@105).
+	botonBuscarDiagnostico position: (310@125).
 	botonBuscarDiagnostico label: 'Buscar diagnostico'.
 ]
 

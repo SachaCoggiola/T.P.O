@@ -2,8 +2,7 @@ Class {
 	#name : 'BotonAccion',
 	#superclass : 'SimpleButtonMorph',
 	#instVars : [
-		'mouseAction',
-		'contenedor'
+		'mouseAction'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'

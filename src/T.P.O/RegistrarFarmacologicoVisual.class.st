@@ -18,7 +18,8 @@ Class {
 		'botonBuscarMedicamento',
 		'botonCerrar',
 		'botonRegistrar',
-		'origen'
+		'origen',
+		'fechaObjeto'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
@@ -57,57 +58,57 @@ RegistrarFarmacologicoVisual >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '063F70').
 	self position: 45@45.
-	self bounds: (45@45 extent: 350@420).
+	self bounds: (45@45 extent: 440@480).
 	origen := self innerBounds origin.
-	
-	botonRegistrar := BotonAccion new.
-	self addMorph: botonRegistrar .
-	botonRegistrar mouseAction: [ self registrar ].	
-	botonRegistrar position: (280@105).
-	botonRegistrar label: 'Registrar'.
-	
-	botonCerrar := BotonAccion new.
-	self addMorph: botonCerrar.
-	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (280@350).
-	botonCerrar label: 'Cerrar'.
 		
 	etiqueta := LabelMorph new.
 	self addMorph: etiqueta.
 	etiqueta contents: 'Ingrese los Datos.'.
-	etiqueta position: origen + (5@15).
+	etiqueta position: origen + (10@15).
 	etiqueta color: Color white .
 	
 	campoFecha := LabelWithTextFieldMorph new.
 	self addMorph: campoFecha.
 	campoFecha label: 'Fecha:'.
-	campoFecha position: origen + (20@40).
+	campoFecha position: origen + (20@60).
 
 	campoMotivo := LabelWithTextFieldMorph new.
 	self addMorph: campoMotivo.
 	campoMotivo label: 'Motivo:'.
-	campoMotivo position: campoFecha position + (0@60).
+	campoMotivo position: campoFecha position + (0@80).
 	
 	campoMedicamento := LabelWithTextFieldMorph new.
 	self addMorph: campoMedicamento.
-	campoMedicamento label: 'Medicamento:'.
-	campoMedicamento position: campoMotivo position + (0@60).
+	campoMedicamento label: 'Nombre de medicamento:'.
+	campoMedicamento position: campoMotivo position + (0@80).
 	
 	campoDosis := LabelWithTextFieldMorph new.
 	self addMorph: campoDosis.
 	campoDosis label: 'Dosis:'.
-	campoDosis position: campoMedicamento position + (0@60).
+	campoDosis position: campoMedicamento position + (0@80).
 
 	campoFrecuencia := LabelWithTextFieldMorph new.
 	self addMorph: campoFrecuencia.
 	campoFrecuencia label: 'Frecuencia:'.
-	campoFrecuencia position: campoDosis position + (0@60).
+	campoFrecuencia position: campoDosis position + (0@80).
 	
 	botonBuscarMedicamento := BotonAccion new.
 	self addMorph: botonBuscarMedicamento.
 	botonBuscarMedicamento mouseAction: [ self buscarMedicamento ].
-	botonBuscarMedicamento position: (280@220).
+	botonBuscarMedicamento position: (280@(campoMedicamento position y + 10)).
 	botonBuscarMedicamento label: 'Buscar medicamento'.
+	
+  botonRegistrar := BotonAccion new.
+	self addMorph: botonRegistrar .
+	botonRegistrar mouseAction: [ self registrar ].	
+	botonRegistrar position: (310@(campoFecha position y + 10)).
+	botonRegistrar label: 'Registrar'.
+	
+	botonCerrar := BotonAccion new.
+	self addMorph: botonCerrar.
+	botonCerrar mouseAction: [ self cerrar ].
+	botonCerrar position: (310@(campoFrecuencia position y + 30)).
+	botonCerrar label: 'Cerrar'.
 ]
 
 { #category : 'propiosDelTipo' }
@@ -120,12 +121,13 @@ RegistrarFarmacologicoVisual >> registrar [
 	ifNotNil: [ 
 		( self validarCampos ) ifFalse: [ registrado := false. self informar: 'Completar los datos de forma correcta.' ] 
 		ifTrue: [  
-			fecha := campoFecha contents.
+			(self validarFecha) ifTrue: [  
 			motivo := campoMotivo contents.
 			dosis := campoDosis contents asNumber.
 			frecuencia := campoFrecuencia contents asNumber.
 			tratamiento := Farmacologico crearConMedicamento: medicamento conDosis: dosis conFrecuencia: frecuencia conFecha: fecha conMotivo: motivo .
 			registrado := veterinaria registrarTratamiento: tratamiento conDiagnostico: diagnostico.
+			].
 			registrado ifTrue: [ self informar: 'El tratamiento se registro con exito.' ] ifFalse: [ self informar: 'El tratamiento ingresado no es valido, no se ha podido registrar el tratamiento.' ].
 		].
 	]. 
@@ -137,6 +139,32 @@ RegistrarFarmacologicoVisual >> validarCampos [
 	|completos|
 	completos := { campoFecha . campoMotivo . campoDosis . campoFrecuencia } allSatisfy: [ :cadaCampo | cadaCampo contents isNotEmpty ] .
 ^completos
+]
+
+{ #category : 'propiosDelTipo' }
+RegistrarFarmacologicoVisual >> validarFecha [
+|esValido partesFecha fechaTexto |
+    esValido := true.
+
+    fechaTexto := campoFecha contents asString trimBoth.
+
+    ((fechaTexto includesSubstring: ' ') and: (fechaTexto isNotEmpty)) ifTrue: [  
+  "Pasamos manualmente la fecha a int en formato DD MM YYYY"
+    partesFecha := fechaTexto findTokens: ' '.
+    fecha := [
+        Date
+            year: partesFecha third asInteger
+            month: partesFecha second asInteger
+            day: partesFecha first asInteger
+    ] on: Error do: [
+        self informar: 'Formato incorrecto en fecha. Use DD MM YYYY (ej: 01 08 2026)'.
+        esValido := false
+    ].
+] ifFalse: [ esValido := false.
+self informar: 'Formato incorrecto en fecha. Use DD MM YYYY (ej: 01 08 2026)'.
+ ].
+
+^esValido .
 ]
 
 { #category : 'accessing' }

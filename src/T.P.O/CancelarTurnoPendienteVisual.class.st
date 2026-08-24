@@ -55,7 +55,7 @@ self delete.
 CancelarTurnoPendienteVisual >> crearComponentes [
     | x y etiqueta |
 
-    x := 5.
+    x := 15.
     y := 15.
 
     etiqueta := LabelMorph new
@@ -66,7 +66,7 @@ CancelarTurnoPendienteVisual >> crearComponentes [
     self addMorph: etiqueta.
 
     "2. Campo para ingresar la fecha"
-    y := y + 30.
+    y := y + 50.
     fechaInput := LabelWithTextFieldMorph new
 	     label: 'Fecha: ';
 	     color: (Color fromHexString: '313668');
@@ -74,7 +74,7 @@ CancelarTurnoPendienteVisual >> crearComponentes [
 	     position: origen + (x@y).
     self addMorph: fechaInput.
 
-    y := fechaInput position y + 30.
+    y := fechaInput position y + 40.
     horaStrInput := LabelWithTextFieldMorph new
 	     label: 'Hora: ';
 	     color: (Color fromHexString: '313668');
@@ -82,7 +82,7 @@ CancelarTurnoPendienteVisual >> crearComponentes [
 	     position: origen + (x@y).
     self addMorph: horaStrInput .
 
-    y := horaStrInput position y + 30.
+    y := horaStrInput position y + 40.
     dniMedicoInput := LabelWithTextFieldMorph new
 	     label: 'DNI del Médico: ';
 	     color: (Color fromHexString: '313668');
@@ -91,7 +91,7 @@ CancelarTurnoPendienteVisual >> crearComponentes [
     self addMorph: dniMedicoInput .
 
  
-    y := dniMedicoInput position y + 30.
+    y := dniMedicoInput position y + 40.
     botonCancelarTurno := BotonAccion new
 	     mouseAction: [ self cancelarTurno ];
         position: origen + (x@y);
@@ -102,7 +102,7 @@ CancelarTurnoPendienteVisual >> crearComponentes [
     self addMorph: botonCancelarTurno .
 
     "4. Botón para cerrar la ventana"
-    y := y + 40.
+    y := y + 50.
     botonCerrar := BotonAccion new
 	     mouseAction: [ self cerrar ];
   	     position: origen + (x@y);
@@ -127,7 +127,7 @@ CancelarTurnoPendienteVisual >> initialize [
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
-        bounds: (45@45 extent: 410@410).
+        bounds: (45@45 extent: 550@440).
 	 origen := self innerBounds origin.
     self crearComponentes .
 ]

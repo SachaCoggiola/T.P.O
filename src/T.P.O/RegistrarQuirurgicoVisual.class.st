@@ -43,46 +43,34 @@ RegistrarQuirurgicoVisual >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '063F70').
 	self position: 45@45.
-	self bounds: (45@45 extent: 350@420).
+	self bounds: (45@45 extent: 420@460).
 	origen := self innerBounds origin.
 	
-	botonRegistrar := BotonAccion new.
-	self addMorph: botonRegistrar .
-	botonRegistrar mouseAction: [ self registrar ].	
-	botonRegistrar position: (280@105).
-	botonRegistrar label: 'Registrar'.
-	
-	botonCerrar := BotonAccion new.
-	self addMorph: botonCerrar.
-	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (280@350).
-	botonCerrar label: 'Cerrar'.
-		
 	etiqueta := LabelMorph new.
 	self addMorph: etiqueta.
 	etiqueta contents: 'Ingrese los Datos.'.
-	etiqueta position: origen + (5@15).
+	etiqueta position: origen + (10@15).
 	etiqueta color: Color white.
 	
 	campoFecha := LabelWithTextFieldMorph new.
 	self addMorph: campoFecha.
 	campoFecha label: 'Fecha:'.
-	campoFecha position: origen + (20@40).
+	campoFecha position: origen + (20@60).
 
 	campoMotivo := LabelWithTextFieldMorph new.
 	self addMorph: campoMotivo.
 	campoMotivo label: 'Motivo:'.
-	campoMotivo position: campoFecha position + (0@60).
+	campoMotivo position: campoFecha position + (0@80).
 	
 	campoNombre := LabelWithTextFieldMorph new.
 	self addMorph: campoNombre.
 	campoNombre label: 'Nombre de la operación:'.
-	campoNombre position: campoMotivo position + (0@60).
+	campoNombre position: campoMotivo position + (0@80).
 
 	Quirurgico inicializarTablas.	
 	campoNivel := DropListMorph new.
 	campoNivel list: Quirurgico aumentoRiesgo keys asOrderedCollection.
-	campoNivel position: campoNombre position + (0@60).
+	campoNivel position: campoNombre position + (0@80).
 	campoNivel extent: (150@25).
 	self addMorph: campoNivel.
 	
@@ -91,6 +79,19 @@ RegistrarQuirurgicoVisual >> initialize [
 	campoTipo position: campoNivel position + (0@60).
 	campoTipo extent: (150@25).
 	self addMorph: campoTipo.
+	
+	botonCerrar := BotonAccion new.
+	self addMorph: botonCerrar.
+	botonCerrar mouseAction: [ self cerrar ].
+	botonCerrar position: (310@(campoTipo position y + 30)).
+	botonCerrar label: 'Cerrar'.
+	
+	botonRegistrar := BotonAccion new.
+	self addMorph: botonRegistrar .
+	botonRegistrar mouseAction: [ self registrar ].	
+	botonRegistrar position: (310@(botonCerrar position y - 40)).
+	botonRegistrar label: 'Registrar'.
+		
 ]
 
 { #category : 'propiosDelTipo' }

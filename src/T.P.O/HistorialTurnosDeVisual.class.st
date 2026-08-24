@@ -71,7 +71,7 @@ HistorialTurnosDeVisual >> crearComponentes [
         setText: '';
         color: (Color fromHexString: '463168');
         position: origen + (x@y);
-		  extent: (300@200);
+		  extent: (430@200);
         yourself.
     resultadoMorph textArea beReadOnly.
     self addMorph: resultadoMorph.
@@ -91,7 +91,7 @@ HistorialTurnosDeVisual >> initialize [
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
-        bounds: (45@45 extent: 350@420).
+        bounds: (45@45 extent: 450@420).
 	 origen := self innerBounds origin.
     self crearComponentes .
 ]

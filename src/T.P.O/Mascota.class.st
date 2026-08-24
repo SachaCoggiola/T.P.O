@@ -14,12 +14,26 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'creation' }
 Mascota class >> crearConNombre: unNombre conEspecie: unaEspecie conRaza: unaRaza conFechaNacimiento: unaFechaNac conPeso: unPeso conId: unId [
 	|mascota|
 		mascota := self new.
 		mascota inicializarConNombre: unNombre conEspecie: unaEspecie conRaza: unaRaza conFechaNacimiento: unaFechaNac conPeso: unPeso conId: unId.
 		^mascota.
+]
+
+{ #category : 'setters' }
+Mascota >> agregarAplicacion: unaAplicacion [
+	|cargado|
+	cargado := true.
+		(colAplicaciones anySatisfy: [ :cadaAplicacion | cadaAplicacion equals: unaAplicacion ]) 
+			ifFalse: 
+				[ 	colAplicaciones add: unaAplicacion .
+					 self changed: #Aplicacion ] 
+			ifTrue: 
+				[ cargado := false ].
+	^cargado
+
 ]
 
 { #category : 'comparing' }
@@ -73,6 +87,8 @@ Mascota >> inicializarConNombre: unNombre conEspecie: unaEspecie conRaza: unaRaz
 	peso := unPeso.
 	id := unId.
 	colAplicaciones := SortedCollection new.
+	colAplicaciones sortBlock: [ :aplicacion1 :aplicacion2 | aplicacion1 getFecha >= aplicacion2 getFecha ].
+
 ]
 
 { #category : 'setters' }

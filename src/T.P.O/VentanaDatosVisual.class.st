@@ -25,7 +25,7 @@ VentanaDatosVisual >> crearComponentes [
     y := 15.
 
     etiqueta1 := LabelMorph new
-        contents: 'Datos de clientes y mascotas';
+        contents: 'Datos de clientes y mascotas:';
         color: Color black;
         yourself.
     etiqueta1 position: origen + (x@y).
@@ -35,13 +35,13 @@ VentanaDatosVisual >> crearComponentes [
     textoClientes := veterinaria listarClientes.
     recuadroClientes := RubScrolledTextMorph new.
     recuadroClientes position: origen + (x@y).
-    recuadroClientes extent: 380@140.
+    recuadroClientes extent: 480@170.
     recuadroClientes textArea beReadOnly.
     recuadroClientes color: (Color fromHexString: '463168').
 	 recuadroClientes setText: textoClientes .
 	 self addMorph: recuadroClientes.
 	
-	y := y + 160.
+	y := y + 180.
 	textoMascotas := (veterinaria cantMascotas) asString.
 	etiqueta2 := LabelMorph new
         contents: 'Cantidad de mascotas en la veterinaria: ', textoMascotas ;
@@ -52,7 +52,7 @@ VentanaDatosVisual >> crearComponentes [
 
     botonCerrar := BotonAccion new
 	     mouseAction: [ self cerrar ];
-  	     position: origen + (320@250);
+  	     position: origen + (400@270);
 	     label: 'Cerrar';
 	     color:(Color fromHexString: '463168');
 	     borderColor: Color black;
@@ -66,7 +66,7 @@ VentanaDatosVisual >> initialize: unaVet [
    self veterinaria: unaVet .
 	self color: (Color fromHexString: '94CCE0').
 	self position: 480@45.
-	self bounds: (480@45 extent: 400@300).
+	self bounds: (480@45 extent: 500@320).
 	origen := self innerBounds origin.
 	
    self crearComponentes .

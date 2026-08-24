@@ -27,7 +27,7 @@ LabelWithTextFieldMorph >> initialize [
 	|posicion|
 	super initialize.
 	self color: (Color fromHexString: '662806') .
-	self bounds: (0@0 extent: 200@50).
+	self bounds: (0@0 extent: 200@60).
 	self borderWidth: 2.
 	self borderColor: Color black.
 	

@@ -11,11 +11,19 @@ Class {
 }
 
 { #category : 'creation' }
-Aplicacion class >> crearConFecha: unaFecha conMascota: mascota conMedico: medico conVacuna: vacuna [
+Aplicacion class >> crearConFecha: unaFecha conMedico: medico conVacuna: vacuna [
 |unaAplicacion|
 unaAplicacion := self new.
-unaAplicacion inicializarConFecha: unaFecha conMascota: mascota conMedico: medico conVacuna: vacuna.
+unaAplicacion inicializarConFecha: unaFecha conMedico: medico conVacuna: vacuna.
 ^unaAplicacion .
+
+]
+
+{ #category : 'comparing' }
+Aplicacion >> equals: otraAp [
+|iguales|
+  iguales := ((fecha = otraAp getFecha asDate) and: [ (unMedico equals: otraAp getMedico) and: (unaVacuna equals: otraAp getVacuna) ]).
+^iguales 
 ]
 
 { #category : 'propiosDelTipo' }
@@ -39,10 +47,11 @@ Aplicacion >> getVacuna [
 ]
 
 { #category : 'initialization' }
-Aplicacion >> inicializarConFecha: unaFecha conMascota: mascota conMedico: medico conVacuna: vacuna [
+Aplicacion >> inicializarConFecha: unaFecha conMedico: medico conVacuna: vacuna [
 	fecha := unaFecha .
 	unMedico := medico.
 	unaVacuna := vacuna.
+
 ]
 
 { #category : 'propiosDelTipo' }
@@ -58,6 +67,6 @@ Aplicacion >> tieneVacuna: otraVacuna [
 { #category : 'getters' }
 Aplicacion >> toString [
 ^ ('Aplicacion: ', fecha asString,
-      ' | ', 'Médico: ' , unMedico toString,
-      ' | ', 'Vacuna:  ' , unaVacuna toString).
+      ' | ', unaVacuna toString,
+      ' | ', 'Médico: ' , unMedico toString).
 ]

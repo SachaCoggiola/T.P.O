@@ -39,7 +39,7 @@ RegistrarClienteVisual >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '063F70').
 	self position: 45@45.
-	self bounds: (45@45 extent: 350@420).
+	self bounds: (45@45 extent: 400@540).
 	origen := self innerBounds origin.
 	
 	botonRegistrar := BotonAccion new.
@@ -51,44 +51,44 @@ RegistrarClienteVisual >> initialize [
 	botonCerrar := BotonAccion new.
 	self addMorph: botonCerrar.
 	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (330@315).
+	botonCerrar position: (330@520).
 	botonCerrar label: 'Cerrar'.
 	
 	etiqueta := LabelMorph new.
 	self addMorph: etiqueta.
-	etiqueta contents: 'Ingrese los Datos.'.
+	etiqueta contents: 'Ingrese los Datos del Nuevo Cliente.'.
 	etiqueta position: origen + (5@15).
 	etiqueta color: Color white.
 	
 	campoDni := LabelWithTextFieldMorph new.
 	self addMorph: campoDni.
 	campoDni label: 'Dni:'.
-	campoDni position: origen + (20@40).
+	campoDni position: origen + (20@50).
 
 	campoNombre := LabelWithTextFieldMorph new.
 	self addMorph: campoNombre.
 	campoNombre label: 'Nombre:'.
-	campoNombre position: campoDni position + (0@60).
+	campoNombre position: campoDni position + (0@80).
 	
 	campoApellido := LabelWithTextFieldMorph new.
 	self addMorph: campoApellido.
 	campoApellido label: 'Apellido:'.
-	campoApellido position: campoNombre position + (0@60).
+	campoApellido position: campoNombre position + (0@80).
 	
 	campoDomicilio := LabelWithTextFieldMorph new.
 	self addMorph: campoDomicilio .
 	campoDomicilio label: 'Domicilio:'.
-	campoDomicilio position: campoApellido position + (0@60).	
+	campoDomicilio position: campoApellido position + (0@80).	
 	
 	campoEmail := LabelWithTextFieldMorph new.
 	self addMorph: campoEmail .
 	campoEmail label: 'Email:'.
-	campoEmail position: campoDomicilio position + (0@60).
+	campoEmail position: campoDomicilio position + (0@80).
 	
 	campoTelefono := LabelWithTextFieldMorph new.
 	self addMorph: campoTelefono .
 	campoTelefono label: 'Telefono:'.
-	campoTelefono position: campoEmail position + (0@60).
+	campoTelefono position: campoEmail position + (0@80).
 ]
 
 { #category : 'propiosDelTipo' }

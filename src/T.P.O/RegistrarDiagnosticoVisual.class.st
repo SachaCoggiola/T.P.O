@@ -67,10 +67,54 @@ RegistrarDiagnosticoVisual >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '063F70').
 	self position: 45@45.
-	self bounds: (45@45 extent: 350@420).
+	self bounds: (45@45 extent: 420@500).
 	origen := self innerBounds origin.
 	
-	botonRegistrar := BotonAccion new.
+	
+	etiqueta := LabelMorph new.
+	self addMorph: etiqueta.
+	etiqueta contents: 'Ingrese los Datos.'.
+	etiqueta position: origen + (10@15).
+	etiqueta color: Color white .
+	
+	campoFecha := LabelWithTextFieldMorph new.
+	self addMorph: campoFecha.
+	campoFecha label: 'Fecha:'.
+	campoFecha position: origen + (20@60).
+
+	campoDescripcion := LabelWithTextFieldMorph new.
+	self addMorph: campoDescripcion.
+	campoDescripcion label: 'Descripcion:'.
+	campoDescripcion position: campoFecha position + (0@80).
+	
+	campoMedico := LabelWithTextFieldMorph new.
+	self addMorph: campoMedico.
+	campoMedico label: 'Dni de medico:'.
+	campoMedico position: campoDescripcion position + (0@80).
+	
+	campoMascota := LabelWithTextFieldMorph new.
+	self addMorph: campoMascota.
+	campoMascota label: 'Id de mascota:'.
+	campoMascota position: campoMedico position + (0@80).
+	
+	campoId := LabelWithTextFieldMorph new.
+	self addMorph: campoId.
+	campoId label: 'Id Diagnóstico:'.
+	campoId position: campoMascota position + (0@80).
+	
+	botonBuscarMedico := BotonAccion new.
+	self addMorph: botonBuscarMedico.
+	botonBuscarMedico mouseAction: [ self buscarMedico ].
+	botonBuscarMedico position: (280@(campoMedico position y + 10)).
+	botonBuscarMedico label: 'Buscar medico'.
+	
+	botonBuscarMascota := BotonAccion new.
+	self addMorph: botonBuscarMascota.
+	botonBuscarMascota mouseAction: [ self buscarMascota ].
+	botonBuscarMascota position: (280@(campoMascota position y + 10)).
+	botonBuscarMascota label: 'Buscar mascota'.
+	
+  botonRegistrar := BotonAccion new.
 	self addMorph: botonRegistrar .
 	botonRegistrar mouseAction: [ self registrar ].	
 	botonRegistrar position: (280@105).
@@ -79,51 +123,9 @@ RegistrarDiagnosticoVisual >> initialize [
 	botonCerrar := BotonAccion new.
 	self addMorph: botonCerrar.
 	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (280@350).
+	botonCerrar position: (370@(campoId position y + 60)).
 	botonCerrar label: 'Cerrar'.
 		
-	etiqueta := LabelMorph new.
-	self addMorph: etiqueta.
-	etiqueta contents: 'Ingrese los Datos.'.
-	etiqueta position: origen + (5@15).
-	etiqueta color: Color white .
-	
-	campoFecha := LabelWithTextFieldMorph new.
-	self addMorph: campoFecha.
-	campoFecha label: 'Fecha:'.
-	campoFecha position: origen + (20@40).
-
-	campoDescripcion := LabelWithTextFieldMorph new.
-	self addMorph: campoDescripcion.
-	campoDescripcion label: 'Descripcion:'.
-	campoDescripcion position: campoFecha position + (0@60).
-	
-	campoMedico := LabelWithTextFieldMorph new.
-	self addMorph: campoMedico.
-	campoMedico label: 'Dni de medico:'.
-	campoMedico position: campoDescripcion position + (0@60).
-	
-	campoMascota := LabelWithTextFieldMorph new.
-	self addMorph: campoMascota.
-	campoMascota label: 'Id de mascota:'.
-	campoMascota position: campoMedico position + (0@60).
-	
-	campoId := LabelWithTextFieldMorph new.
-	self addMorph: campoId.
-	campoId label: 'Id:'.
-	campoId position: campoMascota position + (0@60).
-	
-	botonBuscarMedico := BotonAccion new.
-	self addMorph: botonBuscarMedico.
-	botonBuscarMedico mouseAction: [ self buscarMedico ].
-	botonBuscarMedico position: (280@220).
-	botonBuscarMedico label: 'Buscar medico'.
-	
-	botonBuscarMascota := BotonAccion new.
-	self addMorph: botonBuscarMascota.
-	botonBuscarMascota mouseAction: [ self buscarMascota ].
-	botonBuscarMascota position: (280@280).
-	botonBuscarMascota label: 'Buscar mascota'.
 ]
 
 { #category : 'propiosDelTipo' }
@@ -138,11 +140,12 @@ RegistrarDiagnosticoVisual >> registrar [
 		ifNotNil: [  
 			( self validarId and: [ self validarCampos ] ) ifFalse: [ registrado := false. self informar: 'Completar los datos de forma correcta.' ] 
 			ifTrue: [
+				(self validarFecha) ifTrue:[
 				id := campoId contents asNumber.
-				fecha := campoFecha contents .
 				descripcion := campoDescripcion contents.
 				diagnostico := Diagnostico crearConFecha: fecha conDescripcion: descripcion conMedico: medico conMascota: mascota conId: id.
-				registrado := veterinaria agregarDiagnostico: diagnostico .
+				registrado := veterinaria agregarDiagnostico: diagnostico 
+				].
 				registrado ifTrue: [ self informar: 'El diagnostico se registro con exito.' ] ifFalse: [ self informar: 'El diagnostico ingresado ya se encuentra registrado.' ].
 			].
 		].
@@ -155,6 +158,32 @@ RegistrarDiagnosticoVisual >> validarCampos [
 	|completos|
 	completos := { campoFecha . campoDescripcion . campoMedico . campoMascota } allSatisfy: [ :cadaCampo | cadaCampo contents isNotEmpty ] .
 ^completos 
+]
+
+{ #category : 'propiosDelTipo' }
+RegistrarDiagnosticoVisual >> validarFecha [
+|esValido partesFecha fechaTexto |
+    esValido := true.
+
+    fechaTexto := campoFecha contents asString trimBoth.
+
+    ((fechaTexto includesSubstring: ' ') and: (fechaTexto isNotEmpty)) ifTrue: [  
+  "Pasamos manualmente la fecha a int en formato DD MM YYYY"
+    partesFecha := fechaTexto findTokens: ' '.
+    fecha := [
+        Date
+            year: partesFecha third asInteger
+            month: partesFecha second asInteger
+            day: partesFecha first asInteger
+    ] on: Error do: [
+        self informar: 'Formato incorrecto en fecha. Use DD MM YYYY (ej: 01 08 2026)'.
+        esValido := false
+    ].
+] ifFalse: [ esValido := false.
+self informar: 'Formato incorrecto en fecha. Use DD MM YYYY (ej: 01 08 2026)'.
+ ].
+
+^esValido .
 ]
 
 { #category : 'propiosDelTipo' }

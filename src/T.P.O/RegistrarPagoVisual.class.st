@@ -79,52 +79,52 @@ RegistrarPagoVisual >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '063F70').
 	self position: 45@45.
-	self bounds: (45@45 extent: 350@420).
+	self bounds: (45@45 extent: 420@460).
 	origen := self innerBounds origin.
 	
 	botonRegistrar := BotonAccion new.
 	self addMorph: botonRegistrar .
 	botonRegistrar mouseAction: [ self registrar ].	
-	botonRegistrar position: (280@105).
+	botonRegistrar position: (320@135).
 	botonRegistrar label: 'Registrar'.
 	
 	botonCerrar := BotonAccion new.
 	self addMorph: botonCerrar.
 	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (280@350).
+	botonCerrar position: (340@420).
 	botonCerrar label: 'Cerrar'.
 		
 	etiqueta := LabelMorph new.
 	self addMorph: etiqueta.
 	etiqueta contents: 'Ingrese los Datos.'.
-	etiqueta position: origen + (5@15).
+	etiqueta position: origen + (10@15).
 	etiqueta color: Color white .
 	
 	campoMonto := LabelWithTextFieldMorph new.
 	self addMorph: campoMonto.
 	campoMonto label: 'Monto abonado:'.
-	campoMonto position: origen + (20@40).
+	campoMonto position: origen + (20@70).
 	
 	campoCliente := LabelWithTextFieldMorph new.
 	self addMorph: campoCliente.
 	campoCliente label: 'Dni del cliente:'.
-	campoCliente position: campoMonto position + (0@60).
+	campoCliente position: campoMonto position + (0@90).
 
 	campoDiagnostico := LabelWithTextFieldMorph new.
 	self addMorph: campoDiagnostico.
 	campoDiagnostico label: 'Id del diagnostico:'.
-	campoDiagnostico position: campoCliente position + (0@60).
+	campoDiagnostico position: campoCliente position + (0@90).
 
 	campoMedioPago := DropListMorph new.
 	campoMedioPago list: mediosPago.
-	campoMedioPago position: campoDiagnostico position + (0@60).
+	campoMedioPago position: campoDiagnostico position + (0@90).
 	campoMedioPago extent: (150@25).
 	self addMorph: campoMedioPago.
 	
 	botonBuscarFactura := BotonAccion new.
 	self addMorph: botonBuscarFactura .
 	botonBuscarFactura mouseAction: [ self buscarFactura ].	
-	botonBuscarFactura position: (280@210).
+	botonBuscarFactura position: (320@220).
 	botonBuscarFactura label: 'Buscar factura'.
 ]
 

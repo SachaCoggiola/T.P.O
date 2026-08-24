@@ -62,12 +62,12 @@ HistorialClinicoDeVisual >> crearComponentes [
 	    yourself.
     self addMorph: botonCerrar.
 
-    y := y + 40.
+    y := y + 60.
    resultadoMorph := RubScrolledTextMorph new
         setText: '';
         color: (Color fromHexString: '463168');
         position: origen + (x@y);
-		  extent: (300@200);
+		  extent: (515@220);
         yourself.
     resultadoMorph textArea beReadOnly.
     self addMorph: resultadoMorph.
@@ -98,8 +98,7 @@ HistorialClinicoDeVisual >> historialClinico [
       listaAplicacionesM := mascotaObjeto getColAplicaciones .
 
      (listaAplicacionesM) ifNotEmpty: [  
-       textoResultado := (textoResultado, 'Y Aplicaciones de 
-       vacunas:',String cr,String cr).
+       textoResultado := (textoResultado,String cr, 'Y Aplicaciones de vacunas:',String cr).
        listaAplicacionesM do: [:ap | textoResultado := (textoResultado, 
 	    '- ', ap toString, String cr) ].
      ] ifEmpty: [ 
@@ -128,7 +127,7 @@ HistorialClinicoDeVisual >> initialize [
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
-        bounds: (45@45 extent: 350@420).
+        bounds: (45@45 extent: 530@460).
 	 origen := self innerBounds origin.
     self crearComponentes .
 ]

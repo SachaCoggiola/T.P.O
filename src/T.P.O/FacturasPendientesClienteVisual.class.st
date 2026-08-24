@@ -71,7 +71,7 @@ FacturasPendientesClienteVisual >> crearComponentes [
         setText: '';
         color: (Color fromHexString: '463168');
         position: origen + (x@y);
-		  extent: (300@200);
+		  extent: (370@250);
         yourself.
     resultadoMorph textArea beReadOnly.
     self addMorph: resultadoMorph.
@@ -92,7 +92,7 @@ FacturasPendientesClienteVisual >> initialize [
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
-        bounds: (45@45 extent: 350@420).
+        bounds: (45@45 extent: 390@470).
 	 origen := self innerBounds origin.
     self crearComponentes .
 ]

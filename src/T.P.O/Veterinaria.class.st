@@ -283,7 +283,7 @@ Veterinaria >> inicializarCuit: unCuit conNombre: unNombre [
 { #category : 'initialization' }
 Veterinaria >> inicializarSistema [
 "Para la verificación del funcionamiento correcto del sistema, se debe entregar con un conjunto inicial de datos."
-	|medico1 medico2 cliente1 cliente2 cliente3 mascota1 mascota2a mascota2b mascota3 medicamento stock diagnostico1 diagnostico2a diagnostico2b diagnostico3a diagnostico3b tratQuirurgico tratFarmacologico tratFarmacologico2b turno matricula pago fact1 fact2|
+	|medico1 medico2 cliente1 cliente2 cliente3 mascota1 mascota2a mascota2b mascota3 aplicacion2a1 aplicacion2b1 aplicacion2b2 aplicacion3a1 aplicacion3a2 aplicacion3a3 medicamento stock diagnostico1 diagnostico2a diagnostico2b diagnostico3a diagnostico3b tratQuirurgico tratFarmacologico tratFarmacologico2b turno matricula pago fact1 fact2 vacuna|
 	matricula := Matricula crearConNumero: 1058 conColegioEmisor: 'Universidad de Buenos Aires' conFechaInscripcion: (Date year: 1950 month: 5 day: 12) conFechaVigencia: (Date year: 2027 month: 9 day: 3) conTipo: 'Nacional'.
 
 	medico1 := Medico crearConNombre: 'Rene' conApellido: 'Favaloro' conNroDni: 12345678 conDomicilio: 'San martin 550' conFechaNacimiento: (Date year: 1973 month: 7 day: 12)  conCuil: 23123456780 conMatricula: matricula.
@@ -330,6 +330,10 @@ self agregarStock: stock.
 tratFarmacologico := Farmacologico crearConMedicamento: medicamento conDosis: 1 conFrecuencia: '8h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Prevenir infeccion'.
 diagnostico2a agregarTratamiento: tratFarmacologico.
 
+vacuna := Vacuna crearConNombre: 'Antitetanica' yLab: 'Laboratios Osprera' yEspecie: 'thetanicus'  yMesesDeVigencia: 48. 
+aplicacion2a1 := Aplicacion crearConFecha: (Date year: 2025 month: 6 day: 1) conMedico: medico1 conVacuna: vacuna.
+mascota2a agregarAplicacion: aplicacion2a1.
+
 "mascota 2.2 con 2 AV + 1 D con 1 TF y 1 TQ  (R1 y A local) "
 diagnostico2b := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 1) conDescripcion: 'Lastimadura en ojo izquierdo por pelea' conMedico: medico1 conMascota: mascota2b conId: 3.
 self agregarDiagnostico: diagnostico2b.
@@ -337,6 +341,14 @@ tratFarmacologico2b := Farmacologico crearConMedicamento: medicamento conDosis: 
 diagnostico2b agregarTratamiento: tratFarmacologico2b.
 tratQuirurgico := Quirurgico crearConNombre: 'Coser herida con puntos quirurgicos' conNivelRiesgo: 1 conTipoAnestesia: 'Local' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Lastimadura en ojo izquierdo por pelea'.
 diagnostico2b agregarTratamiento: tratQuirurgico.
+
+vacuna := Vacuna crearConNombre: 'Antitetanica' yLab: 'Laboratios Osborn' yEspecie: 'thetanicus'  yMesesDeVigencia: 60. 
+aplicacion2b1 := Aplicacion crearConFecha: (Date year: 2024 month: 4 day: 12) conMedico: medico1 conVacuna: vacuna.
+mascota2b agregarAplicacion: aplicacion2b1.
+
+vacuna := Vacuna crearConNombre: 'Antirabia' yLab: 'Laboratios Osprera' yEspecie: 'rabia'  yMesesDeVigencia: 48. 
+aplicacion2b2 := Aplicacion crearConFecha: (Date year: 2025 month: 6 day: 1) conMedico: medico1 conVacuna: vacuna.
+mascota2b agregarAplicacion: aplicacion2b2.
 
 "mascota 3.1 con 3 AV + 1 D con 1 TQ + 1 D con 2 TF"
 diagnostico3a := Diagnostico crearConFecha: (Date year: 2026 month: 8 day: 15) conDescripcion: 'Lastimadura en pata trasera izquierda, por pelea' conMedico: medico2 conMascota: mascota3 conId: 4.
@@ -353,6 +365,17 @@ stock := StockMedicamento crearConId: 3 conCantidad: 1000 conMedicamento: medica
 self agregarStock: stock.
 tratFarmacologico := Farmacologico crearConMedicamento: medicamento conDosis: 1 conFrecuencia: '10h' conFecha: (Date year: 2026 month: 8 day: 1) conMotivo: 'Para el dolor'.
 diagnostico3b agregarTratamiento: tratFarmacologico.
+
+aplicacion3a1 := Aplicacion crearConFecha: (Date year: 2023 month: 2 day: 10) conMedico: medico1 conVacuna: vacuna.
+mascota3 agregarAplicacion: aplicacion3a1.
+
+vacuna := Vacuna crearConNombre: 'Antitetanica' yLab: 'Laboratios Osprera' yEspecie: 'thetanicus'  yMesesDeVigencia: 48. 
+aplicacion3a2 := Aplicacion crearConFecha: (Date year: 2023 month: 4 day: 13) conMedico: medico1 conVacuna: vacuna.
+mascota3 agregarAplicacion: aplicacion3a2.
+
+vacuna := Vacuna crearConNombre: 'Antigripal' yLab: 'Laboratios Osborn' yEspecie: 'gripe'  yMesesDeVigencia: 60. 
+aplicacion3a3 := Aplicacion crearConFecha: (Date year: 2023 month: 6 day: 11) conMedico: medico1 conVacuna: vacuna.
+mascota3 agregarAplicacion: aplicacion3a3.
 
 "El D de la mascota 2.2 facturado y con saldo pendiente"
 self generarFactura: diagnostico2b.

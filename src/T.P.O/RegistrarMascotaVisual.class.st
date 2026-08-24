@@ -61,7 +61,7 @@ RegistrarMascotaVisual >> initialize [
 	super initialize.
 	self color: (Color fromHexString: '063F70').
 	self position: 45@45.
-	self bounds: (45@45 extent: 470@420).
+	self bounds: (45@45 extent: 500@490).
 	origen := self innerBounds origin.
 	
 	botonBuscarCliente := BotonAccion new.
@@ -73,13 +73,13 @@ RegistrarMascotaVisual >> initialize [
 	botonRegistrar := BotonAccion new.
 	self addMorph: botonRegistrar .
 	botonRegistrar mouseAction: [ self registrar ].	
-	botonRegistrar position: (310@210).
+	botonRegistrar position: (310@230).
 	botonRegistrar label: 'Registrar'.
 	
 	botonCerrar := BotonAccion new.
 	self addMorph: botonCerrar.
 	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (310@315).
+	botonCerrar position: (420@470).
 	botonCerrar label: 'Cerrar'.
 	
 	etiqueta := LabelMorph new.
@@ -134,14 +134,15 @@ RegistrarMascotaVisual >> registrar [
 	ifNotNil: [ 
 		( self validarId and: [ self validarCampos ] ) ifFalse: [ registrado := false. self informar: 'Completar los datos de forma correcta.' ] 
 		ifTrue: [  
+			(self validarFecha) ifTrue:[
 			nombre := campoNombre contents.
 			especie := campoEspecie contents.
 			raza := campoRaza contents.
-			fechaNacimiento := campoFecha contents.
 			peso := campoPeso contents asNumber.
 			id := campoId contents asNumber.
 			mascota := Mascota crearConNombre: nombre conEspecie: especie conRaza: raza conFechaNacimiento: fechaNacimiento conPeso: peso conId: id.
 			registrado := cliente agregarMascota: mascota.
+			].
 			registrado ifTrue: [ self informar: 'La mascota se registro con exito.' ] ifFalse: [ self informar: 'La mascota ingresada ya se encuentra registrada en este cliente.' ].
 		].
 	]. 
@@ -153,6 +154,37 @@ RegistrarMascotaVisual >> validarCampos [
 	|completos|
 	completos := { campoNombre . campoEspecie . campoRaza . campoFecha . campoPeso } allSatisfy: [ :cadaCampo | cadaCampo contents isNotEmpty ] .
 ^completos 
+]
+
+{ #category : 'method' }
+RegistrarMascotaVisual >> validarFecha [
+|esValido partesFecha fechaTexto |
+    esValido := true.
+
+    fechaTexto := campoFecha contents asString trimBoth.
+
+    ((fechaTexto includesSubstring: ' ') and: (fechaTexto isNotEmpty)) ifTrue: [  
+    partesFecha := fechaTexto findTokens: ' '.
+    fechaNacimiento := [
+        Date
+            year: partesFecha third asInteger
+            month: partesFecha second asInteger
+            day: partesFecha first asInteger 
+    ] on: Error do: [
+        self informar: 'Formato incorrecto en fecha. Use DD MM YYYY (ej: 01 08 2026)'.
+        esValido := false
+    ].
+    (esValido) ifTrue: [ 
+   	((fechaNacimiento <= Date today)) ifFalse: [
+		self informar: 'La fecha de nacimiento debe ser menor o igual a la fecha de hoy.'.
+		esValido := false.
+		].
+	  ].
+] ifFalse: [ esValido := false.
+self informar: 'Formato incorrecto en fecha. Use DD MM YYYY (ej: 01 08 2026)'.
+ ].
+
+^esValido .
 ]
 
 { #category : 'propiosDelTipo' }

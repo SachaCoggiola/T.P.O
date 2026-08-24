@@ -9,7 +9,8 @@ Class {
 		'botonFacturar',
 		'botonCerrar',
 		'etiqueta',
-		'botonBuscarDiagnostico'
+		'botonBuscarDiagnostico',
+		'resultadoMorph'
 	],
 	#category : 'T.P.O',
 	#package : 'T.P.O'
@@ -24,7 +25,10 @@ FacturarDiagnostico >> buscarDiagnostico [
 			self informar: 'El id debe contener únicamente números.'.
 		] ifTrue: [ 
 			diagnostico := veterinaria buscarDiagnosticoConId: contenido asNumber.
-			diagnostico ifNil: [ self informar: 'No se ha encontrado un diagnostico con el id ingresado' ] ifNotNil: [ self informar: 'Diagnostico encontrado' ] .
+			diagnostico 
+			ifNil: [ self informar: 'No se ha encontrado un diagnostico con el id ingresado' ] 
+			ifNotNil: [ self informar: 'Diagnostico encontrado'.
+				          resultadoMorph setText: diagnostico toString ] .
 		].
 	] ifTrue: [ self informar: 'Ingrese el id de un diagnostico' ]
 
@@ -58,19 +62,19 @@ FacturarDiagnostico >> initialize [
    super initialize.
 	self color: (Color fromHexString: '063F70').
 	self position: 45@45.
-	self bounds: (45@45 extent: 400@360).
+	self bounds: (45@45 extent: 450@380).
 	origen := self innerBounds origin.
 	
 	botonFacturar := BotonAccion new.
 	self addMorph: botonFacturar .
 	botonFacturar mouseAction: [ self facturar ].	
-	botonFacturar position: (130@315).
+	botonFacturar position: (130@335).
 	botonFacturar label: 'Facturar diagnostico'.
 
 	botonCerrar := BotonAccion new.
 	self addMorph: botonCerrar.
 	botonCerrar mouseAction: [ self cerrar ].
-	botonCerrar position: (330@315).
+	botonCerrar position: (330@335).
 	botonCerrar label: 'Cerrar'.
 	
 	etiqueta := LabelMorph new.
@@ -82,12 +86,23 @@ FacturarDiagnostico >> initialize [
 	campoDiagnostico := LabelWithTextFieldMorph new.
 	self addMorph: campoDiagnostico.
 	campoDiagnostico label: 'Id:'.
-	campoDiagnostico position: origen + (20@40).
+	campoDiagnostico position: origen + (20@60).
+	
+	resultadoMorph := RubScrolledTextMorph new
+        setText: '';
+        color: (Color fromHexString: '662806');
+        borderColor: Color black;
+        borderWidth: 2;
+        position: origen + (20@(campoDiagnostico position y + 30));
+		  extent: (390@80);
+        yourself.
+   resultadoMorph textArea beReadOnly.
+   self addMorph: resultadoMorph.
 	
 	botonBuscarDiagnostico := BotonAccion new.
 	self addMorph: botonBuscarDiagnostico .
 	botonBuscarDiagnostico mouseAction: [ self buscarDiagnostico ].	
-	botonBuscarDiagnostico position: (300@105).
+	botonBuscarDiagnostico position: (300@115).
 	botonBuscarDiagnostico label: 'Buscar diagnostico'.
 
 ]

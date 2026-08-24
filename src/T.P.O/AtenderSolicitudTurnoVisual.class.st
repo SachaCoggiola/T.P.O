@@ -20,9 +20,6 @@ Class {
 		'dniClienteInput',
 		'botonConsulta',
 		'botonTrat',
-		'motivo',
-		'tratamiento',
-		'tipoAtencion',
 		'motivoInput',
 		'tipoAtencionInput'
 	],
@@ -112,7 +109,7 @@ AtenderSolicitudTurnoVisual >> crearComponentes [
     etiqueta1 position: origen + (x@y).
     self addMorph: etiqueta1.
 
-    y := etiqueta1 position y + 10.
+    y := etiqueta1 position y + 30.
     fechaInput := LabelWithTextFieldMorph new
 	     label: 'Fecha: ';
 	     color: (Color fromHexString: '313668');
@@ -120,16 +117,29 @@ AtenderSolicitudTurnoVisual >> crearComponentes [
 	     position: origen + (x@y).
     self addMorph: fechaInput.
 
-    y := fechaInput position y + 10.
+    dniClienteInput := LabelWithTextFieldMorph new
+	     label: 'DNI del cliente: ';
+	     color: (Color fromHexString: '313668');
+        borderWidth: 1;
+	     position: origen + ((fechaInput position x + 230)@y).
+    self addMorph: dniClienteInput .
+
+    y := fechaInput position y + 30.
     horaStrInput := LabelWithTextFieldMorph new
 	     label: 'Hora: ';
 	     color:(Color fromHexString: '313668');
         borderWidth: 1;
 	     position: origen + (x@y).
     self addMorph: horaStrInput .
-    
 
-    y := horaStrInput position y + 10.
+    motivoInput := LabelWithTextFieldMorph new
+	     label: 'Motivo: ';
+	     color:(Color fromHexString: '313668');
+        borderWidth: 1;
+	     position: origen + ((horaStrInput position x + 230)@y).
+    self addMorph: motivoInput .
+    
+    y := horaStrInput position y + 30.
     dniMedicoInput := LabelWithTextFieldMorph new
 	     label: 'DNI del Médico: ';
 	     color: (Color fromHexString: '313668');
@@ -137,7 +147,16 @@ AtenderSolicitudTurnoVisual >> crearComponentes [
 	     position: origen + (x@y).
     self addMorph: dniMedicoInput .
 
-     y := dniMedicoInput position y + 10.
+    (clasifTurno = 'C') ifTrue: [ 
+    tipoAtencionInput := LabelWithTextFieldMorph new
+	     label: 'Tipo Atención: ';
+	     color:(Color fromHexString: '313668');
+        borderWidth: 1;
+	     position: origen + ((dniMedicoInput position x + 230)@y).
+    self addMorph: tipoAtencionInput .
+	 ].
+
+     y := dniMedicoInput position y + 30.
     idMascotaInput := LabelWithTextFieldMorph new
 	     label: 'ID de la mascota: ';
 	     color: (Color fromHexString: '313668');
@@ -145,33 +164,7 @@ AtenderSolicitudTurnoVisual >> crearComponentes [
 	     position: origen + (x@y).
     self addMorph: idMascotaInput .
 
-   y := idMascotaInput position y + 10.
-    dniClienteInput := LabelWithTextFieldMorph new
-	     label: 'DNI del cliente: ';
-	     color: (Color fromHexString: '313668');
-        borderWidth: 1;
-	     position: origen + (x@y).
-    self addMorph: dniClienteInput .
-
-    y := dniClienteInput position y + 10.
-    motivoInput := LabelWithTextFieldMorph new
-	     label: 'Motivo: ';
-	     color:(Color fromHexString: '313668');
-        borderWidth: 1;
-	     position: origen + (x@y).
-    self addMorph: motivoInput .
-
-    (clasifTurno = 'C') ifTrue: [ 
-	y := motivoInput position y + 10.
-    tipoAtencionInput := LabelWithTextFieldMorph new
-	     label: 'Tipo Atención: ';
-	     color:(Color fromHexString: '313668');
-        borderWidth: 1;
-	     position: origen + (x@y).
-    self addMorph: tipoAtencionInput .
-	 ].
-
-    y := y + 70.
+    y := y + 90.
     botonAgendarTurno := BotonAccion new
 	     mouseAction: [ self registrarTurno ];
         position: origen + (x@y);
@@ -207,7 +200,7 @@ AtenderSolicitudTurnoVisual >> initialize [
         borderColor: Color black;
         borderWidth: 2;
         position: 45@45;
-        bounds: (45@45 extent: 440@580).
+        bounds: (45@45 extent: 550@630).
 	 origen := self innerBounds origin.
 	
 	 botonConsulta := BotonAccion new.
@@ -232,7 +225,7 @@ AtenderSolicitudTurnoVisual >> initialize [
 
 { #category : 'method' }
 AtenderSolicitudTurnoVisual >> registrarTurno [ 
-| fueAgendado|
+| fueAgendado motivo tipoAtencion tratamiento|
 
 (self validarFecha) ifTrue: [  
 	self informar: 'Fecha ingresada correctamente'.
