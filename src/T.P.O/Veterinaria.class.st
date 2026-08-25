@@ -158,8 +158,9 @@ Veterinaria >> buscarMascotaConId: unId [
 { #category : 'propiosDelTipo' }
 Veterinaria >> buscarMedicamento: unNombre [
 	|medicamento aux|
-	aux := colStockMedicamentos detect: [ :stock | (stock getMedicamento getNombre) = unNombre ].
-	medicamento := aux getMedicamento.
+	medicamento := nil.
+	aux := colStockMedicamentos detect: [ :stock | (stock getMedicamento getNombre) = unNombre ] ifNone: [nil].
+	(aux) ifNotNil: [ medicamento := aux getMedicamento ].
 	^medicamento 
 ]
 
@@ -206,20 +207,30 @@ Veterinaria >> cantMascotas [
 
 { #category : 'propiosDelTipo' }
 Veterinaria >> facturasPendientes [	
-	|listaPendientes|
-	listaPendientes := colFacturas select: [ :facturas |facturas verificarSaldoPendiente > 0].
-	^listaPendientes collect: [ :pendiente | { pendiente getCliente . pendiente verificarSaldoPendiente } ]. 
+|listaPendientes listaTuplas|
+	
+	listaTuplas := OrderedCollection new.
+	listaPendientes := colFacturas select: [ :factura | (factura 
+	verificarSaldoPendiente) > 0].
+
+  (listaPendientes) ifNotEmpty: [ 
+	 listaTuplas := listaPendientes collect: [ :pendiente | { pendiente getCliente     . pendiente verificarSaldoPendiente } ]
+	].
+^listaTuplas . 
 ]
 
 { #category : 'propiosDelTipo' }
-Veterinaria >> facturasPendientesCliente: arg1 [
+Veterinaria >> facturasPendientesCliente: elCliente [
+| pendientesCliente facturasCliente |
 
-	| tmp1 tmp2 |
-	tmp2 := OrderedCollection new.
-	tmp1 := OrderedCollection new.
-	tmp2 := colFacturas select: [ :arg2 | arg2 tieneCliente: arg1 ].
-	tmp1 := tmp2 select: [ :arg3 | arg3 verificarSaldoPendiente > 0 ].
-	^ tmp1
+	pendientesCliente := OrderedCollection new.
+	facturasCliente := OrderedCollection new.
+	facturasCliente := colFacturas select: [ :cadaFact | cadaFact tieneCliente:       elCliente ].
+	(facturasCliente) ifNotEmpty: [ 
+		pendientesCliente := facturasCliente select: [ :cadaFact | (cadaFact      
+		verificarSaldoPendiente) > 0 ].
+		 ].
+	^ pendientesCliente 
 ]
 
 { #category : 'propiosDelTipo' }

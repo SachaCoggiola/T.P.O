@@ -97,7 +97,7 @@ FacturasPendientesClienteVisual >> initialize [
     self crearComponentes .
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'method' }
 FacturasPendientesClienteVisual >> listarFacturas [
 | pendientesCliente textoResultado esValido |
 
@@ -105,9 +105,10 @@ FacturasPendientesClienteVisual >> listarFacturas [
 
 (esValido) ifTrue: [  
 
-      self informar: 'DNI ingresado correctamente'.
       clienteObjeto := veterinaria buscarClienteConDni: dni asNumber.
 
+      (clienteObjeto) ifNil:[ self informar: 'No se encontró cliente con el DNI ingresado.'] 
+      ifNotNil: [  
       pendientesCliente := veterinaria facturasPendientesCliente: clienteObjeto .
 
       textoResultado := ''.
@@ -115,11 +116,13 @@ FacturasPendientesClienteVisual >> listarFacturas [
       (pendientesCliente ) ifEmpty: [ 
 	textoResultado := 'No hay facturas pendientes de ', clienteObjeto getNombre, '.'.
 	                   ] ifNotEmpty: [ 
-	'Facturas pendientes de ', clienteObjeto getNombre, ':', String cr.
-              pendientesCliente do: [ :fact | textoResultado := (textoResultado, '- ', fact toString, String cr, String cr) ].
+	textoResultado := 'Facturas pendientes de ', clienteObjeto getNombre, ':', String cr.
+              pendientesCliente do: [ :fact | textoResultado := (textoResultado, '- ', fact toString, String cr) ].
 	                   ].
+      
 
       resultadoMorph setText: textoResultado.
+      ].
 ].
 ]
 

@@ -108,7 +108,7 @@ RegistrarQuirurgicoVisual >> registrar [
 		ifNil: 
 			[ self informar: 'Elegir el nivel de riesgo del tratamiento quirurgico a registrar' ]
 		ifNotNil: [
-			self validarFecha ifTrue: [
+			(self validarFecha) ifTrue: [
 				( self validarCampos ) ifFalse: [ self informar: 'Completar los datos de forma correcta.' ] 
 				ifTrue: [  
 					motivo := campoMotivo contents.

@@ -18,16 +18,13 @@ Class {
 	#package : 'T.P.O'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'method' }
 CancelarTurnoPendienteVisual >> cancelarTurno [ 
 | fueCancelado |
 
 (self validarFecha) ifTrue: [  
-	self informar: 'Fecha ingresada correctamente'.
 	(self validarHora) ifTrue: [ 
-      self informar: 'Hora ingresada correctamente'.
       (self validarDni) ifTrue: [  
-	     self informar: 'DNI ingresado correctamente'.
 	
         turnoObjeto := veterinaria buscarTurnoConFecha: fechaObjeto yHora: horaObjeto yDniMedico: dniMedico asNumber.
         (turnoObjeto) ifNotNil: [  
@@ -195,7 +192,6 @@ CancelarTurnoPendienteVisual >> validarHora [
 	valido := false.
   ]. 
 (valido) ifTrue: [ 
-	"Asumo que los índices de String comienzan en 0"
 	((horaStrInput includesSubstring: ':') and: (horaStrInput size = 5)) ifFalse: [ 
 		self informar: 'Debe seguir el formato 00:00 en hora'.
 		valido := false.

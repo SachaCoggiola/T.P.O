@@ -228,15 +228,10 @@ AtenderSolicitudTurnoVisual >> registrarTurno [
 | fueAgendado motivo tipoAtencion tratamiento|
 
 (self validarFecha) ifTrue: [  
-	self informar: 'Fecha ingresada correctamente'.
 	(self validarHora) ifTrue: [ 
-      self informar: 'Hora ingresada correctamente'.
       (self buscarMedico) ifTrue: [  
-	     self informar: 'DNI ingresado correctamente'.
 	     (self buscarCliente) ifTrue: [  
-	      self informar: 'ID ingresado correctamente'.
        	(self buscarMascota) ifTrue: [  
-		     self informar: 'Mascota ingresada correctamente'.
  	        motivo := motivoInput asString trimBoth.
 	       (motivo) ifNotEmpty: [  
 	
@@ -311,7 +306,6 @@ AtenderSolicitudTurnoVisual >> validarHora [
 	valido := false.
   ]. 
 (valido) ifTrue: [ 
-	"Asumo que los índices de String comienzan en 0"
 	((horaStrInput includesSubstring: ':') and: (horaStrInput size = 5)) ifFalse: [ 
 		self informar: 'Debe seguir el formato 00:00'.
 		valido := false.

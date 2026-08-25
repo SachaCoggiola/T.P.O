@@ -84,7 +84,9 @@ HistorialClinicoDeVisual >> historialClinico [
 (esValido) ifTrue: [  
 	 mascotaObjeto := veterinaria buscarMascotaConId: mascotaId asNumber.
 
-  (mascotaObjeto) ifNotNil: [  
+  (mascotaObjeto) ifNil: [ 
+    textoResultado := 'No existen mascotas con el id: ', mascotaId asString,'.'. 
+  ] ifNotNil: [  
     listaDiagnosticosM := veterinaria historialClinicoDe: mascotaObjeto .
 
     (listaDiagnosticosM ) ifEmpty: [ 
@@ -105,11 +107,7 @@ HistorialClinicoDeVisual >> historialClinico [
        textoResultado := (textoResultado, 'La mascota no tiene aplicaciones de vacunas.').
      ].
    ].
-  ] ifNil: [ 
-    textoResultado := 'No existen mascotas con el id: ', mascotaId 
-    asString,'.'.
-  ].
-   
+   ].
    resultadoMorph setText: textoResultado.
 ].
 ]

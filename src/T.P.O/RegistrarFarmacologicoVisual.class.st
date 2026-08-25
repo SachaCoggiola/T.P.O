@@ -29,9 +29,10 @@ Class {
 RegistrarFarmacologicoVisual >> buscarMedicamento [
 	|contenido|
 	contenido := campoMedicamento contents.
-	( contenido trimBoth isEmpty ) ifFalse: [
-		medicamento := veterinaria buscarClienteConDni: contenido.
-		medicamento ifNil: [ self informar: 'No se ha encontrado un medicamento con el nombre ingresado' ] ifNotNil: [ self informar: 'Medicamento encontrado' ] .
+	( contenido asString trimBoth isEmpty ) ifFalse: [
+		medicamento := veterinaria buscarMedicamento: contenido.
+		medicamento ifNil: [ self informar: 'No se ha encontrado un medicamento con el nombre ingresado' ] 
+		ifNotNil: [ self informar: 'Medicamento encontrado' ] .
 	] 
 	ifTrue: [ 
 		self informar: 'Ingrese el nombre de un medicamento' 
